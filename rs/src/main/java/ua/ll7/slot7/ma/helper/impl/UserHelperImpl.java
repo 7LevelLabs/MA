@@ -1,6 +1,7 @@
-package ua.ll7.slot7.ma.helper;
+package ua.ll7.slot7.ma.helper.impl;
 
 import org.springframework.stereotype.Component;
+import ua.ll7.slot7.ma.helper.IUserHelper;
 import ua.ll7.slot7.ma.model.Category;
 import ua.ll7.slot7.ma.model.User;
 
@@ -11,8 +12,9 @@ import java.util.LinkedList;
  *         09.06.14 : 18:48
  */
 @Component
-public class UserHelper {
+public class UserHelperImpl implements IUserHelper {
 
+	@Override
 	public User getNewUser(String email,
 				  String nick,
 				  String name,

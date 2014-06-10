@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.helper.UserHelper;
+import ua.ll7.slot7.ma.helper.IUserHelper;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IUserService;
 
@@ -22,7 +22,7 @@ public class UserServiceIT extends Assert {
 	private IUserService userService;
 
 	@Autowired
-	private UserHelper userHelper;
+	private IUserHelper userHelper;
 
 	@Test
 	public void testFindByEMailUser() throws Exception {
