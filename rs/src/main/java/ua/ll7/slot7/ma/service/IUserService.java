@@ -12,5 +12,4 @@ public interface IUserService extends IGService<User> {
 
 	public User findByEMail(String email);
 
-
 }

@@ -100,7 +100,7 @@ public class User implements Serializable {
 		sb.append(", nick='").append(nick).append('\'');
 		sb.append(", name='").append(name).append('\'');
 		sb.append(", apiCode='").append(apiCode).append('\'');
-		sb.append(", categories=").append(categories.size());
+		sb.append(", categories=").append(categories);
 		sb.append(", version=").append(version);
 		sb.append('}');
 		return sb.toString();
