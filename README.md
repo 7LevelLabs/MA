@@ -1,2 +1,4 @@
 ## MA - personal expenses accounting
-DAO & Service levels generalization
+Server side.
+
+DAO & Service levels generalization.
