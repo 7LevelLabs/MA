@@ -5,7 +5,8 @@ import ua.ll7.slot7.ma.helper.IUserHelper;
 import ua.ll7.slot7.ma.model.Category;
 import ua.ll7.slot7.ma.model.User;
 
-import java.util.LinkedList;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author Alex Velichko
@@ -18,20 +19,31 @@ public class UserHelperImpl implements IUserHelper {
 	public User getNewUser(String email,
 				  String nick,
 				  String name,
-				  String password,
-				  String apiCode){
+				  String password){
 		User user = new User();
 
 		user.setEmail(email);
 		user.setNick(nick);
 		user.setName(name);
 		user.setPassword(password);
-		user.setApiCode(apiCode);
 
-		user.setCategories(new LinkedList<Category>());
+		UUID uuid = UUID.randomUUID();
 
+		user.setApiCode(uuid.toString());
 		return user;
 
 	}
 
+	@Override
+	public boolean existCategoryByName(User user, String nameToCheck) {
+		boolean result = true;
+
+		Category categoryToCheck = new Category();
+		categoryToCheck.setUser(user);
+		categoryToCheck.setName(nameToCheck);
+
+		Set<Category> categorySet = user.getCategories();
+
+		return categorySet.contains(categoryToCheck);
+	}
 }

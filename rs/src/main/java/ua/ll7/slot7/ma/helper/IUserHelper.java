@@ -12,6 +12,7 @@ public interface IUserHelper {
 	public User getNewUser(String email,
 			  String nick,
 			  String name,
-			  String password,
-			  String apiCode);
+			  String password);
+
+	boolean existCategoryByName(User user, String nameToCheck);
 }

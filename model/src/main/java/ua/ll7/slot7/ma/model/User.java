@@ -6,8 +6,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Alex Velichko
@@ -59,7 +59,7 @@ public class User implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY,
 		mappedBy = "user",
 		cascade = {CascadeType.ALL})
-	public List<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
@@ -130,7 +130,7 @@ public class User implements Serializable {
 		this.apiCode = apiCode;
 	}
 
-	public void setCategories(List<Category> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -155,7 +155,7 @@ public class User implements Serializable {
 	@NotBlank(message = "User's API code must be not blank")
 	private String apiCode;
 
-	private List<Category> categories = new LinkedList<Category>();
+	private Set<Category> categories = new HashSet<Category>();
 
 	private long version;
 
