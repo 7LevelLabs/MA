@@ -1,6 +1,5 @@
 package ua.ll7.slot7.ma.dao;
 
-import org.springframework.stereotype.Repository;
 import ua.ll7.slot7.ma.model.User;
 
 /**
@@ -11,7 +10,6 @@ import ua.ll7.slot7.ma.model.User;
 /**
  * User-specific DAO-staff
  */
-@Repository
 public interface IUserDao extends IGDao<User> {
 
 	public User findByEMail(String email);

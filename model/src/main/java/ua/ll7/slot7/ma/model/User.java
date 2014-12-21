@@ -1,7 +1,6 @@
 package ua.ll7.slot7.ma.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -18,6 +17,11 @@ import java.util.Set;
  * System user. Key field : {@link #email}
  */
 @Entity
+@Table(indexes = {
+	@Index(columnList = "email"),
+	@Index(columnList = "nick")
+}
+)
 public class User implements Serializable {
 
 	@Id
@@ -27,8 +31,7 @@ public class User implements Serializable {
 		return id;
 	}
 
-	@Column(nullable = false,unique = true)
-	@Index(name = "email")
+	@Column(nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -39,19 +42,16 @@ public class User implements Serializable {
 	}
 
 	@Column(nullable = false)
-	@Index(name = "nick")
 	public String getNick() {
 		return nick;
 	}
 
 	@Column(nullable = false)
-	@Index(name = "name")
 	public String getName() {
 		return name;
 	}
 
 	@Column(nullable = false)
-	@Index(name = "apiCode")
 	public String getApiCode() {
 		return apiCode;
 	}
@@ -66,12 +66,6 @@ public class User implements Serializable {
 	@Version
 	public long getVersion() {
 		return version;
-	}
-
-	/**
-	 * Constructor
-	 */
-	public User() {
 	}
 
 	@Override
@@ -155,7 +149,7 @@ public class User implements Serializable {
 	@NotBlank(message = "User's API code must be not blank")
 	private String apiCode;
 
-	private Set<CategoryForTheUser> categories = new HashSet<CategoryForTheUser>();
+	private Set<CategoryForTheUser> categories = new HashSet<>();
 
 	private long version;
 

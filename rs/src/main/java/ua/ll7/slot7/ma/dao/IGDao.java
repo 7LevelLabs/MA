@@ -1,7 +1,5 @@
 package ua.ll7.slot7.ma.dao;
 
-import org.springframework.stereotype.Repository;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +11,6 @@ import java.util.List;
 /**
  * Generic DAO
  */
-@Repository
 public interface IGDao<T extends Serializable> {
 
 	public void create(final T data);

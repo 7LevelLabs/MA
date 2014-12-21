@@ -26,6 +26,7 @@ public interface IGService<T extends Serializable> {
 
 	//BL
 	public boolean exist(final long id);
+
 	public long count();
 
 }

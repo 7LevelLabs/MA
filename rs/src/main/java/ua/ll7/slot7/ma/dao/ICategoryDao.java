@@ -1,6 +1,5 @@
 package ua.ll7.slot7.ma.dao;
 
-import org.springframework.stereotype.Repository;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 
 /**
@@ -11,7 +10,6 @@ import ua.ll7.slot7.ma.model.CategoryForTheUser;
 /**
  * CategoryForTheUser-specific DAO-staff
  */
-@Repository
 public interface ICategoryDao extends IGDao<CategoryForTheUser> {
 
 }

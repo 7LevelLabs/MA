@@ -18,8 +18,11 @@ import java.util.List;
  * Consumption category for the User
  */
 @Entity
-@Table(uniqueConstraints =
-@UniqueConstraint(columnNames = {"name", "user"}))
+@Table(indexes = {
+	@Index(
+		columnList = "user_id")
+}
+)
 public class CategoryForTheUser implements Serializable {
 
 	@Id

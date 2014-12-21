@@ -19,6 +19,11 @@ import java.util.Date;
  * Expenses. Action date ({@link #actionDate}) can be voluntary.
  */
 @Entity
+@Table(indexes = {
+	@Index(
+		columnList = "categoryfortheuser_id")
+}
+)
 public class Expense implements Serializable {
 
 	@Id
@@ -57,14 +62,6 @@ public class Expense implements Serializable {
 		return version;
 	}
 
-	/**
-	 * Constructor
-	 */
-	public Expense() {
-		setRegistered(new Date());
-		setActionDate(new Date());
-	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -77,7 +74,6 @@ public class Expense implements Serializable {
 		this.expenseAmount = expenseAmount;
 	}
 
-	@PrePersist
 	public void setRegistered(Date registered) {
 		this.registered = registered;
 	}
@@ -99,10 +95,10 @@ public class Expense implements Serializable {
 	private Money expenseAmount;
 
 	@NotNull(message = "Expense date of register must be not null")
-	private Date registered;
+	private Date registered = new Date();
 
 	@NotNull(message = "Expense action date must be not null")
-	private Date actionDate;
+	private Date actionDate = new Date();
 
 	private long version;
 
