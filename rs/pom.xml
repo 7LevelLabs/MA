@@ -14,8 +14,6 @@
 
     <build>
 
-        <finalName>ll77ma-${project.name}</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,8 +83,7 @@
             <version>${model.version}</version>
         </dependency>
 
-        <!--springframework-->
-
+        <!-- SPRING-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -96,6 +93,36 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -141,27 +168,33 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- spring oxm -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <!--Jersey-->
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>${jersey-server.version}</version>
-
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.persistence</groupId>
-                    <artifactId>persistence-api</artifactId>
+                    <artifactId>c3p0</artifactId>
+                    <groupId>c3p0</groupId>
                 </exclusion>
             </exclusions>
-
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>3.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- /SRPING -->
 
         <!-- Jersey + Spring -->
         <dependency>
@@ -248,13 +281,6 @@
             <artifactId>jetty-servlets</artifactId>
             <version>${jetty-servlets.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!--spring-test-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
