@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import ua.ll7.slot7.ma.dao.ADao;
 import ua.ll7.slot7.ma.dao.ICategoryDao;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 
 /**
  * @author Alex Velichko
@@ -13,6 +13,6 @@ import ua.ll7.slot7.ma.model.Category;
  */
 @Repository
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class CategoryDaoImpl extends ADao<Category> implements ICategoryDao {
+public class CategoryDaoImpl extends ADao<CategoryForTheUser> implements ICategoryDao {
 
 }

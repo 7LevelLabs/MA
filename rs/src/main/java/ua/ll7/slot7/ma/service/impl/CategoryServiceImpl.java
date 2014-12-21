@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.dao.impl.CategoryDaoImpl;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.service.AService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 
@@ -19,12 +19,12 @@ import ua.ll7.slot7.ma.service.ICategoryService;
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class CategoryServiceImpl extends AService<Category> implements ICategoryService  {
+public class CategoryServiceImpl extends AService<CategoryForTheUser> implements ICategoryService  {
 
 	@Autowired
 	public void setDao(CategoryDaoImpl daoToSet) {
 		this.dao = daoToSet;
-		daoToSet.setClazz(Category.class);
+		daoToSet.setClazz(CategoryForTheUser.class);
 	}
 
 }

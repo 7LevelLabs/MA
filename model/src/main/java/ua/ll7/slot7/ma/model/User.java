@@ -59,7 +59,7 @@ public class User implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY,
 		mappedBy = "user",
 		cascade = {CascadeType.ALL})
-	public Set<Category> getCategories() {
+	public Set<CategoryForTheUser> getCategories() {
 		return categories;
 	}
 
@@ -130,7 +130,7 @@ public class User implements Serializable {
 		this.apiCode = apiCode;
 	}
 
-	public void setCategories(Set<Category> categories) {
+	public void setCategories(Set<CategoryForTheUser> categories) {
 		this.categories = categories;
 	}
 
@@ -155,7 +155,7 @@ public class User implements Serializable {
 	@NotBlank(message = "User's API code must be not blank")
 	private String apiCode;
 
-	private Set<Category> categories = new HashSet<Category>();
+	private Set<CategoryForTheUser> categories = new HashSet<CategoryForTheUser>();
 
 	private long version;
 

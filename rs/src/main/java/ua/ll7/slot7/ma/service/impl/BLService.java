@@ -12,7 +12,7 @@ import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppEntityNotFoundException;
 import ua.ll7.slot7.ma.helper.ICategoryHelper;
 import ua.ll7.slot7.ma.helper.IUserHelper;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
@@ -54,7 +54,7 @@ public class BLService implements IBLService {
 	}
 
 	@Override
-	public Category categoryCreate(long userId, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
+	public CategoryForTheUser categoryCreate(long userId, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
 		User user = userService.findById(userId);
 
 		if (user == null) {
@@ -63,16 +63,16 @@ public class BLService implements IBLService {
 		}
 
 		if (userHelper.existCategoryByName(user, categoryName)) {
-			LOGGER.warn("Category already exists : " + categoryName + " for User : " + user.getId());
-			throw new AppDataIntegrityException("Category already exists : " + categoryName + " for User : " + user.getNick());
+			LOGGER.warn("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getId());
+			throw new AppDataIntegrityException("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getNick());
 		}
 
-		Category category = categoryHelper.getNewCategory(user,
+		CategoryForTheUser categoryForTheUser = categoryHelper.getNewCategory(user,
 			categoryName,
 			categoryDescription);
 
 		userService.update(user);
 
-		return category;
+		return categoryForTheUser;
 	}
 }

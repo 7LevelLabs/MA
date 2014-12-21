@@ -2,7 +2,7 @@ package ua.ll7.slot7.ma.helper.impl;
 
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.helper.IUserHelper;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
 import java.util.Set;
@@ -38,12 +38,12 @@ public class UserHelperImpl implements IUserHelper {
 	public boolean existCategoryByName(User user, String nameToCheck) {
 		boolean result = true;
 
-		Category categoryToCheck = new Category();
-		categoryToCheck.setUser(user);
-		categoryToCheck.setName(nameToCheck);
+		CategoryForTheUser categoryForTheUserToCheck = new CategoryForTheUser();
+		categoryForTheUserToCheck.setUser(user);
+		categoryForTheUserToCheck.setName(nameToCheck);
 
-		Set<Category> categorySet = user.getCategories();
+		Set<CategoryForTheUser> categoryForTheUserSet = user.getCategories();
 
-		return categorySet.contains(categoryToCheck);
+		return categoryForTheUserSet.contains(categoryForTheUserToCheck);
 	}
 }

@@ -1,13 +1,13 @@
 package ua.ll7.slot7.ma.service;
 
 import org.springframework.stereotype.Service;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 
 /**
  * @author Alex Velichko
  *         10.06.14 : 14:49
  */
 @Service
-public interface ICategoryService extends IGService<Category> {
+public interface ICategoryService extends IGService<CategoryForTheUser> {
 
 }

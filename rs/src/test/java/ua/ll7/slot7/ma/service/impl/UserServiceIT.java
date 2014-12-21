@@ -10,7 +10,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.helper.ICategoryHelper;
 import ua.ll7.slot7.ma.helper.IUserHelper;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
@@ -48,26 +48,26 @@ public class UserServiceIT extends Assert {
 		User user = userHelper.getNewUser("email", "nick", "name", "password");
 		userService.create(user);
 
-		Category category1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
-		Category category2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
+		CategoryForTheUser categoryForTheUser1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
+		CategoryForTheUser categoryForTheUser2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
 
-		categoryService.create(category1);
-		categoryService.create(category2);
+		categoryService.create(categoryForTheUser1);
+		categoryService.create(categoryForTheUser2);
 
 		userService.update(user);
 
 		User userRead = userService.findByEMail("email");
 
-		Set<Category> categorySet = userRead.getCategories();
+		Set<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
 
-		Category category3 = new Category();
-		category3.setUser(user);
-		category3.setName("Cat3");
+		CategoryForTheUser categoryForTheUser3 = new CategoryForTheUser();
+		categoryForTheUser3.setUser(user);
+		categoryForTheUser3.setName("Cat3");
 
-		org.assertj.core.api.Assertions.assertThat(categorySet)
+		org.assertj.core.api.Assertions.assertThat(categoryForTheUserSet)
 			.isNotEmpty()
 			.hasSize(2)
-			.contains(category1, category2)
-			.doesNotContain(category3);
+			.contains(categoryForTheUser1, categoryForTheUser2)
+			.doesNotContain(categoryForTheUser3);
 	}
 }

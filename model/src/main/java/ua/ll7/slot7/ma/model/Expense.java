@@ -30,8 +30,8 @@ public class Expense implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
-	public Category getCategory() {
-		return category;
+	public CategoryForTheUser getCategoryForTheUser() {
+		return categoryForTheUser;
 	}
 
 	@Columns(columns = {@Column(name = "currency"), @Column(name = "amount")})
@@ -69,8 +69,8 @@ public class Expense implements Serializable {
 		this.id = id;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoryForTheUser(CategoryForTheUser categoryForTheUser) {
+		this.categoryForTheUser = categoryForTheUser;
 	}
 
 	public void setExpenseAmount(Money expenseAmount) {
@@ -92,8 +92,8 @@ public class Expense implements Serializable {
 
 	private long id;
 
-	@NotNull(message = "Expense category must be not null")
-	private Category category;
+	@NotNull(message = "Expense categoryForTheUser must be not null")
+	private CategoryForTheUser categoryForTheUser;
 
 	@NotNull(message = "Expense amount must be not null")
 	private Money expenseAmount;

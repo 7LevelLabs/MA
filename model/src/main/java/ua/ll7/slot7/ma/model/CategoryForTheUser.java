@@ -1,7 +1,6 @@
 package ua.ll7.slot7.ma.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -16,12 +15,12 @@ import java.util.List;
  */
 
 /**
- * Consumption category
+ * Consumption category for the User
  */
 @Entity
 @Table(uniqueConstraints =
-@UniqueConstraint(columnNames = {"name", "user_id"}))
-public class Category implements Serializable {
+@UniqueConstraint(columnNames = {"name", "user"}))
+public class CategoryForTheUser implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -37,7 +36,6 @@ public class Category implements Serializable {
 	}
 
 	@Column(nullable = false)
-	@Index(name = "name")
 	public String getName() {
 		return name;
 	}
@@ -48,7 +46,7 @@ public class Category implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY,
-		mappedBy = "category",
+		mappedBy = "categoryForTheUser",
 		cascade = {CascadeType.ALL})
 	public List<Expense> getExpenses() {
 		return expenses;
@@ -59,22 +57,15 @@ public class Category implements Serializable {
 		return version;
 	}
 
-	/**
-	 * Constructor
-	 */
-	public Category() {
-
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		Category category = (Category) o;
+		CategoryForTheUser categoryForTheUser = (CategoryForTheUser) o;
 
-		if (!name.equals(category.name)) return false;
-		if (!user.equals(category.user)) return false;
+		if (!name.equals(categoryForTheUser.name)) return false;
+		if (!user.equals(categoryForTheUser.user)) return false;
 
 		return true;
 	}
@@ -88,7 +79,7 @@ public class Category implements Serializable {
 
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("Category{");
+		final StringBuilder sb = new StringBuilder("CategoryForTheUser{");
 		sb.append("id=").append(id);
 		sb.append(", user=").append(user.getId());
 		sb.append(", name='").append(name).append('\'');
@@ -125,13 +116,13 @@ public class Category implements Serializable {
 
 	private long id;
 
-	@NotNull(message = "User for this Category must be not null")
+	@NotNull(message = "User for this CategoryForTheUser must be not null")
 	private User user;
 
-	@NotBlank(message = "Category Name must be not blank")
+	@NotBlank(message = "CategoryForTheUser Name must be not blank")
 	private String name;
 
-	@NotBlank(message = "Category Description must be not blank")
+	@NotBlank(message = "CategoryForTheUser Description must be not blank")
 	private String description;
 
 	private List<Expense> expenses = new LinkedList<Expense>();

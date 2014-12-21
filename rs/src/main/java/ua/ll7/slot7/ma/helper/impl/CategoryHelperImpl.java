@@ -2,7 +2,7 @@ package ua.ll7.slot7.ma.helper.impl;
 
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.helper.ICategoryHelper;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
 /**
@@ -13,17 +13,17 @@ import ua.ll7.slot7.ma.model.User;
 public class CategoryHelperImpl implements ICategoryHelper {
 
 	@Override
-	public Category getNewCategory(User user,
+	public CategoryForTheUser getNewCategory(User user,
 					   String name,
 					   String description){
-		Category category = new Category();
+		CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
 
-		category.setUser(user);
-		category.setName(name);
-		category.setDescription(description);
+		categoryForTheUser.setUser(user);
+		categoryForTheUser.setName(name);
+		categoryForTheUser.setDescription(description);
 
-		user.getCategories().add(category);
+		user.getCategories().add(categoryForTheUser);
 
-		return category;
+		return categoryForTheUser;
 	}
 }

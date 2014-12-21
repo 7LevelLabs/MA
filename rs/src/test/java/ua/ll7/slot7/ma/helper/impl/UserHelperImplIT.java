@@ -10,7 +10,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.helper.ICategoryHelper;
 import ua.ll7.slot7.ma.helper.IUserHelper;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
@@ -37,8 +37,8 @@ public class UserHelperImplIT extends Assert {
 	public void testExistCategoryByName() throws Exception {
 		User user = userHelper.getNewUser("email", "nick", "name", "password");
 
-		Category category1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
-		Category category2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
+		CategoryForTheUser categoryForTheUser1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
+		CategoryForTheUser categoryForTheUser2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
 
 		assertTrue(userHelper.existCategoryByName(user,"Cat1"));
 		assertFalse(userHelper.existCategoryByName(user,"Cat3"));

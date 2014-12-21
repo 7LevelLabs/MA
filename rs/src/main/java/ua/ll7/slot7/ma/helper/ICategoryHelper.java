@@ -1,7 +1,7 @@
 package ua.ll7.slot7.ma.helper;
 
 import org.springframework.stereotype.Component;
-import ua.ll7.slot7.ma.model.Category;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
 /**
@@ -10,7 +10,7 @@ import ua.ll7.slot7.ma.model.User;
  */
 @Component
 public interface ICategoryHelper {
-	public Category getNewCategory(User user,
+	public CategoryForTheUser getNewCategory(User user,
 				   String name,
 				   String description);
 }
