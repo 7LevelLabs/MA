@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class MAFactory {
 
-	public User getNewUser(String email,
+	public static User getNewUser(String email,
 				  String nick,
 				  String name,
 				  String password){

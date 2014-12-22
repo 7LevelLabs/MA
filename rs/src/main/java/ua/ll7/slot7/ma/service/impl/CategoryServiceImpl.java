@@ -25,6 +25,11 @@ public class CategoryServiceImpl implements ICategoryService  {
 	private ICategoryDao dao;
 
 	@Override
+	public void save(CategoryForTheUser toSave) {
+		dao.save(toSave);
+	}
+
+	@Override
 	public boolean existCategoryByName(User user, String categoryNameToCheck) {
 		CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
 		categoryForTheUser.setUser(user);

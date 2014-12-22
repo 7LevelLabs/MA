@@ -1,5 +1,6 @@
 package ua.ll7.slot7.ma.service;
 
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
 /**
@@ -7,5 +8,7 @@ import ua.ll7.slot7.ma.model.User;
  *         10.06.14 : 14:49
  */
 public interface ICategoryService {
-	boolean existCategoryByName(User user, String categoryNameToCheck);
+	public void save(CategoryForTheUser toSave);
+
+	public boolean existCategoryByName(User user, String categoryNameToCheck);
 }

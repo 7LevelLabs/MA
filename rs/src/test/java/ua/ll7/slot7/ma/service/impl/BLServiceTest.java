@@ -9,13 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
-import ua.ll7.slot7.ma.helper.ICategoryHelper;
-import ua.ll7.slot7.ma.helper.IUserHelper;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
+import ua.ll7.slot7.ma.util.MAFactory;
 
 import java.util.Set;
 
@@ -34,23 +33,18 @@ public class BLServiceTest extends Assert {
 	@Autowired
 	private ICategoryService categoryService;
 
-	@Autowired
-	private IUserHelper userHelper;
-
-	@Autowired
-	private ICategoryHelper categoryHelper;
-
 	@Test(expected = AppDataIntegrityException.class)
 	public void testCategoryCreateException() throws Exception {
-		User user = userHelper.getNewUser("email", "nick", "name", "password");
-		userService.create(user);
+		User user = MAFactory.getNewUser("email", "nick", "name", "password");
+		userService.save(user);
 
-		CategoryForTheUser categoryForTheUser1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
-		CategoryForTheUser categoryForTheUser2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
+		CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
+		CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategory(user, "Cat2", "Category2");
 
-		categoryService.create(categoryForTheUser1);
-		categoryService.create(categoryForTheUser2);
-		userService.update(user);
+		categoryService.save(categoryForTheUser1);
+		categoryService.save(categoryForTheUser2);
+
+		userService.save(user);
 
 		blService.categoryCreate(user.getId(),"Cat1", "Category1");
 
@@ -58,15 +52,15 @@ public class BLServiceTest extends Assert {
 
 	@Test
 	public void testCategoryCreate() throws Exception {
-		User user = userHelper.getNewUser("email", "nick", "name", "password");
-		userService.create(user);
+		User user = MAFactory.getNewUser("email", "nick", "name", "password");
+		userService.save(user);
 
-		CategoryForTheUser categoryForTheUser1 = categoryHelper.getNewCategory(user, "Cat1", "Category1");
-		CategoryForTheUser categoryForTheUser2 = categoryHelper.getNewCategory(user, "Cat2", "Category2");
+		CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
+		CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategory(user, "Cat2", "Category2");
 
-		categoryService.create(categoryForTheUser1);
-		categoryService.create(categoryForTheUser2);
-		userService.update(user);
+		categoryService.save(categoryForTheUser1);
+		categoryService.save(categoryForTheUser2);
+		userService.save(user);
 
 		blService.categoryCreate(user.getId(),"Cat3", "Category1");
 
