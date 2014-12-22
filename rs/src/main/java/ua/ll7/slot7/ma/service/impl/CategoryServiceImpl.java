@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.dao.impl.CategoryDaoImpl;
+import ua.ll7.slot7.ma.dao.ICategoryDao;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
-import ua.ll7.slot7.ma.service.AService;
+import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.ICategoryService;
 
 /**
@@ -19,12 +19,16 @@ import ua.ll7.slot7.ma.service.ICategoryService;
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class CategoryServiceImpl extends AService<CategoryForTheUser> implements ICategoryService  {
+public class CategoryServiceImpl implements ICategoryService  {
 
 	@Autowired
-	public void setDao(CategoryDaoImpl daoToSet) {
-		this.dao = daoToSet;
-		daoToSet.setClazz(CategoryForTheUser.class);
-	}
+	private ICategoryDao dao;
 
+	@Override
+	public boolean existCategoryByName(User user, String categoryNameToCheck) {
+		CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
+		categoryForTheUser.setUser(user);
+		categoryForTheUser.setName(categoryNameToCheck);
+		return user.getCategories().contains(categoryForTheUser);
+	}
 }

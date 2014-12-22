@@ -1,6 +1,9 @@
 package ua.ll7.slot7.ma.dao;
 
+import org.springframework.data.repository.CrudRepository;
 import ua.ll7.slot7.ma.model.User;
+
+import java.util.List;
 
 /**
  * @author Alex Velichko
@@ -10,8 +13,6 @@ import ua.ll7.slot7.ma.model.User;
 /**
  * User-specific DAO-staff
  */
-public interface IUserDao extends IGDao<User> {
-
-	public User findByEMail(String email);
-
+public interface IUserDao extends CrudRepository<User, Long> {
+	public List<User> findByEmail(String toFind);
 }

@@ -10,13 +10,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppEntityNotFoundException;
-import ua.ll7.slot7.ma.helper.ICategoryHelper;
-import ua.ll7.slot7.ma.helper.IUserHelper;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
+import ua.ll7.slot7.ma.util.MAFactory;
 
 /**
  * @author Alex Velichko
@@ -34,12 +33,6 @@ public class BLService implements IBLService {
 
 	@Autowired
 	private ICategoryService categoryService;
-
-	@Autowired
-	private IUserHelper userHelper;
-
-	@Autowired
-	private ICategoryHelper categoryHelper;
 
 	@Override
 	public User userFind(long userId) throws AppEntityNotFoundException {
@@ -62,16 +55,16 @@ public class BLService implements IBLService {
 			throw new AppEntityNotFoundException("User id not found : " + userId);
 		}
 
-		if (userHelper.existCategoryByName(user, categoryName)) {
+		if (categoryService.existCategoryByName(user, categoryName)) {
 			LOGGER.warn("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getId());
 			throw new AppDataIntegrityException("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getNick());
 		}
 
-		CategoryForTheUser categoryForTheUser = categoryHelper.getNewCategory(user,
+		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategory(user,
 			categoryName,
 			categoryDescription);
 
-		userService.update(user);
+		userService.save(user);
 
 		return categoryForTheUser;
 	}

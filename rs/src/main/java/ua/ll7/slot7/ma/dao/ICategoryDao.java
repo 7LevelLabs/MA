@@ -1,5 +1,6 @@
 package ua.ll7.slot7.ma.dao;
 
+import org.springframework.data.repository.CrudRepository;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 
 /**
@@ -10,6 +11,6 @@ import ua.ll7.slot7.ma.model.CategoryForTheUser;
 /**
  * CategoryForTheUser-specific DAO-staff
  */
-public interface ICategoryDao extends IGDao<CategoryForTheUser> {
+public interface ICategoryDao extends CrudRepository<CategoryForTheUser, Long> {
 
 }

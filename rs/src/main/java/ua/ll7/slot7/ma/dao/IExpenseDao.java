@@ -1,5 +1,6 @@
 package ua.ll7.slot7.ma.dao;
 
+import org.springframework.data.repository.CrudRepository;
 import ua.ll7.slot7.ma.model.Expense;
 
 /**
@@ -10,6 +11,6 @@ import ua.ll7.slot7.ma.model.Expense;
 /**
  * Expense-specific DAO-staff
  */
-public interface IExpenseDao extends IGDao<Expense> {
+public interface IExpenseDao extends CrudRepository<Expense,Long> {
 
 }
