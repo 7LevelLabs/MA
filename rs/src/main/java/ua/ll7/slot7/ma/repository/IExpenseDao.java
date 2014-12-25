@@ -1,4 +1,4 @@
-package ua.ll7.slot7.ma.dao;
+package ua.ll7.slot7.ma.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import ua.ll7.slot7.ma.model.Expense;

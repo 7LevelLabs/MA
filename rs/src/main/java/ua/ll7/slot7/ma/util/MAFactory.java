@@ -3,6 +3,7 @@ package ua.ll7.slot7.ma.util;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
+import java.util.LinkedList;
 import java.util.UUID;
 
 /**
@@ -25,6 +26,7 @@ public class MAFactory {
 		UUID uuid = UUID.randomUUID();
 
 		user.setApiCode(uuid.toString());
+		user.setCategories(new LinkedList<CategoryForTheUser>());
 		return user;
 
 	}

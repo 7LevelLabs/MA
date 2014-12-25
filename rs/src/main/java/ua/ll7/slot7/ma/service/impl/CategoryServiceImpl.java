@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.dao.ICategoryDao;
+import ua.ll7.slot7.ma.repository.ICategoryDao;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.ICategoryService;

@@ -16,6 +16,7 @@ import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 
+import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,7 +67,7 @@ public class BLServiceTest extends Assert {
 
 		User userRead = userService.findByEMail("email");
 
-		Set<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
+		List<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
 
 		System.out.println(userRead);
 

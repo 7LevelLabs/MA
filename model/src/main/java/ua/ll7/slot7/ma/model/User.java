@@ -1,12 +1,10 @@
 package ua.ll7.slot7.ma.model;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Alex Velichko
@@ -17,53 +15,68 @@ import java.util.Set;
  * System user. Key field : {@link #email}
  */
 @Entity
-@Table(indexes = {
-	@Index(columnList = "email"),
-	@Index(columnList = "nick")
-}
-)
 public class User implements Serializable {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public long getId() {
+	@GeneratedValue
+	private Long id;
+
+	@NotBlank(message = "User's EMail must be not blank")
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	@NotBlank(message = "User's Password must be not blank")
+	@Column(nullable = false)
+	private String password;
+
+	@NotBlank(message = "User's Nick must be not blank")
+	@Column(nullable = false)
+	private String nick;
+
+	@NotBlank(message = "User's Name must be not blank")
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false)
+	@NotBlank(message = "User's API code must be not blank")
+	private String apiCode;
+
+	@OneToMany(fetch = FetchType.LAZY,
+											 mappedBy = "user",
+											 cascade = {CascadeType.ALL})
+	private List<CategoryForTheUser> categories;
+
+	@Version
+	private long version;
+
+	public Long getId() {
 		return id;
 	}
 
-	@Column(nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
 
-	@Column(nullable = false)
 	public String getPassword() {
 		return password;
 	}
 
-	@Column(nullable = false)
 	public String getNick() {
 		return nick;
 	}
 
-	@Column(nullable = false)
 	public String getName() {
 		return name;
 	}
 
-	@Column(nullable = false)
 	public String getApiCode() {
 		return apiCode;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY,
-		mappedBy = "user",
-		cascade = {CascadeType.ALL})
-	public Set<CategoryForTheUser> getCategories() {
+	public List<CategoryForTheUser> getCategories() {
 		return categories;
 	}
 
-	@Version
 	public long getVersion() {
 		return version;
 	}
@@ -88,7 +101,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("User{");
-		sb.append("id=").append(id);
+		sb.append("id=").append(getId());
 		sb.append(", email='").append(email).append('\'');
 		sb.append(", password='").append(password).append('\'');
 		sb.append(", nick='").append(nick).append('\'');
@@ -100,7 +113,7 @@ public class User implements Serializable {
 		return sb.toString();
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -124,33 +137,12 @@ public class User implements Serializable {
 		this.apiCode = apiCode;
 	}
 
-	public void setCategories(Set<CategoryForTheUser> categories) {
+	public void setCategories(List<CategoryForTheUser> categories) {
 		this.categories = categories;
 	}
 
 	public void setVersion(long version) {
 		this.version = version;
 	}
-
-	private long id;
-
-	@NotBlank(message = "User's EMail must be not blank")
-	private String email;
-
-	@NotBlank(message = "User's Password must be not blank")
-	private String password;
-
-	@NotBlank(message = "User's Nick must be not blank")
-	private String nick;
-
-	@NotBlank(message = "User's Name must be not blank")
-	private String name;
-
-	@NotBlank(message = "User's API code must be not blank")
-	private String apiCode;
-
-	private Set<CategoryForTheUser> categories = new HashSet<>();
-
-	private long version;
 
 }
