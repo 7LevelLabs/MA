@@ -86,9 +86,10 @@ public class BLServiceTest extends Assert {
 
     CategoryForTheUser categoryForTheUser = blService.categoryCreateForUser(user, "Cat3", "Category1");
 
-    Expense expense = blService.expenseCreateForCategory(categoryForTheUser, CurrencyUnit.USD, 10.00544);
+    Expense expense = blService.expenseCreateForCategory(categoryForTheUser, CurrencyUnit.USD, 10.01);
 
-    System.out.println(expense);
+    assertTrue(expense.getCategoryForTheUser().getName().equals("Cat3") &&
+                 expense.getCategoryForTheUser().getId() > 0);
   }
 
 }
