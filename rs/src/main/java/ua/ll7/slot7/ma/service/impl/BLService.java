@@ -1,6 +1,7 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.apache.log4j.Logger;
+import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -11,11 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppEntityNotFoundException;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
+import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
+import ua.ll7.slot7.ma.service.IExpenseService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
+
+import java.math.BigDecimal;
 
 /**
  * @author Alex Velichko
@@ -33,6 +38,9 @@ public class BLService implements IBLService {
 	@Autowired
 	private ICategoryService categoryService;
 
+	@Autowired
+	private IExpenseService expenseService;
+
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
 
 		if (categoryService.existCategoryByName(user, categoryName)) {
@@ -47,5 +55,12 @@ public class BLService implements IBLService {
 		categoryService.save(categoryForTheUser);
 
 		return categoryForTheUser;
+	}
+
+	@Override
+	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, BigDecimal amount) {
+		Expense result = MAFactory.getNewExpense(category, currencyUnit, amount);
+		expenseService.save(result);
+		return result;
 	}
 }

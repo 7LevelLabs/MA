@@ -53,16 +53,18 @@ public class MAFactory {
     return categoryForTheUser;
   }
 
-  private static Expense getNewExpenseUSD(CategoryForTheUser category, BigDecimal amount) {
+  public static Expense getNewExpenseUSD(CategoryForTheUser category, BigDecimal amount) {
     return getNewExpense(category, CurrencyUnit.USD, amount);
   }
 
-  private static Expense getNewExpense(CategoryForTheUser category, CurrencyUnit cu, BigDecimal amount) {
+  public static Expense getNewExpense(CategoryForTheUser category, CurrencyUnit cu, BigDecimal amount) {
     Expense result = new Expense();
 
     result.setCategoryForTheUser(category);
     Money amountMoney = Money.of(cu, amount);
     result.setExpenseAmount(amountMoney);
+
+    category.getExpenses().add(result);
 
     return result;
   }
