@@ -49,6 +49,9 @@ public class Expense implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date actionDate = new Date();
 
+	@Column
+	private String description;
+
 	@Version
 	private long version;
 
@@ -60,6 +63,7 @@ public class Expense implements Serializable {
 		sb.append(", expenseAmount=").append(expenseAmount);
 		sb.append(", registered=").append(registered);
 		sb.append(", actionDate=").append(actionDate);
+		sb.append(", description='").append(description).append('\'');
 		sb.append(", version=").append(version);
 		sb.append('}');
 		return sb.toString();
@@ -103,6 +107,14 @@ public class Expense implements Serializable {
 
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public long getVersion() {
