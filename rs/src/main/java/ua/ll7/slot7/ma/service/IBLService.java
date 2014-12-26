@@ -11,6 +11,6 @@ import ua.ll7.slot7.ma.model.User;
  */
 public interface IBLService {
 	//CategoryForTheUser
-	public CategoryForTheUser categoryCreate(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException;
+	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException;
 
 }

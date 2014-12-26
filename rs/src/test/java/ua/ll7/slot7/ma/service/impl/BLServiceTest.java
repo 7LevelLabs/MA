@@ -1,7 +1,6 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 
 import java.util.List;
-import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:springConfigIT.xml")
@@ -46,7 +44,7 @@ public class BLServiceTest extends Assert {
 		categoryService.save(categoryForTheUser1);
 		categoryService.save(categoryForTheUser2);
 
-		blService.categoryCreate(user, "Cat1", "Category1");
+		blService.categoryCreateForUser(user, "Cat1", "Category1");
 	}
 
 	@Test
@@ -60,7 +58,7 @@ public class BLServiceTest extends Assert {
 		categoryService.save(categoryForTheUser1);
 		categoryService.save(categoryForTheUser2);
 
-		blService.categoryCreate(user, "Cat3", "Category1");
+		blService.categoryCreateForUser(user, "Cat3", "Category1");
 
 		User userRead = userService.findByEMail("email");
 

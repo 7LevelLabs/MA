@@ -22,7 +22,6 @@ import ua.ll7.slot7.ma.util.MAFactory;
  *         10.06.14 : 15:27
  */
 @Service
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class BLService implements IBLService {
 
@@ -34,7 +33,7 @@ public class BLService implements IBLService {
 	@Autowired
 	private ICategoryService categoryService;
 
-	public CategoryForTheUser categoryCreate(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
+	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
 
 		if (categoryService.existCategoryByName(user, categoryName)) {
 			LOGGER.warn("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getId());

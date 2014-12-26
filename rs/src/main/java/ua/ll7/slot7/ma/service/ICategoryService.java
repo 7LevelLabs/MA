@@ -11,4 +11,6 @@ public interface ICategoryService {
 	public void save(CategoryForTheUser toSave);
 
 	public boolean existCategoryByName(User user, String categoryNameToCheck);
+
+	public CategoryForTheUser findByUserAndName(User user, String categoryName);
 }
