@@ -1,6 +1,5 @@
 package ua.ll7.slot7.ma.model;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -19,116 +18,116 @@ import java.util.List;
  */
 @Entity
 @Table(indexes = {
-	@Index(
-		columnList = "user_id")
+  @Index(
+    columnList = "user_id")
 }
 )
 public class CategoryForTheUser implements Serializable {
 
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public long getId() {
-		return id;
-	}
+  @Id
+  @GeneratedValue
+  private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
-	public User getUser() {
-		return user;
-	}
+  @NotNull(message = "User for this CategoryForTheUser must be not null")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private User user;
 
-	@Column(nullable = false)
-	public String getName() {
-		return name;
-	}
+  @NotBlank(message = "CategoryForTheUser Name must be not blank")
+  @Column(nullable = false)
+  private String name;
 
-	@Column(nullable = false)
-	public String getDescription() {
-		return description;
-	}
+  @NotBlank(message = "CategoryForTheUser Description must be not blank")
+  @Column(nullable = false)
+  private String description;
 
-	@OneToMany(fetch = FetchType.LAZY,
-		mappedBy = "categoryForTheUser",
-		cascade = {CascadeType.ALL})
-	public List<Expense> getExpenses() {
-		return expenses;
-	}
+  @OneToMany(fetch = FetchType.LAZY,
+    mappedBy = "categoryForTheUser",
+    cascade = {CascadeType.ALL})
+  private List<Expense> expenses = new LinkedList<Expense>();
 
-	@Version
-	public long getVersion() {
-		return version;
-	}
+  @Version
+  private long version;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+  public long getId() {
+    return id;
+  }
 
-		CategoryForTheUser categoryForTheUser = (CategoryForTheUser) o;
+  public void setId(long id) {
+    this.id = id;
+  }
 
-		if (!name.equals(categoryForTheUser.name)) return false;
-		if (!user.equals(categoryForTheUser.user)) return false;
+  public User getUser() {
+    return user;
+  }
 
-		return true;
-	}
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-	@Override
-	public int hashCode() {
-		int result = user.hashCode();
-		result = 31 * result + name.hashCode();
-		return result;
-	}
+  public String getName() {
+    return name;
+  }
 
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder("CategoryForTheUser{");
-		sb.append("id=").append(id);
-		sb.append(", user=").append(user.getId());
-		sb.append(", name='").append(name).append('\'');
-		sb.append(", description='").append(description).append('\'');
-		sb.append(", expenses=").append(expenses.size());
-		sb.append(", version=").append(version);
-		sb.append('}');
-		return sb.toString();
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public List<Expense> getExpenses() {
+    return expenses;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setExpenses(List<Expense> expenses) {
+    this.expenses = expenses;
+  }
 
-	public void setExpenses(List<Expense> expenses) {
-		this.expenses = expenses;
-	}
+  public long getVersion() {
+    return version;
+  }
 
-	public void setVersion(long version) {
-		this.version = version;
-	}
+  public void setVersion(long version) {
+    this.version = version;
+  }
 
-	private long id;
+  @Override
+  public int hashCode() {
+    int result = user.hashCode();
+    result = 31 * result + name.hashCode();
+    return result;
+  }
 
-	@NotNull(message = "User for this CategoryForTheUser must be not null")
-	private User user;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-	@NotBlank(message = "CategoryForTheUser Name must be not blank")
-	private String name;
+    CategoryForTheUser categoryForTheUser = (CategoryForTheUser) o;
 
-	@NotBlank(message = "CategoryForTheUser Description must be not blank")
-	private String description;
+    if (!name.equals(categoryForTheUser.name)) return false;
+    if (!user.equals(categoryForTheUser.user)) return false;
 
-	private List<Expense> expenses = new LinkedList<Expense>();
+    return true;
+  }
 
-	private long version;
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("CategoryForTheUser{");
+    sb.append("id=").append(id);
+    sb.append(", user=").append(user.getId());
+    sb.append(", name='").append(name).append('\'');
+    sb.append(", description='").append(description).append('\'');
+    sb.append(", expenses=").append(expenses.size());
+    sb.append(", version=").append(version);
+    sb.append('}');
+    return sb.toString();
+  }
+
 }

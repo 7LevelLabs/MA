@@ -15,134 +15,139 @@ import java.util.List;
  * System user. Key field : {@link #email}
  */
 @Entity
+@Table(indexes = {
+  @Index(
+    columnList = "email")
+}
+)
 public class User implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
-	@NotBlank(message = "User's EMail must be not blank")
-	@Column(nullable = false, unique = true)
-	private String email;
+  @NotBlank(message = "User's EMail must be not blank")
+  @Column(nullable = false, unique = true)
+  private String email;
 
-	@NotBlank(message = "User's Password must be not blank")
-	@Column(nullable = false)
-	private String password;
+  @NotBlank(message = "User's Password must be not blank")
+  @Column(nullable = false)
+  private String password;
 
-	@NotBlank(message = "User's Nick must be not blank")
-	@Column(nullable = false)
-	private String nick;
+  @NotBlank(message = "User's Nick must be not blank")
+  @Column(nullable = false)
+  private String nick;
 
-	@NotBlank(message = "User's Name must be not blank")
-	@Column(nullable = false)
-	private String name;
+  @NotBlank(message = "User's Name must be not blank")
+  @Column(nullable = false)
+  private String name;
 
-	@Column(nullable = false)
-	@NotBlank(message = "User's API code must be not blank")
-	private String apiCode;
+  @Column(nullable = false)
+  @NotBlank(message = "User's API code must be not blank")
+  private String apiCode;
 
-	@OneToMany(fetch = FetchType.LAZY,
-											 mappedBy = "user",
-											 cascade = {CascadeType.ALL})
-	private List<CategoryForTheUser> categories;
+  @OneToMany(fetch = FetchType.LAZY,
+    mappedBy = "user",
+    cascade = {CascadeType.ALL})
+  private List<CategoryForTheUser> categories;
 
-	@Version
-	private long version;
+  @Version
+  private long version;
 
-	public Long getId() {
-		return id;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public String getNick() {
-		return nick;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getNick() {
+    return nick;
+  }
 
-	public String getApiCode() {
-		return apiCode;
-	}
+  public void setNick(String nick) {
+    this.nick = nick;
+  }
 
-	public List<CategoryForTheUser> getCategories() {
-		return categories;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public long getVersion() {
-		return version;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+  public String getApiCode() {
+    return apiCode;
+  }
 
-		User user = (User) o;
+  public void setApiCode(String apiCode) {
+    this.apiCode = apiCode;
+  }
 
-		if (!email.equals(user.email)) return false;
+  public List<CategoryForTheUser> getCategories() {
+    return categories;
+  }
 
-		return true;
-	}
+  public void setCategories(List<CategoryForTheUser> categories) {
+    this.categories = categories;
+  }
 
-	@Override
-	public int hashCode() {
-		return email.hashCode();
-	}
+  public long getVersion() {
+    return version;
+  }
 
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder("User{");
-		sb.append("id=").append(getId());
-		sb.append(", email='").append(email).append('\'');
-		sb.append(", password='").append(password).append('\'');
-		sb.append(", nick='").append(nick).append('\'');
-		sb.append(", name='").append(name).append('\'');
-		sb.append(", apiCode='").append(apiCode).append('\'');
-		sb.append(", categories=").append(categories);
-		sb.append(", version=").append(version);
-		sb.append('}');
-		return sb.toString();
-	}
+  public void setVersion(long version) {
+    this.version = version;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Override
+  public int hashCode() {
+    return email.hashCode();
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    User user = (User) o;
 
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
+    if (!email.equals(user.email)) return false;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    return true;
+  }
 
-	public void setApiCode(String apiCode) {
-		this.apiCode = apiCode;
-	}
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("User{");
+    sb.append("id=").append(getId());
+    sb.append(", email='").append(email).append('\'');
+    sb.append(", password='").append(password).append('\'');
+    sb.append(", nick='").append(nick).append('\'');
+    sb.append(", name='").append(name).append('\'');
+    sb.append(", apiCode='").append(apiCode).append('\'');
+    sb.append(", categories=").append(categories);
+    sb.append(", version=").append(version);
+    sb.append('}');
+    return sb.toString();
+  }
 
-	public void setCategories(List<CategoryForTheUser> categories) {
-		this.categories = categories;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setVersion(long version) {
-		this.version = version;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
 }

@@ -1,7 +1,6 @@
 package ua.ll7.slot7.ma.model;
 
 import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.money.Money;
 
@@ -27,79 +26,91 @@ import java.util.Date;
 public class Expense implements Serializable {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public long getId() {
-		return id;
-	}
+	@GeneratedValue
+	private Long id;
 
+	@NotNull(message = "Expense categoryForTheUser must be not null")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
-	public CategoryForTheUser getCategoryForTheUser() {
-		return categoryForTheUser;
-	}
+	private CategoryForTheUser categoryForTheUser;
 
+	@NotNull(message = "Expense amount must be not null")
 	@Columns(columns = {@Column(name = "currency"), @Column(name = "amount")})
 	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmountAndCurrency")
-	public Money getExpenseAmount() {
-		return expenseAmount;
-	}
+	private Money expenseAmount;
 
+	@NotNull(message = "Expense date of register must be not null")
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getRegistered() {
-		return registered;
-	}
+	private Date registered = new Date();
 
+	@NotNull(message = "Expense action date must be not null")
 	@Column
 	@Temporal(TemporalType.DATE)
-	public Date getActionDate() {
-		return actionDate;
-	}
+	private Date actionDate = new Date();
 
 	@Version
-	public long getVersion() {
-		return version;
+	private long version;
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Expense{");
+		sb.append("id=").append(id);
+		sb.append(", categoryForTheUser.id=").append(categoryForTheUser.getId());
+		sb.append(", expenseAmount=").append(expenseAmount);
+		sb.append(", registered=").append(registered);
+		sb.append(", actionDate=").append(actionDate);
+		sb.append(", version=").append(version);
+		sb.append('}');
+		return sb.toString();
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	public CategoryForTheUser getCategoryForTheUser() {
+		return categoryForTheUser;
+	}
+
 	public void setCategoryForTheUser(CategoryForTheUser categoryForTheUser) {
 		this.categoryForTheUser = categoryForTheUser;
+	}
+
+	public Money getExpenseAmount() {
+		return expenseAmount;
 	}
 
 	public void setExpenseAmount(Money expenseAmount) {
 		this.expenseAmount = expenseAmount;
 	}
 
+	public Date getRegistered() {
+		return registered;
+	}
+
 	public void setRegistered(Date registered) {
 		this.registered = registered;
+	}
+
+	public Date getActionDate() {
+		return actionDate;
 	}
 
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
 	}
 
+	public long getVersion() {
+		return version;
+	}
+
 	public void setVersion(long version) {
 		this.version = version;
 	}
-
-	private long id;
-
-	@NotNull(message = "Expense categoryForTheUser must be not null")
-	private CategoryForTheUser categoryForTheUser;
-
-	@NotNull(message = "Expense amount must be not null")
-	private Money expenseAmount;
-
-	@NotNull(message = "Expense date of register must be not null")
-	private Date registered = new Date();
-
-	@NotNull(message = "Expense action date must be not null")
-	private Date actionDate = new Date();
-
-	private long version;
 
 }
