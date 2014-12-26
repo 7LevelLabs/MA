@@ -14,6 +14,10 @@ import java.math.BigDecimal;
  *         10.06.14 : 15:26
  */
 public interface IBLService {
+
+  //User
+  public long userCreate(String email, String password);
+
   //CategoryForTheUser
   public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException;
 

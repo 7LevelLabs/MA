@@ -1,4 +1,4 @@
-package ua.ll7.slot7.ma.util.request;
+package ua.ll7.slot7.ma.data.request;
 
 import java.io.Serializable;
 

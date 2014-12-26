@@ -41,6 +41,18 @@ public class BLService implements IBLService {
 	@Autowired
 	private IExpenseService expenseService;
 
+	@Override
+	public long userCreate(String email, String password) {
+		// create new user
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(password);
+		userService.save(user);
+
+		//send emails
+		return user.getId();
+	}
+
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
 
 		if (categoryService.existCategoryByName(user, categoryName)) {
