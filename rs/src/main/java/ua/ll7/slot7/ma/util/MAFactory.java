@@ -61,7 +61,8 @@ public class MAFactory {
     Expense result = new Expense();
 
     result.setCategoryForTheUser(category);
-    Money amountMoney = Money.of(cu, amount);
+    BigDecimal t = amount.setScale(cu.getDecimalPlaces(), BigDecimal.ROUND_HALF_UP);
+    Money amountMoney = Money.of(cu, t);
     result.setExpenseAmount(amountMoney);
 
     category.getExpenses().add(result);

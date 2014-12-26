@@ -58,8 +58,8 @@ public class BLService implements IBLService {
 	}
 
 	@Override
-	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, BigDecimal amount) {
-		Expense result = MAFactory.getNewExpense(category, currencyUnit, amount);
+	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount) {
+		Expense result = MAFactory.getNewExpense(category, currencyUnit, BigDecimal.valueOf(amount));
 		expenseService.save(result);
 		return result;
 	}

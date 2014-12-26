@@ -18,5 +18,5 @@ public interface IBLService {
   public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException;
 
   //ExpenseForCategory
-  public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, BigDecimal amount);
+  public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount);
 }
