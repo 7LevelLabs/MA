@@ -1,6 +1,6 @@
 package ua.ll7.slot7.ma.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ll7.slot7.ma.model.Expense;
 
 /**
@@ -11,6 +11,6 @@ import ua.ll7.slot7.ma.model.Expense;
 /**
  * Expense-specific DAO-staff
  */
-public interface IExpenseDao extends CrudRepository<Expense,Long> {
+public interface IExpenseDao extends JpaRepository<Expense, Long> {
 
 }

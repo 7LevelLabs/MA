@@ -1,6 +1,7 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,7 @@ public class BLServiceTest extends Assert {
 		categoryService.save(categoryForTheUser1);
 		categoryService.save(categoryForTheUser2);
 
-		userService.save(user);
-
-		blService.categoryCreate(user.getId(),"Cat1", "Category1");
-
+		blService.categoryCreate(user, "Cat1", "Category1");
 	}
 
 	@Test
@@ -61,15 +59,12 @@ public class BLServiceTest extends Assert {
 
 		categoryService.save(categoryForTheUser1);
 		categoryService.save(categoryForTheUser2);
-		userService.save(user);
 
-		blService.categoryCreate(user.getId(),"Cat3", "Category1");
+		blService.categoryCreate(user, "Cat3", "Category1");
 
 		User userRead = userService.findByEMail("email");
 
 		List<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
-
-		System.out.println(userRead);
 
 		org.assertj.core.api.Assertions.assertThat(categoryForTheUserSet)
 			.isNotEmpty()
@@ -78,6 +73,5 @@ public class BLServiceTest extends Assert {
 		;
 
 	}
-
 
 }

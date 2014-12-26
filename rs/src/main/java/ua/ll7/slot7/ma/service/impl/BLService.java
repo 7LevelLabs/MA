@@ -34,26 +34,7 @@ public class BLService implements IBLService {
 	@Autowired
 	private ICategoryService categoryService;
 
-	@Override
-	public User userFind(long userId) throws AppEntityNotFoundException {
-		User user = userService.findById(userId);
-
-		if (user == null) {
-			LOGGER.warn("User id not found : " + userId);
-			throw new AppEntityNotFoundException("User id not found : " + userId);
-		}
-
-		return user;
-	}
-
-	@Override
-	public CategoryForTheUser categoryCreate(long userId, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
-		User user = userService.findById(userId);
-
-		if (user == null) {
-			LOGGER.warn("User id not found : " + userId);
-			throw new AppEntityNotFoundException("User id not found : " + userId);
-		}
+	public CategoryForTheUser categoryCreate(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
 
 		if (categoryService.existCategoryByName(user, categoryName)) {
 			LOGGER.warn("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getId());
@@ -64,7 +45,7 @@ public class BLService implements IBLService {
 			categoryName,
 			categoryDescription);
 
-		userService.save(user);
+		categoryService.save(categoryForTheUser);
 
 		return categoryForTheUser;
 	}
