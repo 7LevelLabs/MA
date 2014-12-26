@@ -37,9 +37,6 @@ public class BLServiceTest extends Assert {
   @Autowired
   private ICategoryService categoryService;
 
-  @Autowired
-  private IExpenseService expenseService;
-
   @Test(expected = AppDataIntegrityException.class)
   public void testCategoryCreateException() throws Exception {
     User user = MAFactory.getNewUser("email", "nick", "name", "password");
