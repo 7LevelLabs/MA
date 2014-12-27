@@ -22,7 +22,7 @@ public class UserMagicServiceImpl implements IUserMagicService {
   private IUserMagicRepository repository;
 
   public UserMagicServiceImpl() {
-    emf = Persistence.createEntityManagerFactory("magicUnit");
+    emf = Persistence.createEntityManagerFactory("maMagicUnit");
     em = emf.createEntityManager();
     repository = new UserMagicRepositoryImpl(em);
   }
