@@ -1,6 +1,7 @@
 package ua.ll7.slot7.ma.validator.aspect;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -19,7 +20,9 @@ import ua.ll7.slot7.ma.exception.AppValidationException;
 @Aspect
 public class StringStringDGBothNotEmptyVA {
 
-  @Pointcut("execution(@ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty * *(..))")
+  private static final Logger LOGGER = Logger.getLogger(StringStringDGBothNotEmptyVA.class);
+
+  @Pointcut("@annotation(ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty)")
   private void methodPointcut() {
 
   }
@@ -28,6 +31,9 @@ public class StringStringDGBothNotEmptyVA {
   public void methodExecution(JoinPoint joinPoint) throws Throwable {
     Object[] arguments = joinPoint.getArgs();
     for (Object argument : arguments) {
+
+      System.out.println(argument);
+
       if (
                            (StringUtils.isBlank(((StringStringDG) argument).getData1()))
                                                 ||
