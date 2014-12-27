@@ -1,6 +1,5 @@
 package ua.ll7.slot7.ma.validator.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
