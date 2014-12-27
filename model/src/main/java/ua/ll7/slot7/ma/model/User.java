@@ -34,12 +34,10 @@ public class User implements Serializable {
   @Column(nullable = false)
   private String password;
 
-  @NotBlank(message = "User's Nick must be not blank")
-  @Column(nullable = false)
+  @Column
   private String nick;
 
-  @NotBlank(message = "User's Name must be not blank")
-  @Column(nullable = false)
+  @Column
   private String name;
 
   @Column(nullable = false)
