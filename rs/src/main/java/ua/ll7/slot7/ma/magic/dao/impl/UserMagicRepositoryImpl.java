@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class UserMagicRepositoryImpl extends AJPARepository implements IUserMagicRepository {
 
-  protected UserMagicRepositoryImpl(EntityManager entityManager) {
+  public UserMagicRepositoryImpl(EntityManager entityManager) {
     super(entityManager);
   }
 
