@@ -53,10 +53,10 @@ public class StarterImpl implements IStarter {
   }
 
   private void notifyEMail() {
-
+    //TODO implement
   }
 
   private void notifyLogging() {
-
+    //TODO implement
   }
 }
