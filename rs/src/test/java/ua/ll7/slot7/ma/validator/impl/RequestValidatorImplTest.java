@@ -11,8 +11,6 @@ import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:springConfigIT.xml")
 @Transactional
