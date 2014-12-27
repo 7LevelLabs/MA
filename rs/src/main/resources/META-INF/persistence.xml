@@ -5,6 +5,7 @@
     <persistence-unit name="maMagicUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>ua.ll7.slot7.ma.model.User</class>
+        <class>ua.ll7.slot7.ma.model.CategoryForTheUser</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ma"/>
