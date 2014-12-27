@@ -26,5 +26,4 @@ public class RequestValidatorImpl implements IRequestValidator {
       throw new AppValidationException("User already exists : " + request);
     }
   }
-
 }
