@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--ticker-->
+    <bean id="ticker" class="ua.ll7.slot7.ma.ticker.impl.TickerServiceImpl"/>
+
+    <!--what : method to invoke -->
+    <bean id="nextCheckJobPing"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="ticker"/>
+        <property name="targetMethod" value="processNextAction"/>
+    </bean>
+
+    <!--when : trigger -->
+    <bean id="nextCheckTriggerPing"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="nextCheckJobPing"/>
+        <property name="cronExpression" value="${next.action.cron}"/>
+    </bean>
+
+    <!--integrate : what and when-->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="nextCheckTriggerPing"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

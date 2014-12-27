@@ -19,7 +19,6 @@
 
     <context:component-scan base-package="ua.ll7.slot7.ma.validator"/>
 
-
     <!--import specific settings-->
 
     <import resource="maConfigData.xml"/>
