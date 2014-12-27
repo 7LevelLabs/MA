@@ -22,7 +22,7 @@ public class StringStringDGBothNotEmptyVA {
 
   private static final Logger LOGGER = Logger.getLogger(StringStringDGBothNotEmptyVA.class);
 
-  @Pointcut("@annotation(ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty)")
+  @Pointcut("execution(@ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty * *(..))")
   private void methodPointcut() {
 
   }
