@@ -13,6 +13,9 @@ public class Constants {
 
   public final static String methodEndpointUserCreate = "/createUser";
 
+  public final static String divider = " : ";
+
+  public final static String messageNotValidRequest = "Not valid request";
 
   private Constants() {
 

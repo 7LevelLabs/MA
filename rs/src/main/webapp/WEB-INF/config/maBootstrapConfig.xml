@@ -17,13 +17,12 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="ua.ll7.slot7.ma.validator"/>
-
     <!--import specific settings-->
 
     <import resource="maConfigData.xml"/>
     <import resource="maConfigViewIndex.xml"/>
     <import resource="maConfigQuartz.xml"/>
+    <import resource="maConfigValidator.xml"/>
     <import resource="maConfigUtil.xml"/>
 
 </beans>
