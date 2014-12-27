@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
+import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
 import static org.junit.Assert.*;
@@ -21,8 +22,8 @@ public class RequestValidatorImplTest {
   @Autowired
   private IRequestValidator requestValidator;
 
-  @Test
-  public void testValidate() throws Exception {
+  @Test(expected = AppValidationException.class)
+  public void testValidateInvalidRequest() throws Exception {
 
     UserRegisterRequest request = new UserRegisterRequest();
     request.setData1("");

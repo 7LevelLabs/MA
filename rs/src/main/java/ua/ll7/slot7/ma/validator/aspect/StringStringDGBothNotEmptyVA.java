@@ -31,9 +31,6 @@ public class StringStringDGBothNotEmptyVA {
   public void methodExecution(JoinPoint joinPoint) throws Throwable {
     Object[] arguments = joinPoint.getArgs();
     for (Object argument : arguments) {
-
-      System.out.println(argument);
-
       if (
                            (StringUtils.isBlank(((StringStringDG) argument).getData1()))
                                                 ||
