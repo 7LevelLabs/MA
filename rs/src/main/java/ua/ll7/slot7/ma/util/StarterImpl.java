@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.magic.service.IUserMagicService;
 import ua.ll7.slot7.ma.magic.service.impl.UserMagicServiceImpl;
 import ua.ll7.slot7.ma.model.User;
+import ua.ll7.slot7.ma.util.builder.UserBuilder;
 
 import javax.annotation.PostConstruct;
 
@@ -41,9 +42,12 @@ public class StarterImpl implements IStarter {
     if (userMagicService.count() == 0) {
       LOGGER.info("No Users - let's create one.");
 
-      //TODO encode
+      //will be with already encoded password
+      User user = new UserBuilder(defaultUserEMail, defaultUserPassword)
+                           .withRole(0) //full access
+                           .withActive(true)
+                           .build();
 
-      User user = MAFactory.getNewUser(defaultUserEMail, defaultUserEMail, defaultUserEMail, defaultUserPassword);
       userMagicService.create(user);
     }
   }
