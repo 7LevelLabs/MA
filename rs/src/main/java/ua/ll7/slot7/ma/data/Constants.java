@@ -11,7 +11,7 @@ public class Constants {
   public final static String controllerEndpointAnonController = "/anonController";
   public final static String controllerEndpointRUController   = "/ruController";
 
-  public final static String methodEndpointUserCreate = "/creteUser";
+  public final static String methodEndpointUserCreate = "/createUser";
 
 
   private Constants() {
