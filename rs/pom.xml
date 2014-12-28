@@ -312,19 +312,6 @@
             <version>${hibernate.version}</version>
         </dependency>
 
-        <!--sbe-util-->
-        <dependency>
-            <groupId>org.springbyexample</groupId>
-            <artifactId>sbe-util</artifactId>
-            <version>${sbe.util.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-aop</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <!--json-simple-->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
