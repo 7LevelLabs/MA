@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
-import ua.ll7.slot7.ma.exception.AppEntityNotFoundException;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -51,13 +49,7 @@ public class BLService implements IBLService {
 		return user.getId();
 	}
 
-	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException {
-
-		if (categoryService.existCategoryByName(user, categoryName)) {
-			LOGGER.warn("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getId());
-			throw new AppDataIntegrityException("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getNick());
-		}
-
+	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
 		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
 												 categoryName,
 												 categoryDescription);

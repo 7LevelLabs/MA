@@ -1,13 +1,9 @@
 package ua.ll7.slot7.ma.service;
 
 import org.joda.money.CurrencyUnit;
-import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
-import ua.ll7.slot7.ma.exception.AppEntityNotFoundException;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
-
-import java.math.BigDecimal;
 
 /**
  * @author Alex Velichko
@@ -19,7 +15,7 @@ public interface IBLService {
   public long userCreate(String email, String password);
 
   //CategoryForTheUser
-  public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) throws AppEntityNotFoundException, AppDataIntegrityException;
+  public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription);
 
   //ExpenseForCategory
   public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount);
