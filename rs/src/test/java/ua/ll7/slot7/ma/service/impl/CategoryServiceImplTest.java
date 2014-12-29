@@ -9,7 +9,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
-import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
@@ -30,10 +29,10 @@ public class CategoryServiceImplTest {
 
   @Test
   public void testExistCategoryByName() throws Exception {
-    User user = MAFactory.getNewUser("email", "nick", "name", "password");
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
 
-    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
+    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategoryFS(user, "Cat1", "Category1");
     categoryService.save(categoryForTheUser1);
 
     User userRead = userService.findByEMail("email");
@@ -47,11 +46,11 @@ public class CategoryServiceImplTest {
 
   @Test
   public void testFindByUserAndName() throws Exception {
-    User user = MAFactory.getNewUser("email", "nick", "name", "password");
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
 
-    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
-    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategory(user, "Cat2", "Category1");
+    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategoryFS(user, "Cat1", "Category1");
+    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategoryFS(user, "Cat2", "Category1");
     categoryService.save(categoryForTheUser1);
     categoryService.save(categoryForTheUser2);
 

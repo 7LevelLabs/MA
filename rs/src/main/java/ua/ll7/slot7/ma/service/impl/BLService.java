@@ -3,8 +3,6 @@ package ua.ll7.slot7.ma.service.impl;
 import org.apache.log4j.Logger;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,9 +58,9 @@ public class BLService implements IBLService {
 			throw new AppDataIntegrityException("CategoryForTheUser already exists : " + categoryName + " for User : " + user.getNick());
 		}
 
-		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategory(user,
-			categoryName,
-			categoryDescription);
+		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
+												 categoryName,
+												 categoryDescription);
 
 		categoryService.save(categoryForTheUser);
 
@@ -71,7 +69,7 @@ public class BLService implements IBLService {
 
 	@Override
 	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount) {
-		Expense result = MAFactory.getNewExpense(category, currencyUnit, BigDecimal.valueOf(amount));
+		Expense result = MAFactory.getNewExpenseFS(category, currencyUnit, BigDecimal.valueOf(amount));
 		expenseService.save(result);
 		return result;
 	}

@@ -15,11 +15,9 @@ import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
-import ua.ll7.slot7.ma.service.IExpenseService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,11 +37,11 @@ public class BLServiceTest extends Assert {
 
   @Test(expected = AppDataIntegrityException.class)
   public void testCategoryCreateException() throws Exception {
-    User user = MAFactory.getNewUser("email", "nick", "name", "password");
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
 
-    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
-    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategory(user, "Cat2", "Category2");
+    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategoryFS(user, "Cat1", "Category1");
+    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategoryFS(user, "Cat2", "Category2");
 
     categoryService.save(categoryForTheUser1);
     categoryService.save(categoryForTheUser2);
@@ -53,11 +51,11 @@ public class BLServiceTest extends Assert {
 
   @Test
   public void testCategoryCreate() throws Exception {
-    User user = MAFactory.getNewUser("email", "nick", "name", "password");
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
 
-    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategory(user, "Cat1", "Category1");
-    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategory(user, "Cat2", "Category2");
+    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategoryFS(user, "Cat1", "Category1");
+    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategoryFS(user, "Cat2", "Category2");
 
     categoryService.save(categoryForTheUser1);
     categoryService.save(categoryForTheUser2);
@@ -78,7 +76,7 @@ public class BLServiceTest extends Assert {
 
   @Test
   public void testExpenseCreateForCategory() throws Exception {
-    User user = MAFactory.getNewUser("email", "nick", "name", "password");
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
 
     CategoryForTheUser categoryForTheUser = blService.categoryCreateForUser(user, "Cat3", "Category1");

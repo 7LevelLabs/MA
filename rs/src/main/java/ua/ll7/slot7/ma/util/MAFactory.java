@@ -16,58 +16,67 @@ import java.util.UUID;
  */
 public class MAFactory {
 
-  private MAFactory() {
+	//User < - > VO
 
-  }
+	//CategoryForTheUser < - > VO
 
-  public static User getNewUser(String email,
-                                String nick,
-                                String name,
-                                String password) {
-    User user = new User();
+	//Expense < - > VO
 
-    user.setEmail(email);
-    user.setNick(nick);
-    user.setName(name);
-    user.setPassword(password);
 
-    UUID uuid = UUID.randomUUID();
+	private MAFactory() {
+	}
 
-    user.setApiCode(uuid.toString());
-    user.setCategories(new LinkedList<CategoryForTheUser>());
-    return user;
+	public static User getNewUserForTestsFS(String email,
+																					String nick,
+																					String name,
+																					String password) {
+		User user = new User();
 
-  }
+		user.setEmail(email);
+		user.setNick(nick);
+		user.setName(name);
+		user.setPassword(password);
 
-  public static CategoryForTheUser getNewCategory(User user,
-                                                  String name,
-                                                  String description) {
-    CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
+		UUID uuid = UUID.randomUUID();
 
-    categoryForTheUser.setUser(user);
-    categoryForTheUser.setName(name);
-    categoryForTheUser.setDescription(description);
+		user.setApiCode(uuid.toString());
+		user.setCategories(new LinkedList<CategoryForTheUser>());
+		return user;
 
-    user.getCategories().add(categoryForTheUser);
+	}
 
-    return categoryForTheUser;
-  }
+	public static CategoryForTheUser getNewCategoryFS(User user,
+																										String name,
+																										String description) {
+		CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
 
-  public static Expense getNewExpenseUSD(CategoryForTheUser category, BigDecimal amount) {
-    return getNewExpense(category, CurrencyUnit.USD, amount);
-  }
+		categoryForTheUser.setUser(user);
+		categoryForTheUser.setName(name);
+		categoryForTheUser.setDescription(description);
 
-  public static Expense getNewExpense(CategoryForTheUser category, CurrencyUnit cu, BigDecimal amount) {
-    Expense result = new Expense();
+		user.getCategories().add(categoryForTheUser);
 
-    result.setCategoryForTheUser(category);
-    BigDecimal t = amount.setScale(cu.getDecimalPlaces(), BigDecimal.ROUND_HALF_UP);
-    Money amountMoney = Money.of(cu, t);
-    result.setExpenseAmount(amountMoney);
+		return categoryForTheUser;
+	}
 
-    category.getExpenses().add(result);
+	public static Expense getNewExpenseUSD(CategoryForTheUser category,
+																				 BigDecimal amount) {
+		return getNewExpenseFS(category, CurrencyUnit.USD, amount);
+	}
 
-    return result;
-  }
+	public static Expense getNewExpenseFS(CategoryForTheUser category,
+																				CurrencyUnit cu,
+																				BigDecimal amount) {
+		Expense result = new Expense();
+
+		result.setCategoryForTheUser(category);
+		BigDecimal t = amount.setScale(cu.getDecimalPlaces(), BigDecimal.ROUND_HALF_UP);
+		Money amountMoney = Money.of(cu, t);
+		result.setExpenseAmount(amountMoney);
+
+		category.getExpenses().add(result);
+
+		return result;
+	}
 
 }
