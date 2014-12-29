@@ -2,11 +2,15 @@ package ua.ll7.slot7.ma.util;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import ua.ll7.slot7.ma.data.vo.CategoryForTheUserVO;
+import ua.ll7.slot7.ma.data.vo.ExpenseVO;
+import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -16,20 +20,61 @@ import java.util.UUID;
  */
 public class MAFactory {
 
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
 	//User < - > VO
-
-	//CategoryForTheUser < - > VO
-
-	//Expense < - > VO
-
 
 	private MAFactory() {
 	}
 
+	//CategoryForTheUser < - > VO
+
+	public static UserVO getUserVO(User user) {
+		UserVO userVO = new UserVO();
+
+		userVO.setId(user.getId());
+		userVO.setEmail(user.getEmail());
+		userVO.setPassword(user.getPassword());
+		userVO.setName(user.getName());
+		userVO.setNick(user.getNick());
+		userVO.setActive(user.isActive());
+		userVO.setRole(user.getRole());
+		userVO.setApiCode(user.getApiCode());
+
+		return userVO;
+	}
+
+	//Expense < - > VO
+
+	public static CategoryForTheUserVO getCategoryForTheUserVO(CategoryForTheUser category) {
+		CategoryForTheUserVO categoryVO = new CategoryForTheUserVO();
+
+		categoryVO.setId(category.getId());
+		categoryVO.setUserId(category.getUser().getId());
+		categoryVO.setName(category.getName());
+		categoryVO.setDescription(category.getDescription());
+
+		return categoryVO;
+	}
+
+	public static ExpenseVO getExpenseVO(Expense expense) {
+		ExpenseVO expenseVO = new ExpenseVO();
+
+		expenseVO.setId(expense.getId());
+		expenseVO.setCategoryForTheUserId(expense.getCategoryForTheUser().getId());
+		expenseVO.setExpenseAmountCurrencySign(expense.getExpenseAmount().getCurrencyUnit().getCurrencyCode());
+		expenseVO.setExpenseAmountValue((expense.getExpenseAmount().getAmount()).floatValue());
+		expenseVO.setDescription(expense.getDescription());
+		expenseVO.setActionDateSign(DATE_FORMAT.format(expense.getActionDate()));
+		expenseVO.setRegistered(expense.getRegistered().getTime());
+
+		return expenseVO;
+	}
+
 	public static User getNewUserForTestsFS(String email,
-																					String nick,
-																					String name,
-																					String password) {
+	                                        String nick,
+	                                        String name,
+	                                        String password) {
 		User user = new User();
 
 		user.setEmail(email);
@@ -46,8 +91,8 @@ public class MAFactory {
 	}
 
 	public static CategoryForTheUser getNewCategoryFS(User user,
-																										String name,
-																										String description) {
+	                                                  String name,
+	                                                  String description) {
 		CategoryForTheUser categoryForTheUser = new CategoryForTheUser();
 
 		categoryForTheUser.setUser(user);
