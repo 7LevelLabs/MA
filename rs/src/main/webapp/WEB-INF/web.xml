@@ -14,6 +14,13 @@
     </listener>
 
     <listener>
+        <listener-class>ua.ll7.slot7.ma.metrics.MetricsContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>ua.ll7.slot7.ma.metrics.HealthCheckContextListener</listener-class>
+    </listener>
+
+    <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
@@ -68,5 +75,15 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+    <servlet>
+        <servlet-name>metrics_servlet</servlet-name>
+        <servlet-class>com.codahale.metrics.servlets.AdminServlet</servlet-class>
+        <load-on-startup>20</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>metrics_servlet</servlet-name>
+        <url-pattern>/metrics/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
