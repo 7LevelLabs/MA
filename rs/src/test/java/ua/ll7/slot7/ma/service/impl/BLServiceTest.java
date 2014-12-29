@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -34,20 +33,6 @@ public class BLServiceTest extends Assert {
 
   @Autowired
   private ICategoryService categoryService;
-
-  @Test(expected = AppDataIntegrityException.class)
-  public void testCategoryCreateException() throws Exception {
-    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
-    userService.save(user);
-
-    CategoryForTheUser categoryForTheUser1 = MAFactory.getNewCategoryFS(user, "Cat1", "Category1");
-    CategoryForTheUser categoryForTheUser2 = MAFactory.getNewCategoryFS(user, "Cat2", "Category2");
-
-    categoryService.save(categoryForTheUser1);
-    categoryService.save(categoryForTheUser2);
-
-    blService.categoryCreateForUser(user, "Cat1", "Category1");
-  }
 
   @Test
   public void testCategoryCreate() throws Exception {
