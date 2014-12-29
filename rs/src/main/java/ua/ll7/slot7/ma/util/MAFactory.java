@@ -22,12 +22,11 @@ public class MAFactory {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-	//User < - > VO
 
 	private MAFactory() {
 	}
 
-	//CategoryForTheUser < - > VO
+	//User < - > VO
 
 	public static UserVO getUserVO(User user) {
 		UserVO userVO = new UserVO();
@@ -44,7 +43,7 @@ public class MAFactory {
 		return userVO;
 	}
 
-	//Expense < - > VO
+	//CategoryForTheUser < - > VO
 
 	public static CategoryForTheUserVO getCategoryForTheUserVO(CategoryForTheUser category) {
 		CategoryForTheUserVO categoryVO = new CategoryForTheUserVO();
@@ -56,6 +55,8 @@ public class MAFactory {
 
 		return categoryVO;
 	}
+
+	//Expense < - > VO
 
 	public static ExpenseVO getExpenseVO(Expense expense) {
 		ExpenseVO expenseVO = new ExpenseVO();
