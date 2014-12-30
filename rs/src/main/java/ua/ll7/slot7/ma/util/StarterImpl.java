@@ -42,7 +42,7 @@ public class StarterImpl implements IStarter {
   }
 
   private void checkHZ() {
-
+    //TODO implement
   }
 
   private void createDefAccounts() {

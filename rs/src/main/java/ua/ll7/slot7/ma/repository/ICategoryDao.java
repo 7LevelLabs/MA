@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 
+import java.util.List;
+
 /**
  * @author Alex Velichko
  *         09.06.14 : 17:36
@@ -17,4 +19,7 @@ public interface ICategoryDao extends JpaRepository<CategoryForTheUser, Long> {
 
   @Query("select cfu from CategoryForTheUser cfu where cfu.user = ?1 and cfu.name = ?2")
   public CategoryForTheUser findByUserAndName(User user, String name);
+
+  @Query("select cfu from CategoryForTheUser cfu where cfu.user = ?1")
+  public List<CategoryForTheUser> findByUser(User user);
 }

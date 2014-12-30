@@ -5,6 +5,8 @@ import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 
+import java.util.List;
+
 /**
  * @author Alex Velichko
  *         10.06.14 : 15:26
@@ -16,6 +18,8 @@ public interface IBLService {
 
   //CategoryForTheUser
   public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription);
+
+  public List<CategoryForTheUser> categoryListForTheUser(User user);
 
   //ExpenseForCategory
   public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount);

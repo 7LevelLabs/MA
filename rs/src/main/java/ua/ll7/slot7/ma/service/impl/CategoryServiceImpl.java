@@ -10,6 +10,8 @@ import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.ICategoryService;
 
+import java.util.List;
+
 /**
  * @author Alex Velichko
  *         10.06.14 : 14:50
@@ -37,5 +39,10 @@ public class CategoryServiceImpl implements ICategoryService {
   @Override
   public CategoryForTheUser findByUserAndName(User user, String categoryName) {
     return dao.findByUserAndName(user, categoryName);
+  }
+
+  @Override
+  public List<CategoryForTheUser> findByUser(User user) {
+    return dao.findByUser(user);
   }
 }
