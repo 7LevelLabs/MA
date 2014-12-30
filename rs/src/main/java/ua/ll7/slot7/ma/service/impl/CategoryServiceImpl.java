@@ -45,4 +45,19 @@ public class CategoryServiceImpl implements ICategoryService {
   public List<CategoryForTheUser> findByUser(User user) {
     return dao.findByUser(user);
   }
+
+  @Override
+  public CategoryForTheUser findById(long id) {
+    return dao.findOne(id);
+  }
+
+  @Override
+  public void update(CategoryForTheUser category) {
+    dao.save(category);
+  }
+
+  @Override
+  public boolean exist(long id) {
+    return dao.exists(id);
+  }
 }

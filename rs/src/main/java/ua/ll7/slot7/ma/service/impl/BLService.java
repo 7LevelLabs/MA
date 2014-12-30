@@ -1,5 +1,6 @@
 package ua.ll7.slot7.ma.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -50,6 +52,7 @@ public class BLService implements IBLService {
 		return user.getId();
 	}
 
+	@Override
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
 		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
 												 categoryName,
@@ -63,6 +66,19 @@ public class BLService implements IBLService {
 	@Override
 	public List<CategoryForTheUser> categoryListForTheUser(User user) {
 		return categoryService.findByUser(user);
+	}
+
+	@Override
+	public void categoryUpdate(CategoryUpdateRequest request) {
+		CategoryForTheUser categoryForTheUser = categoryService.findById(request.getData3());
+
+		if (StringUtils.isNotBlank(request.getData1())) {
+			categoryForTheUser.setName(request.getData1());
+		}
+
+		if (StringUtils.isNotBlank(request.getData2())) {
+			categoryForTheUser.setName(request.getData2());
+		}
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import ua.ll7.slot7.ma.controller.IRegisteredUserController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
+import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.response.MACategoryForTheUserVOListResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
@@ -75,8 +76,33 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 	}
 
 	@Override
-	@RequestMapping(value = Constants.methodEndpointCategoryList,
+	@RequestMapping(value = Constants.methodEndpointCategoryUpdate,
 											 method = RequestMethod.PUT,
+											 consumes = MediaType.APPLICATION_JSON_VALUE,
+											 produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MAGenericResponse> categoryUpdate(
+											 @RequestBody
+											 CategoryUpdateRequest request
+	                                                       ) {
+		MAGenericResponse response = new MAGenericResponse();
+
+		try {
+			requestValidator.validate(request);
+		} catch (AppValidationException e) {
+			LOGGER.debug(e.getMessage());
+			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		blService.categoryUpdate(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = Constants.methodEndpointCategoryList,
+											 method = RequestMethod.GET,
 											 consumes = MediaType.APPLICATION_JSON_VALUE,
 											 produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MACategoryForTheUserVOListResponse> categoryList() {

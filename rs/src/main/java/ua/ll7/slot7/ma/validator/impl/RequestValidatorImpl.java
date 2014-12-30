@@ -1,8 +1,10 @@
 package ua.ll7.slot7.ma.validator.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
+import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
@@ -46,4 +48,14 @@ public class RequestValidatorImpl implements IRequestValidator {
     }
   }
 
+  @Override
+  public void validate(CategoryUpdateRequest request) throws AppValidationException {
+    if ((StringUtils.isBlank(request.getData1())) && (StringUtils.isBlank(request.getData2()))) {
+      throw new AppValidationException("Not valid request : " + request);
+    }
+
+    if (!categoryService.exist(request.getData3())) {
+      throw new AppValidationException("Category is not exist : " + request);
+    }
+  }
 }
