@@ -72,4 +72,22 @@ public class BLServiceTest extends Assert {
                  expense.getCategoryForTheUser().getId() > 0);
   }
 
+  @Test
+  public void testCategoryListForTheUser() throws Exception {
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
+    userService.save(user);
+
+    CategoryForTheUser categoryForTheUser1 = blService.categoryCreateForUser(user, "Cat1", "Category1");
+    CategoryForTheUser categoryForTheUser2 = blService.categoryCreateForUser(user, "Cat2", "Category2");
+
+    User userRead = userService.findByEMail("email");
+
+    List<CategoryForTheUser> categoryForTheUsers = blService.categoryListForTheUser(userRead);
+
+    org.assertj.core.api.Assertions.assertThat(categoryForTheUsers)
+                                   .isNotEmpty()
+                                   .hasSize(2)
+                                   .contains(categoryForTheUser1, categoryForTheUser2)
+    ;
+  }
 }

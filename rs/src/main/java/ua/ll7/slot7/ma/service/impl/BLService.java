@@ -17,6 +17,7 @@ import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Alex Velichko
@@ -57,6 +58,11 @@ public class BLService implements IBLService {
 		categoryService.save(categoryForTheUser);
 
 		return categoryForTheUser;
+	}
+
+	@Override
+	public List<CategoryForTheUser> categoryListForTheUser(User user) {
+		return categoryService.findByUser(user);
 	}
 
 	@Override

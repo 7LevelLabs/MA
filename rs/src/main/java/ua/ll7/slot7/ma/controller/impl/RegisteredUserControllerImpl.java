@@ -15,12 +15,17 @@ import ua.ll7.slot7.ma.controller.IRegisteredUserController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
+import ua.ll7.slot7.ma.data.response.MACategoryForTheUserVOListResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.IUserService;
+import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
+
+import java.util.List;
 
 /**
  * @author Alex Velichko
@@ -66,6 +71,20 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 
 		blService.categoryCreateForUser(user, request.getData1(), "");
 
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = Constants.methodEndpointCategoryList,
+											 method = RequestMethod.PUT,
+											 consumes = MediaType.APPLICATION_JSON_VALUE,
+											 produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MACategoryForTheUserVOListResponse> categoryList() {
+
+		MACategoryForTheUserVOListResponse response = new MACategoryForTheUserVOListResponse();
+		User user = getCurrentlyPrincipal();
+
+		response.setData1(MAFactory.getCategoryForTheUserVOList(blService.categoryListForTheUser(user)));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

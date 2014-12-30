@@ -12,6 +12,7 @@ import ua.ll7.slot7.ma.model.User;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -44,6 +45,14 @@ public class MAFactory {
 	}
 
 	//CategoryForTheUser < - > VO
+
+	public static List<CategoryForTheUserVO> getCategoryForTheUserVOList(List<CategoryForTheUser> categoryForTheUsers) {
+		List<CategoryForTheUserVO> result = new LinkedList<>();
+		for (CategoryForTheUser categoryForTheUser : categoryForTheUsers) {
+			result.add(getCategoryForTheUserVO(categoryForTheUser));
+		}
+		return result;
+	}
 
 	public static CategoryForTheUserVO getCategoryForTheUserVO(CategoryForTheUser category) {
 		CategoryForTheUserVO categoryVO = new CategoryForTheUserVO();

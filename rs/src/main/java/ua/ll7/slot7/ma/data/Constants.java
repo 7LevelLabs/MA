@@ -14,6 +14,7 @@ public class Constants {
   public final static String methodEndpointUserCreate = "/createUser";
 
   public final static String methodEndpointCategoryCreate = "/createCategory";
+  public final static String methodEndpointCategoryList = "/listCategory";
 
   public final static String divider = " : ";
 
