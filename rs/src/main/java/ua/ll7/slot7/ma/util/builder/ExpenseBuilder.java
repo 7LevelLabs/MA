@@ -2,6 +2,7 @@ package ua.ll7.slot7.ma.util.builder;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 
@@ -19,7 +20,7 @@ public class ExpenseBuilder {
   private Expense data;
 
   public ExpenseBuilder(CategoryForTheUser category,
-                        double amount) {
+                        float amount) {
     data = new Expense();
     data.setCategoryForTheUser(category);
 
@@ -30,14 +31,14 @@ public class ExpenseBuilder {
     data.setRegistered(new Date());
   }
 
-  public ExpenseBuilder withAmount(CurrencyUnit cu, double amount) {
+  public ExpenseBuilder withAmount(CurrencyUnit cu, float amount) {
     BigDecimal tt = BigDecimal.valueOf(amount).setScale(cu.getDecimalPlaces(), BigDecimal.ROUND_HALF_UP);
 
     data.setExpenseAmount(Money.of(cu, tt));
     return this;
   }
 
-  public ExpenseBuilder withAmountUSD(double amount) {
+  public ExpenseBuilder withAmountUSD(float amount) {
     CurrencyUnit cu = CurrencyUnit.USD;
     BigDecimal tt = BigDecimal.valueOf(amount).setScale(cu.getDecimalPlaces(), BigDecimal.ROUND_HALF_UP);
 
@@ -46,16 +47,17 @@ public class ExpenseBuilder {
   }
 
   public ExpenseBuilder withActionDateSign(String actionDateSign) {
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatter = new SimpleDateFormat(Constants.dateFormatString);
     Date actionDate = new Date();
 
     try {
       actionDate = formatter.parse(actionDateSign);
-    } catch (ParseException e) {
-      e.printStackTrace();
+    } catch (ParseException ignore) {
+
+    } finally {
+      data.setActionDate(actionDate);
     }
 
-    data.setActionDate(actionDate);
     return this;
   }
 

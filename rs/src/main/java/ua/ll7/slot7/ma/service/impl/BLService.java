@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
+import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -17,8 +18,8 @@ import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IExpenseService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
+import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -82,9 +83,29 @@ public class BLService implements IBLService {
 	}
 
 	@Override
-	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, double amount) {
-		Expense result = MAFactory.getNewExpenseFS(category, currencyUnit, BigDecimal.valueOf(amount));
+	public boolean isCategoryBelongToTheUser(CategoryForTheUser category, User user) {
+		return userService.findById(category.getUser().getId()).equals(user);
+	}
+
+	@Override
+	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, float amount, String dateSign) {
+		Expense result = new ExpenseBuilder(category, amount)
+												 .withActionDateSign(dateSign)
+												 .withAmount(currencyUnit, amount)
+												 .build();
 		expenseService.save(result);
 		return result;
+	}
+
+	@Override
+	public Expense expenseCreateForCategoryUSD(CategoryForTheUser category, float amount, String dateSign) {
+		return expenseCreateForCategory(category, CurrencyUnit.USD, amount, dateSign);
+	}
+
+	@Override
+	public Expense expenseCreateForCategoryUSD(ExpenseCreateRequest request) {
+		return expenseCreateForCategoryUSD(categoryService.findById(request.getData0()),
+												 request.getData3(),
+												 request.getData1());
 	}
 }

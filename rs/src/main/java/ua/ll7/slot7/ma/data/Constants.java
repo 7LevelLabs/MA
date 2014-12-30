@@ -17,9 +17,13 @@ public class Constants {
   public final static String methodEndpointCategoryUpdate = "/categoryUpdate";
   public final static String methodEndpointCategoryList   = "/categoryList";
 
+  public final static String methodEndpointExpenseCreate = "/expenseCreate";
+
   public final static String divider = " : ";
 
   public final static String messageNotValidRequest = "Not valid request";
+
+  public final static String dateFormatString = "dd-MM-yyyy";
 
   private Constants() {
 
