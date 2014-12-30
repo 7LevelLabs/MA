@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
+import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
@@ -57,5 +58,17 @@ public class RequestValidatorImpl implements IRequestValidator {
     if (!categoryService.exist(request.getData3())) {
       throw new AppValidationException("Category is not exist : " + request);
     }
+  }
+
+  @Override
+  public void validate(ExpenseCreateRequest request, User user) throws AppValidationException {
+    //TODO implement
+
+    //check currency sign
+
+    //check date sign
+
+    //check category
+
   }
 }
