@@ -12,7 +12,7 @@ import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:springConfigIT.xml")
+@ContextConfiguration("classpath:springConfigTest.xml")
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class RequestValidatorImplTest {

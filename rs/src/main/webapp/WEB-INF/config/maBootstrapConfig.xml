@@ -23,6 +23,7 @@
     <import resource="maConfigViewIndex.xml"/>
     <import resource="maConfigQuartz.xml"/>
     <import resource="maConfigValidator.xml"/>
+    <import resource="maConfigCache.xml"/>
     <import resource="maMetricsConfig.xml"/>
     <import resource="maConfigUtil.xml"/>
 

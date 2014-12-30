@@ -71,7 +71,7 @@
         <joda-money.version>0.9.1</joda-money.version>
         <jadira.version>3.2.0.GA</jadira.version>
 
-        <project.build.sourceencoding>UTF-8</project.build.sourceencoding>
+        <hazelcast.version>3.4</hazelcast.version>
 
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>false</skip.unit.tests>
@@ -114,6 +114,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
