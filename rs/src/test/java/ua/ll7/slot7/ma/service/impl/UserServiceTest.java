@@ -14,7 +14,7 @@ import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:springConfigIT.xml")
+@ContextConfiguration("classpath:springConfigTest.xml")
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class UserServiceTest extends Assert {

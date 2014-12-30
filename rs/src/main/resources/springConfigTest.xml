@@ -4,8 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
-       xmlns:hz="http://www.hazelcast.com/schema/spring" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
              http://www.springframework.org/schema/beans/spring-beans.xsd
              http://www.springframework.org/schema/context
@@ -43,11 +42,11 @@
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="ua.ll7.slot7.ma.model"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="generateDdl" value="true" />
+                <property name="generateDdl" value="true"/>
                 <property name="showSql" value="false"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect"/>
                 <property name="database" value="HSQL"/>
@@ -59,23 +58,5 @@
             </value>
         </property>
     </bean>
-
-    <cache:annotation-driven cache-manager="cacheManager"/>
-
-    <bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
-        <constructor-arg ref="hzClient"/>
-    </bean>
-
-    <!--client style-->
-    <hz:client id="hzClient">
-        <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
-        <hz:network connection-attempt-limit="3"
-                    connection-attempt-period="3000"
-                    connection-timeout="1000"
-                    redo-operation="true"
-                    smart-routing="true">
-            <hz:member>${cache.hz.location.1}</hz:member>
-        </hz:network>
-    </hz:client>
 
 </beans>

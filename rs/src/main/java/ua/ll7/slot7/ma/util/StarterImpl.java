@@ -20,6 +20,7 @@ public class StarterImpl implements IStarter {
 
   private static final Logger LOGGER = Logger.getLogger(StarterImpl.class);
 
+
   @Value("${default.user.email}")
   private String defaultUserEMail;
 
@@ -33,9 +34,15 @@ public class StarterImpl implements IStarter {
   public void onStart() {
     userMagicService = new UserMagicServiceImpl();
 
+    checkHZ();
+
     createDefAccounts();
     notifyEMail();
     notifyLogging();
+  }
+
+  private void checkHZ() {
+
   }
 
   private void createDefAccounts() {

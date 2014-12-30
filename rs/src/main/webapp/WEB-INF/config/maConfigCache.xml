@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:hz="http://www.hazelcast.com/schema/spring"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd">
+
+    <cache:annotation-driven cache-manager="cacheManager"/>
+
+    <bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
+        <constructor-arg ref="hzClient"/>
+    </bean>
+
+    <!--client style-->
+    <hz:client id="hzClient">
+        <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
+        <hz:network connection-attempt-limit="3"
+                    connection-attempt-period="3000"
+                    connection-timeout="1000"
+                    redo-operation="true"
+                    smart-routing="true">
+            <hz:member>${cache.hz.location.1}</hz:member>
+        </hz:network>
+    </hz:client>
+
+    <hz:map id="hzMap" instance-ref="hzClient" name="mapCheck" lazy-init="false"/>
+
+</beans>
