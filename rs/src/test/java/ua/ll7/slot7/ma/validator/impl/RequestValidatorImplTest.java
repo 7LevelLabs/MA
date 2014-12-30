@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
@@ -29,5 +30,30 @@ public class RequestValidatorImplTest {
 
     requestValidator.validate(request);
 
+  }
+
+  @Test(expected = AppValidationException.class)
+  public void testValidateCategoryUpdateRequest() throws Exception {
+    CategoryUpdateRequest request = new CategoryUpdateRequest();
+    request.setData1("");
+    request.setData2("");
+    request.setData3(1);
+
+    requestValidator.validate(request);
+
+    request.setData1("Ku");
+    request.setData2("");
+
+    requestValidator.validate(request);
+
+    request.setData1("");
+    request.setData2("Ku");
+
+    requestValidator.validate(request);
+
+    request.setData1("Ku");
+    request.setData2("Ku");
+
+    requestValidator.validate(request);
   }
 }

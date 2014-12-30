@@ -18,4 +18,9 @@ public interface ICategoryService {
 
 	public List<CategoryForTheUser> findByUser(User user);
 
+	public CategoryForTheUser findById(long id);
+
+	public void update(CategoryForTheUser category);
+
+	public boolean exist(long id);
 }
