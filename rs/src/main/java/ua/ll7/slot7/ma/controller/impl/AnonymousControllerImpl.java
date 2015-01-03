@@ -15,7 +15,6 @@ import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.data.response.MALongResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.service.IBLService;
-import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
@@ -32,9 +31,6 @@ public class AnonymousControllerImpl implements IAnonymousController {
 
 	@Autowired
 	private IRequestValidator requestValidator;
-
-	@Autowired
-	private IUserService userService;
 
 	@Autowired
 	private IBLService blService;

@@ -16,7 +16,7 @@ import ua.ll7.slot7.ma.util.MAFactory;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:springConfigTest.xml")
+@ContextConfiguration("classpath:maTestConf/maConfigTest.xml")
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class CategoryServiceImplTest {
