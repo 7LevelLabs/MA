@@ -20,7 +20,7 @@ import ua.ll7.slot7.ma.util.MAFactory;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:springConfigTest.xml")
+@ContextConfiguration("classpath:maTestConf/maConfigTest.xml")
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BLServiceTest extends Assert {
