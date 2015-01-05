@@ -20,6 +20,7 @@ public class Constants {
 	public final static String methodEndpointCategoryList = "/categoryList";
 
 	public final static String methodEndpointExpenseCreate = "/expenseCreate";
+	public final static String methodEndpointExpenseList = "/expenseList";
 
 	public final static String divider = " : ";
 

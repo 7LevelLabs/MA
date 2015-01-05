@@ -100,4 +100,13 @@ public class RequestValidatorImpl implements IRequestValidator {
 			throw new AppValidationException("Expense amount must be > 0 : " + request);
 		}
 	}
+
+	@IntIntDGBothNotEmpty
+	@Override
+	public void validate(ExpenseListPageableRequest request, User user) throws AppValidationException, AppDataIntegrityException {
+		//check category - is it belongs to the user?
+		if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData3()), user)) {
+			throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
+		}
+	}
 }

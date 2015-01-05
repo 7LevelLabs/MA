@@ -85,6 +85,14 @@ public class MAFactory {
 		return expenseVO;
 	}
 
+	public static List<ExpenseVO> getExpenseVOList(List<Expense> expenses) {
+		List<ExpenseVO> result = new LinkedList<>();
+		for (Expense expense : expenses) {
+			result.add(getExpenseVO(expense));
+		}
+		return result;
+	}
+
 	public static User getNewUserForTestsFS(String email,
 	                                        String nick,
 	                                        String name,

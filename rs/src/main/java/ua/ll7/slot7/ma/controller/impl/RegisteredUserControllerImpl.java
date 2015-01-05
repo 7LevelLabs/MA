@@ -17,7 +17,9 @@ import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
+import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
 import ua.ll7.slot7.ma.data.response.MACategoryForTheUserVOListResponse;
+import ua.ll7.slot7.ma.data.response.MAExpenseVOListResponse;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
@@ -141,6 +143,38 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 		}
 
 		blService.expenseCreateForCategoryUSD(request);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = Constants.methodEndpointExpenseList,
+											 method = RequestMethod.PUT,
+											 consumes = MediaType.APPLICATION_JSON_VALUE,
+											 produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MAExpenseVOListResponse> expenseList(
+											 @RequestBody
+											 ExpenseListPageableRequest request
+	) {
+
+		MAExpenseVOListResponse response = new MAExpenseVOListResponse();
+		User user = getCurrentlyPrincipal();
+
+		try {
+			requestValidator.validate(request, user);
+		} catch (AppValidationException e) {
+			LOGGER.debug(e.getMessage());
+			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		} catch (AppDataIntegrityException e) {
+			LOGGER.debug(e.getMessage());
+			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		response.setData1(blService.expenseList(request));
+
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

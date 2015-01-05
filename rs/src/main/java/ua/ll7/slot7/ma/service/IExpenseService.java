@@ -1,6 +1,9 @@
 package ua.ll7.slot7.ma.service;
 
+import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
+
+import java.util.List;
 
 /**
  * MA
@@ -9,5 +12,7 @@ import ua.ll7.slot7.ma.model.Expense;
  */
 public interface IExpenseService {
   public void save(Expense toSave);
+
+  public List<Expense> findByCategoryPageable(CategoryForTheUser categoryForTheUser, int pageNumber, int pageSize);
 
 }

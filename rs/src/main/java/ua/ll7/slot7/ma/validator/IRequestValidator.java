@@ -21,4 +21,6 @@ public interface IRequestValidator {
 	public void validate(CategoryUpdateRequest request) throws AppValidationException;
 
 	public void validate(ExpenseCreateRequest request, User user) throws AppValidationException, AppDataIntegrityException;
+
+	public void validate(ExpenseListPageableRequest request, User user) throws AppValidationException, AppDataIntegrityException;
 }
