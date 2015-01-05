@@ -20,6 +20,8 @@ public interface ICategoryService {
 
 	public CategoryForTheUser findById(long id);
 
+	public List<String> findPopularNames(long popIndex);
+
 	public void update(CategoryForTheUser category);
 
 	public boolean exist(long id);

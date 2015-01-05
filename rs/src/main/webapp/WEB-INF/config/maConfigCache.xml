@@ -22,6 +22,11 @@
         </hz:network>
     </hz:client>
 
-    <hz:map id="hzMap" instance-ref="hzClient" name="mapCheck" lazy-init="false"/>
+    <hz:config>
+        <hz:map name="category_popular_names"
+                time-to-live-seconds="120"
+                eviction-percentage="10"
+                merge-policy="hz.ADD_NEW_ENTRY"/>
+    </hz:config>
 
 </beans>
