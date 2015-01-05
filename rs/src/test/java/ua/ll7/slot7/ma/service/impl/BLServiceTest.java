@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -35,6 +36,22 @@ public class BLServiceTest extends Assert {
   private ICategoryService categoryService;
 
   @Test
+  public void testUserList() throws Exception {
+    User user1 = MAFactory.getNewUserForTestsFS("email1", "nick1", "name1", "password1");
+    userService.save(user1);
+
+    User user2 = MAFactory.getNewUserForTestsFS("email2", "nick2", "name2", "password2");
+    userService.save(user2);
+
+    List<UserVO> userVOs = blService.userList();
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(2);
+
+  }
+
+  @Test
   public void testCategoryCreate() throws Exception {
     User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
@@ -49,9 +66,9 @@ public class BLServiceTest extends Assert {
 
     User userRead = userService.findByEMail("email");
 
-    List<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
+    List<CategoryForTheUser> categoryForTheUserList = userRead.getCategories();
 
-    org.assertj.core.api.Assertions.assertThat(categoryForTheUserSet)
+    org.assertj.core.api.Assertions.assertThat(categoryForTheUserList)
                                    .isNotEmpty()
                                    .hasSize(3)
                                    .contains(categoryForTheUser1, categoryForTheUser2)

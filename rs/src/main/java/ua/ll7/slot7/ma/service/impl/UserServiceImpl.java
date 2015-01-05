@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.repository.IUserRepository;
 import ua.ll7.slot7.ma.model.User;
+import ua.ll7.slot7.ma.repository.IUserRepository;
 import ua.ll7.slot7.ma.service.IUserService;
+
+import java.util.List;
 
 /**
  * @author Alex Velichko
@@ -33,6 +35,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean exist(String email) {
 		return findByEMail(email) != null;
+	}
+
+	@Override
+	public List<User> findAll() {
+		return repository.findAll();
 	}
 
 	@Override

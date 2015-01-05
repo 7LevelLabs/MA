@@ -23,7 +23,6 @@ public class MAFactory {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-
 	private MAFactory() {
 	}
 
@@ -34,14 +33,19 @@ public class MAFactory {
 
 		userVO.setId(user.getId());
 		userVO.setEmail(user.getEmail());
-		userVO.setPassword(user.getPassword());
 		userVO.setName(user.getName());
 		userVO.setNick(user.getNick());
 		userVO.setActive(user.isActive());
-		userVO.setRole(user.getRole());
-		userVO.setApiCode(user.getApiCode());
 
 		return userVO;
+	}
+
+	public static List<UserVO> getUserVOList(List<User> users) {
+		List<UserVO> result = new LinkedList<>();
+		for (User user : users) {
+			result.add(getUserVO(user));
+		}
+		return result;
 	}
 
 	//CategoryForTheUser < - > VO

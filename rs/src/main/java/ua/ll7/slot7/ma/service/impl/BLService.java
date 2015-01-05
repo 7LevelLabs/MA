@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
+import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -51,6 +52,11 @@ public class BLService implements IBLService {
 
 		//send emails
 		return user.getId();
+	}
+
+	@Override
+	public List<UserVO> userList() {
+		return MAFactory.getUserVOList(userService.findAll());
 	}
 
 	@Override
