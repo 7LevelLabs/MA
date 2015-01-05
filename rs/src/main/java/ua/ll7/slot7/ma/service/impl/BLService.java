@@ -10,6 +10,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
+import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.vo.ExpenseVO;
+import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -51,6 +55,17 @@ public class BLService implements IBLService {
 
 		//send emails
 		return user.getId();
+	}
+
+	@Override
+	public List<UserVO> userList() {
+		return MAFactory.getUserVOList(userService.findAll());
+	}
+
+	@Override
+	public List<UserVO> userListPageable(UserListPageableRequest request) {
+		return MAFactory.getUserVOList(userService.findAllPageable(request.getData1(),
+												 request.getData2()));
 	}
 
 	@Override
@@ -107,5 +122,14 @@ public class BLService implements IBLService {
 		return expenseCreateForCategoryUSD(categoryService.findById(request.getData0()),
 												 request.getData3(),
 												 request.getData1());
+	}
+
+	@Override
+	public List<ExpenseVO> expenseList(ExpenseListPageableRequest request) {
+		return MAFactory.getExpenseVOList(expenseService.findByCategoryPageable(
+												 categoryService.findById(request.getData3()),
+												 request.getData1(),
+												 request.getData2()
+		));
 	}
 }

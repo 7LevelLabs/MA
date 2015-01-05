@@ -1,28 +1,23 @@
 package ua.ll7.slot7.ma.validator.aspect;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.Constants;
-import ua.ll7.slot7.ma.data.generic.StringDG;
+import ua.ll7.slot7.ma.data.generic.IntIntDG;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 
 /**
- *
  * @author Alex Velichko
- * 29.12.14 : 23:53
+ *         05.01.15 : 15:18
  */
 @Component
 @Aspect
-public class StringDGNotEmptyVA {
+public class IntIntDGBothNotEmptyVA {
 
-	private static final Logger LOGGER = Logger.getLogger(StringDGNotEmptyVA.class);
-
-	@Pointcut("execution(@ua.ll7.slot7.ma.validator.annotations.StringDGNotEmpty * *(..))")
+	@Pointcut("execution(@ua.ll7.slot7.ma.validator.annotations.IntIntDGBothNotEmpty * *(..))")
 	private void methodPointcut() {
 
 	}
@@ -32,7 +27,9 @@ public class StringDGNotEmptyVA {
 		Object[] arguments = joinPoint.getArgs();
 		for (Object argument : arguments) {
 			if (
-													 StringUtils.isBlank(((StringDG) argument).getData1())
+													 (((IntIntDG) argument).getData1() < 1)
+																								||
+																								(((IntIntDG) argument).getData2() < 1)
 													 ) {
 				throw new AppValidationException(Constants.messageNotValidRequest
 														 + Constants.divider
@@ -40,5 +37,4 @@ public class StringDGNotEmptyVA {
 			}
 		}
 	}
-
 }

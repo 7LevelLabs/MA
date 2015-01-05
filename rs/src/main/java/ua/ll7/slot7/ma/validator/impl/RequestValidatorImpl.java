@@ -4,10 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.Constants;
-import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
@@ -15,6 +12,7 @@ import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
+import ua.ll7.slot7.ma.validator.annotations.IntIntDGBothNotEmpty;
 import ua.ll7.slot7.ma.validator.annotations.StringDGNotEmpty;
 import ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty;
 
@@ -38,6 +36,12 @@ public class RequestValidatorImpl implements IRequestValidator {
 
 	@Autowired
 	private IBLService blService;
+
+	@IntIntDGBothNotEmpty
+	@Override
+	public void validate(UserListPageableRequest request) throws AppValidationException {
+
+	}
 
 	@StringStringDGBothNotEmpty
 	@Override
@@ -94,6 +98,15 @@ public class RequestValidatorImpl implements IRequestValidator {
 		//check currency amount
 		if (request.getData3() == 0) {
 			throw new AppValidationException("Expense amount must be > 0 : " + request);
+		}
+	}
+
+	@IntIntDGBothNotEmpty
+	@Override
+	public void validate(ExpenseListPageableRequest request, User user) throws AppValidationException, AppDataIntegrityException {
+		//check category - is it belongs to the user?
+		if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData3()), user)) {
+			throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
 		}
 	}
 }

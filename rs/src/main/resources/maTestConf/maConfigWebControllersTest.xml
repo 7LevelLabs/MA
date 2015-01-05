@@ -12,6 +12,7 @@
 
     <beans:bean id="anonymousController" class="ua.ll7.slot7.ma.controller.impl.AnonymousControllerImpl"/>
     <beans:bean id="registeredUserController" class="ua.ll7.slot7.ma.controller.impl.RegisteredUserControllerImpl"/>
+    <beans:bean id="adminController" class="ua.ll7.slot7.ma.controller.impl.AdminControllerImpl"/>
 
     <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <beans:property name="messageConverters">

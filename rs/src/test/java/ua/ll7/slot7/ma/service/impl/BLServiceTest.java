@@ -9,6 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
@@ -35,6 +37,56 @@ public class BLServiceTest extends Assert {
   private ICategoryService categoryService;
 
   @Test
+  public void testUserList() throws Exception {
+    User user1 = MAFactory.getNewUserForTestsFS("email1", "nick1", "name1", "password1");
+    userService.save(user1);
+
+    User user2 = MAFactory.getNewUserForTestsFS("email2", "nick2", "name2", "password2");
+    userService.save(user2);
+
+    List<UserVO> userVOs = blService.userList();
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(2);
+
+  }
+
+  @Test
+  public void testUserListPageable() throws Exception {
+    User user1 = MAFactory.getNewUserForTestsFS("email1", "nick1", "name1", "password1");
+    userService.save(user1);
+
+    User user2 = MAFactory.getNewUserForTestsFS("email2", "nick2", "name2", "password2");
+    userService.save(user2);
+
+    User user3 = MAFactory.getNewUserForTestsFS("email3", "nick3", "name3", "password3");
+    userService.save(user3);
+
+    User user4 = MAFactory.getNewUserForTestsFS("email4", "nick4", "name4", "password4");
+    userService.save(user4);
+
+    UserListPageableRequest request = new UserListPageableRequest();
+    request.setData1(1);
+    request.setData2(3);
+
+    List<UserVO> userVOs = blService.userListPageable(request);
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(3);
+
+    request.setData1(2);
+    request.setData2(3);
+
+    userVOs = blService.userListPageable(request);
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(1);
+  }
+
+  @Test
   public void testCategoryCreate() throws Exception {
     User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
@@ -49,9 +101,9 @@ public class BLServiceTest extends Assert {
 
     User userRead = userService.findByEMail("email");
 
-    List<CategoryForTheUser> categoryForTheUserSet = userRead.getCategories();
+    List<CategoryForTheUser> categoryForTheUserList = userRead.getCategories();
 
-    org.assertj.core.api.Assertions.assertThat(categoryForTheUserSet)
+    org.assertj.core.api.Assertions.assertThat(categoryForTheUserList)
                                    .isNotEmpty()
                                    .hasSize(3)
                                    .contains(categoryForTheUser1, categoryForTheUser2)
