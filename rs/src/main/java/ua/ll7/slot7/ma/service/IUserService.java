@@ -18,8 +18,9 @@ public interface IUserService {
 
 	public List<User> findAll();
 
+	public List<User> findAllPageable(int data1, int data2);
+
 	public User findById(long id);
 
 	public User findByEMail(String email);
-
 }

@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -49,6 +50,40 @@ public class BLServiceTest extends Assert {
                          .isNotEmpty()
                          .hasSize(2);
 
+  }
+
+  @Test
+  public void testUserListPageable() throws Exception {
+    User user1 = MAFactory.getNewUserForTestsFS("email1", "nick1", "name1", "password1");
+    userService.save(user1);
+
+    User user2 = MAFactory.getNewUserForTestsFS("email2", "nick2", "name2", "password2");
+    userService.save(user2);
+
+    User user3 = MAFactory.getNewUserForTestsFS("email3", "nick3", "name3", "password3");
+    userService.save(user3);
+
+    User user4 = MAFactory.getNewUserForTestsFS("email4", "nick4", "name4", "password4");
+    userService.save(user4);
+
+    UserListPageableRequest request = new UserListPageableRequest();
+    request.setData1(1);
+    request.setData2(3);
+
+    List<UserVO> userVOs = blService.userListPageable(request);
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(3);
+
+    request.setData1(2);
+    request.setData2(3);
+
+    userVOs = blService.userListPageable(request);
+
+    org.assertj.core.api.Assertions.assertThat(userVOs)
+                         .isNotEmpty()
+                         .hasSize(1);
   }
 
   @Test

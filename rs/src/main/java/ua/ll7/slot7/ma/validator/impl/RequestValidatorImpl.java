@@ -4,10 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.Constants;
-import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
@@ -15,6 +12,7 @@ import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
+import ua.ll7.slot7.ma.validator.annotations.IntIntDGBothNotEmpty;
 import ua.ll7.slot7.ma.validator.annotations.StringDGNotEmpty;
 import ua.ll7.slot7.ma.validator.annotations.StringStringDGBothNotEmpty;
 
@@ -38,6 +36,12 @@ public class RequestValidatorImpl implements IRequestValidator {
 
 	@Autowired
 	private IBLService blService;
+
+	@IntIntDGBothNotEmpty
+	@Override
+	public void validate(UserListPageableRequest request) throws AppValidationException {
+
+	}
 
 	@StringStringDGBothNotEmpty
 	@Override

@@ -3,6 +3,7 @@ package ua.ll7.slot7.ma.service;
 import org.joda.money.CurrencyUnit;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -20,6 +21,8 @@ public interface IBLService {
 	public long userCreate(String email, String password);
 
 	public List<UserVO> userList();
+
+	public List<UserVO> userListPageable(UserListPageableRequest request);
 
 	//CategoryForTheUser
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription);

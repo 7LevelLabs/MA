@@ -1,6 +1,8 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,6 +42,12 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<User> findAll() {
 		return repository.findAll();
+	}
+
+	@Override
+	public List<User> findAllPageable(int data1, int data2) {
+		Page<User> usersPage = repository.findAll(new PageRequest(data1 - 1, data2));
+		return usersPage.getContent();
 	}
 
 	@Override

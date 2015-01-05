@@ -1,6 +1,7 @@
 package ua.ll7.slot7.ma.controller;
 
 import org.springframework.http.ResponseEntity;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.response.MAUserVOListResponse;
 
 /**
@@ -10,4 +11,6 @@ import ua.ll7.slot7.ma.data.response.MAUserVOListResponse;
  */
 public interface IAdminController {
 	public ResponseEntity<MAUserVOListResponse> userList();
+
+	public ResponseEntity<MAUserVOListResponse> userListPageable(UserListPageableRequest request);
 }

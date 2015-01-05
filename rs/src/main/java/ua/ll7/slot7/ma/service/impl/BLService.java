@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
 import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
+import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -57,6 +58,12 @@ public class BLService implements IBLService {
 	@Override
 	public List<UserVO> userList() {
 		return MAFactory.getUserVOList(userService.findAll());
+	}
+
+	@Override
+	public List<UserVO> userListPageable(UserListPageableRequest request) {
+		return MAFactory.getUserVOList(userService.findAllPageable(request.getData1(),
+												 request.getData2()));
 	}
 
 	@Override
