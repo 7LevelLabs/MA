@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.repository.ICategoryDao;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.User;
+import ua.ll7.slot7.ma.repository.ICategoryDao;
 import ua.ll7.slot7.ma.service.ICategoryService;
 
 import java.util.List;
@@ -49,6 +49,11 @@ public class CategoryServiceImpl implements ICategoryService {
   @Override
   public CategoryForTheUser findById(long id) {
     return dao.findOne(id);
+  }
+
+  @Override
+  public List<String> findPopularNames(long popIndex) {
+    return dao.getPopularCategoryNames(popIndex);
   }
 
   @Override

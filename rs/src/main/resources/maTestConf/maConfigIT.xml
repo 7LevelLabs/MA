@@ -78,4 +78,11 @@
         </hz:network>
     </hz:client>
 
+    <hz:config id="hzConfig">
+        <hz:map name="category_popular_names"
+                time-to-live-seconds="120"
+                eviction-percentage="10"
+                merge-policy="hz.ADD_NEW_ENTRY"/>
+    </hz:config>
+
 </beans>
