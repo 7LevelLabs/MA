@@ -20,6 +20,6 @@ public class ExpenseBuilderTest {
                          .build();
 
     assertEquals(expense.getExpenseAmount(), Money.of(CurrencyUnit.USD, 20));
-
+    
   }
 }
