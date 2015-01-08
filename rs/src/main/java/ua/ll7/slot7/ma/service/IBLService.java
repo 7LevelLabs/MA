@@ -1,10 +1,7 @@
 package ua.ll7.slot7.ma.service;
 
 import org.joda.money.CurrencyUnit;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
-import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.vo.ExpenseVO;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
@@ -43,4 +40,9 @@ public interface IBLService {
 	public Expense expenseCreateForCategoryUSD(ExpenseCreateRequest request);
 
 	public List<ExpenseVO> expenseList(ExpenseListPageableRequest request);
+
+	//CurrencyRate
+	public void currensyRateCreate(CurrensyRateCreateRequest request);
+
+	public float currensyRateCurrent(CurrencyRateCurrentRequest request);
 }

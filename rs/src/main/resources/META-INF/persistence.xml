@@ -7,6 +7,7 @@
         <class>ua.ll7.slot7.ma.model.User</class>
         <class>ua.ll7.slot7.ma.model.CategoryForTheUser</class>
         <class>ua.ll7.slot7.ma.model.Expense</class>
+        <class>ua.ll7.slot7.ma.model.CurrencyRate</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ma"/>

@@ -2,11 +2,9 @@ package ua.ll7.slot7.ma.controller;
 
 import org.springframework.http.ResponseEntity;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
-import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.response.MACategoryForTheUserVOListResponse;
+import ua.ll7.slot7.ma.data.response.MACurrencyRateCurrentResponse;
 import ua.ll7.slot7.ma.data.response.MAExpenseVOListResponse;
 
 /**
@@ -26,4 +24,6 @@ public interface IRegisteredUserController {
 
 	public ResponseEntity<MAExpenseVOListResponse> expenseList(ExpenseListPageableRequest request);
 
+	public ResponseEntity<MACurrencyRateCurrentResponse> currencyRateCurrent(CurrencyRateCurrentRequest request);
+	
 }

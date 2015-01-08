@@ -3,9 +3,11 @@ package ua.ll7.slot7.ma.util;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import ua.ll7.slot7.ma.data.vo.CategoryForTheUserVO;
+import ua.ll7.slot7.ma.data.vo.CurrencyRateVO;
 import ua.ll7.slot7.ma.data.vo.ExpenseVO;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
+import ua.ll7.slot7.ma.model.CurrencyRate;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 
@@ -93,6 +95,17 @@ public class MAFactory {
 		return result;
 	}
 
+	public static CurrencyRateVO getCurrencyRateVO(CurrencyRate currencyRate) {
+		CurrencyRateVO currencyRateVO = new CurrencyRateVO();
+
+		currencyRateVO.setCurrencyCode1(currencyRate.getCurrencyCode1());
+		currencyRateVO.setCurrencyCode2(currencyRate.getCurrencyCode2());
+		currencyRateVO.setRate(currencyRate.getRate());
+		currencyRateVO.setRegistered(currencyRate.getRegistered().getTime());
+
+		return currencyRateVO;
+	}
+
 	public static User getNewUserForTestsFS(String email,
 	                                        String nick,
 	                                        String name,
@@ -144,6 +157,16 @@ public class MAFactory {
 		category.getExpenses().add(result);
 
 		return result;
+	}
+
+	public static CurrencyRate getNewCurrencyRateFS(String c1Code, String c2Code, float rate) {
+		CurrencyRate currencyRate = new CurrencyRate();
+
+		currencyRate.setCurrencyCode1(c1Code);
+		currencyRate.setCurrencyCode2(c2Code);
+		currencyRate.setRate(rate);
+
+		return currencyRate;
 	}
 
 }

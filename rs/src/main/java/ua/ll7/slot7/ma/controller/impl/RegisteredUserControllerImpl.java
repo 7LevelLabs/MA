@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ua.ll7.slot7.ma.controller.IRegisteredUserController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
-import ua.ll7.slot7.ma.data.request.CategoryCreateRequest;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.response.MACategoryForTheUserVOListResponse;
+import ua.ll7.slot7.ma.data.response.MACurrencyRateCurrentResponse;
 import ua.ll7.slot7.ma.data.response.MAExpenseVOListResponse;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
@@ -174,6 +172,32 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 		}
 
 		response.setData1(blService.expenseList(request));
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = Constants.methodEndpointCurrencyRateGetCurrent,
+				 method = RequestMethod.GET,
+				 consumes = MediaType.APPLICATION_JSON_VALUE,
+				 produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MACurrencyRateCurrentResponse> currencyRateCurrent(
+				 @RequestBody
+				 CurrencyRateCurrentRequest request
+	) {
+
+		MACurrencyRateCurrentResponse response = new MACurrencyRateCurrentResponse();
+
+		try {
+			requestValidator.validate(request);
+		} catch (AppValidationException e) {
+			LOGGER.debug(e.getMessage());
+			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		response.setData1(blService.currensyRateCurrent(request));
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

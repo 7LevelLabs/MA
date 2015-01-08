@@ -28,85 +28,105 @@ import java.util.Date;
 @Component
 public class RequestValidatorImpl implements IRequestValidator {
 
-	@Autowired
-	private IUserService userService;
+  @Autowired
+  private IUserService userService;
 
-	@Autowired
-	private ICategoryService categoryService;
+  @Autowired
+  private ICategoryService categoryService;
 
-	@Autowired
-	private IBLService blService;
+  @Autowired
+  private IBLService blService;
 
-	@IntIntDGBothNotEmpty
-	@Override
-	public void validate(UserListPageableRequest request) throws AppValidationException {
+  @IntIntDGBothNotEmpty
+  @Override
+  public void validate(UserListPageableRequest request) throws AppValidationException {
 
-	}
+  }
 
-	@StringStringDGBothNotEmpty
-	@Override
-	public void validate(UserRegisterRequest request) throws AppValidationException {
-		if (userService.exist(request.getData1())) {
-			throw new AppValidationException("User already exists : " + request);
-		}
-	}
+  @StringStringDGBothNotEmpty
+  @Override
+  public void validate(UserRegisterRequest request) throws AppValidationException {
+    if (userService.exist(request.getData1())) {
+      throw new AppValidationException("User already exists : " + request);
+    }
+  }
 
-	@StringDGNotEmpty
-	@Override
-	public void validate(CategoryCreateRequest request, User user) throws AppValidationException {
-		if (categoryService.existCategoryByName(user, request.getData1())) {
-			throw new AppValidationException("User already exists : " + request);
-		}
-	}
+  @StringDGNotEmpty
+  @Override
+  public void validate(CategoryCreateRequest request, User user) throws AppValidationException {
+    if (categoryService.existCategoryByName(user, request.getData1())) {
+      throw new AppValidationException("User already exists : " + request);
+    }
+  }
 
-	@Override
-	public void validate(CategoryUpdateRequest request) throws AppValidationException {
-		if ((StringUtils.isBlank(request.getData1())) && (StringUtils.isBlank(request.getData2()))) {
-			throw new AppValidationException("Not valid request : " + request);
-		}
+  @Override
+  public void validate(CategoryUpdateRequest request) throws AppValidationException {
+    if ((StringUtils.isBlank(request.getData1())) && (StringUtils.isBlank(request.getData2()))) {
+      throw new AppValidationException("Not valid request : " + request);
+    }
 
-		if (!categoryService.exist(request.getData3())) {
-			throw new AppValidationException("Category is not exist : " + request);
-		}
-	}
+    if (!categoryService.exist(request.getData3())) {
+      throw new AppValidationException("Category is not exist : " + request);
+    }
+  }
 
-	@Override
-	public void validate(ExpenseCreateRequest request, User user) throws AppValidationException, AppDataIntegrityException {
-		//check category - is it belongs to the user?
-		if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData0()), user)) {
-			throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
-		}
+  @Override
+  public void validate(ExpenseCreateRequest request, User user) throws AppValidationException, AppDataIntegrityException {
+    //check category - is it belongs to the user?
+    if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData0()), user)) {
+      throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
+    }
 
-		//check date sign
-		if (StringUtils.isBlank(request.getData1())) {
-			throw new AppValidationException("Activity date must be not empty : " + request);
-		}
+    //check date sign
+    if (StringUtils.isBlank(request.getData1())) {
+      throw new AppValidationException("Activity date must be not empty : " + request);
+    }
 
-		SimpleDateFormat formatter = new SimpleDateFormat(Constants.dateFormatString);
-		Date actionDate;
+    SimpleDateFormat formatter = new SimpleDateFormat(Constants.dateFormatString);
+    Date actionDate;
 
-		try {
-			actionDate = formatter.parse(request.getData1());
-		} catch (ParseException ignore) {
-			throw new AppValidationException("Activity date sign must be formatted as follows : "
-													 + Constants.divider
-													 + request.getData1()
-													 + Constants.divider
-													 + request);
-		}
+    try {
+      actionDate = formatter.parse(request.getData1());
+    } catch (ParseException ignore) {
+      throw new AppValidationException("Activity date sign must be formatted as follows : "
+                                              + Constants.divider
+                                              + request.getData1()
+                                              + Constants.divider
+                                              + request);
+    }
 
-		//check currency amount
-		if (request.getData3() == 0) {
-			throw new AppValidationException("Expense amount must be > 0 : " + request);
-		}
-	}
+    //check currency amount
+    if (request.getData3() == 0) {
+      throw new AppValidationException("Expense amount must be > 0 : " + request);
+    }
+  }
 
-	@IntIntDGBothNotEmpty
-	@Override
-	public void validate(ExpenseListPageableRequest request, User user) throws AppValidationException, AppDataIntegrityException {
-		//check category - is it belongs to the user?
-		if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData3()), user)) {
-			throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
-		}
-	}
+  @IntIntDGBothNotEmpty
+  @Override
+  public void validate(ExpenseListPageableRequest request, User user) throws AppValidationException, AppDataIntegrityException {
+    //check category - is it belongs to the user?
+    if (!blService.isCategoryBelongToTheUser(categoryService.findById(request.getData3()), user)) {
+      throw new AppDataIntegrityException("The category is not belongs to the user : " + request);
+    }
+  }
+
+  @StringStringDGBothNotEmpty
+  @Override
+  public void validate(CurrensyRateCreateRequest request) throws AppValidationException {
+    //TODO implement
+    //check data1 & data2 for currency code pattern
+
+    //check rate for rate pattern
+    if (request.getData3() < 0) {
+      throw new AppValidationException("Expense amount must be > 0 : " + request);
+    }
+  }
+
+  @StringStringDGBothNotEmpty
+  @Override
+  public void validate(CurrencyRateCurrentRequest request) throws AppValidationException {
+    //TODO implement
+    //check data1 & data2 for currency code pattern
+
+  }
 }

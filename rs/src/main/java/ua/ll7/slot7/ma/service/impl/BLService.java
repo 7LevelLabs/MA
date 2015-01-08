@@ -8,19 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseCreateRequest;
-import ua.ll7.slot7.ma.data.request.ExpenseListPageableRequest;
-import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.vo.ExpenseVO;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
-import ua.ll7.slot7.ma.service.IBLService;
-import ua.ll7.slot7.ma.service.ICategoryService;
-import ua.ll7.slot7.ma.service.IExpenseService;
-import ua.ll7.slot7.ma.service.IUserService;
+import ua.ll7.slot7.ma.service.*;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
 
@@ -34,102 +28,117 @@ import java.util.List;
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class BLService implements IBLService {
 
-	private static final Logger LOGGER = Logger.getLogger(BLService.class);
+  private static final Logger LOGGER = Logger.getLogger(BLService.class);
 
-	@Autowired
-	private IUserService userService;
+  @Autowired
+  private IUserService userService;
 
-	@Autowired
-	private ICategoryService categoryService;
+  @Autowired
+  private ICategoryService categoryService;
 
-	@Autowired
-	private IExpenseService expenseService;
+  @Autowired
+  private IExpenseService expenseService;
 
-	@Override
-	public long userCreate(String email, String password) {
-		// create new user
-		User user = new User();
-		user.setEmail(email);
-		user.setPassword(password);
-		userService.save(user);
+  @Autowired
+  private ICurrencyRateService currencyRateService;
 
-		//send emails
-		return user.getId();
-	}
+  @Override
+  public long userCreate(String email, String password) {
+    // create new user
+    User user = new User();
+    user.setEmail(email);
+    user.setPassword(password);
+    userService.save(user);
 
-	@Override
-	public List<UserVO> userList() {
-		return MAFactory.getUserVOList(userService.findAll());
-	}
+    //send emails
+    return user.getId();
+  }
 
-	@Override
-	public List<UserVO> userListPageable(UserListPageableRequest request) {
-		return MAFactory.getUserVOList(userService.findAllPageable(request.getData1(),
-												 request.getData2()));
-	}
+  @Override
+  public List<UserVO> userList() {
+    return MAFactory.getUserVOList(userService.findAll());
+  }
 
-	@Override
-	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
-		CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
-												 categoryName,
-												 categoryDescription);
+  @Override
+  public List<UserVO> userListPageable(UserListPageableRequest request) {
+    return MAFactory.getUserVOList(userService.findAllPageable(request.getData1(),
+                                                               request.getData2()));
+  }
 
-		categoryService.save(categoryForTheUser);
+  @Override
+  public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
+    CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
+                                                                       categoryName,
+                                                                       categoryDescription);
 
-		return categoryForTheUser;
-	}
+    categoryService.save(categoryForTheUser);
 
-	@Override
-	public List<CategoryForTheUser> categoryListForTheUser(User user) {
-		return categoryService.findByUser(user);
-	}
+    return categoryForTheUser;
+  }
 
-	@Override
-	public void categoryUpdate(CategoryUpdateRequest request) {
-		CategoryForTheUser categoryForTheUser = categoryService.findById(request.getData3());
+  @Override
+  public List<CategoryForTheUser> categoryListForTheUser(User user) {
+    return categoryService.findByUser(user);
+  }
 
-		if (StringUtils.isNotBlank(request.getData1())) {
-			categoryForTheUser.setName(request.getData1());
-		}
+  @Override
+  public void categoryUpdate(CategoryUpdateRequest request) {
+    CategoryForTheUser categoryForTheUser = categoryService.findById(request.getData3());
 
-		if (StringUtils.isNotBlank(request.getData2())) {
-			categoryForTheUser.setName(request.getData2());
-		}
-	}
+    if (StringUtils.isNotBlank(request.getData1())) {
+      categoryForTheUser.setName(request.getData1());
+    }
 
-	@Override
-	public boolean isCategoryBelongToTheUser(CategoryForTheUser category, User user) {
-		return userService.findById(category.getUser().getId()).equals(user);
-	}
+    if (StringUtils.isNotBlank(request.getData2())) {
+      categoryForTheUser.setName(request.getData2());
+    }
+  }
 
-	@Override
-	public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, float amount, String dateSign) {
-		Expense result = new ExpenseBuilder(category, amount)
-												 .withActionDateSign(dateSign)
-												 .withAmount(currencyUnit, amount)
-												 .build();
-		expenseService.save(result);
-		return result;
-	}
+  @Override
+  public boolean isCategoryBelongToTheUser(CategoryForTheUser category, User user) {
+    return userService.findById(category.getUser().getId()).equals(user);
+  }
 
-	@Override
-	public Expense expenseCreateForCategoryUSD(CategoryForTheUser category, float amount, String dateSign) {
-		return expenseCreateForCategory(category, CurrencyUnit.USD, amount, dateSign);
-	}
+  @Override
+  public Expense expenseCreateForCategory(CategoryForTheUser category, CurrencyUnit currencyUnit, float amount, String dateSign) {
+    Expense result = new ExpenseBuilder(category, amount)
+           .withActionDateSign(dateSign)
+           .withAmount(currencyUnit, amount)
+           .build();
+    expenseService.save(result);
+    return result;
+  }
 
-	@Override
-	public Expense expenseCreateForCategoryUSD(ExpenseCreateRequest request) {
-		return expenseCreateForCategoryUSD(categoryService.findById(request.getData0()),
-												 request.getData3(),
-												 request.getData1());
-	}
+  @Override
+  public Expense expenseCreateForCategoryUSD(CategoryForTheUser category, float amount, String dateSign) {
+    return expenseCreateForCategory(category, CurrencyUnit.USD, amount, dateSign);
+  }
 
-	@Override
-	public List<ExpenseVO> expenseList(ExpenseListPageableRequest request) {
-		return MAFactory.getExpenseVOList(expenseService.findByCategoryPageable(
-												 categoryService.findById(request.getData3()),
-												 request.getData1(),
-												 request.getData2()
-		));
-	}
+  @Override
+  public Expense expenseCreateForCategoryUSD(ExpenseCreateRequest request) {
+    return expenseCreateForCategoryUSD(categoryService.findById(request.getData0()),
+                                       request.getData3(),
+                                       request.getData1());
+  }
+
+  @Override
+  public List<ExpenseVO> expenseList(ExpenseListPageableRequest request) {
+    return MAFactory.getExpenseVOList(expenseService.findByCategoryPageable(
+           categoryService.findById(request.getData3()),
+           request.getData1(),
+           request.getData2()
+    ));
+  }
+
+  @Override
+  public void currensyRateCreate(CurrensyRateCreateRequest request) {
+    currencyRateService.save(MAFactory.getNewCurrencyRateFS(request.getData1(),
+                                                            request.getData2(),
+                                                            request.getData3()));
+  }
+
+  @Override
+  public float currensyRateCurrent(CurrencyRateCurrentRequest request) {
+    return currencyRateService.getCurrentCurrencyRate(request.getData1(), request.getData2());
+  }
 }

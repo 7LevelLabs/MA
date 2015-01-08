@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.ll7.slot7.ma.controller.IAdminController;
 import ua.ll7.slot7.ma.data.Constants;
+import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
+import ua.ll7.slot7.ma.data.request.CurrensyRateCreateRequest;
 import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.response.MAUserVOListResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
@@ -72,5 +74,30 @@ public class AdminControllerImpl implements IAdminController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@Override
+	@RequestMapping(value = Constants.methodEndpointCurrencyRateCreate,
+				 method = RequestMethod.PUT,
+				 consumes = MediaType.APPLICATION_JSON_VALUE,
+				 produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MAGenericResponse> currencyRateCreate(
+				 @RequestBody
+				 CurrensyRateCreateRequest request
+	) {
+
+		MAGenericResponse response = new MAGenericResponse();
+
+		try {
+			requestValidator.validate(request);
+		} catch (AppValidationException e) {
+			LOGGER.debug(e.getMessage());
+			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		blService.currensyRateCreate(request);
+		
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 }

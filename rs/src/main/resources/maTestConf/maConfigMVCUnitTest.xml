@@ -28,6 +28,10 @@
         <constructor-arg value="ua.ll7.slot7.ma.service.IUserService"/>
     </bean>
 
+    <bean id="currencyRateServiceMock" name="currencyRateService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="ua.ll7.slot7.ma.service.ICurrencyRateService"/>
+    </bean>
+
     <bean id="blServiceMock" name="blService" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="ua.ll7.slot7.ma.service.IBLService"/>
     </bean>
