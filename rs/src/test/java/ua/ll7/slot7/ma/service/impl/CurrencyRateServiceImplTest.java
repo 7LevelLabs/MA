@@ -105,7 +105,7 @@ public class CurrencyRateServiceImplTest {
     currencyRateService.save(cr3);
 
     float crLast = currencyRateService.getCurrentCurrencyRate("USD",
-                                                              "UAH");
+                                                              "UAH").getRate();
 
     assertEquals(crLast, 18.51F, 0.0001F);
 

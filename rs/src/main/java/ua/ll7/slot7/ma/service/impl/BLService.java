@@ -139,6 +139,6 @@ public class BLService implements IBLService {
 
   @Override
   public float currensyRateCurrent(CurrencyRateCurrentRequest request) {
-    return currencyRateService.getCurrentCurrencyRate(request.getData1(), request.getData2());
+    return currencyRateService.getCurrentCurrencyRate(request.getData1(), request.getData2()).getRate();
   }
 }

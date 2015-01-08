@@ -1,6 +1,8 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ua.ll7.slot7.ma.model.CurrencyRate;
 import ua.ll7.slot7.ma.repository.ICurrencyRateRepository;
@@ -22,6 +24,7 @@ public class CurrencyRateServiceImpl implements ICurrencyRateService {
   @Autowired
   private ICurrencyRateRepositoryCustom currencyRateRepositoryCustom;
 
+  @CacheEvict("currency_rates")
   @Override
   public void save(CurrencyRate currencyRate) {
     currencyRateRepository.save(currencyRate);
@@ -32,9 +35,9 @@ public class CurrencyRateServiceImpl implements ICurrencyRateService {
     return currencyRateRepository.getCurrencyRates(c1, c2);
   }
 
+  @Cacheable("currency_rates")
   @Override
-  public float getCurrentCurrencyRate(String c1, String c2) {
-    CurrencyRate currencyRate = currencyRateRepositoryCustom.getCurrentCurrencyRate(c1, c2);
-    return currencyRate.getRate();
+  public CurrencyRate getCurrentCurrencyRate(String c1, String c2) {
+    return currencyRateRepositoryCustom.getCurrentCurrencyRate(c1, c2);
   }
 }

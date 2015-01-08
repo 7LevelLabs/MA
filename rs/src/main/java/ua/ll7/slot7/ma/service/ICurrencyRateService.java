@@ -14,5 +14,5 @@ public interface ICurrencyRateService {
 
   public List<CurrencyRate> getCurrencyRates(String c1, String c2);
 
-  public float getCurrentCurrencyRate(String c1, String c2);
+  public CurrencyRate getCurrentCurrencyRate(String c1, String c2);
 }
