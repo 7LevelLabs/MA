@@ -12,6 +12,14 @@
     <artifactId>rs</artifactId>
     <packaging>war</packaging>
 
+    <repositories>
+        <repository>
+            <id>typesafe</id>
+            <name>Typesafe Repository</name>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -34,8 +42,6 @@
     </build>
 
     <dependencies>
-
-        <!--SpC model-->
 
         <dependency>
             <groupId>ua.ll7.slot7.ma</groupId>
@@ -375,6 +381,25 @@
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-all</artifactId>
             <version>${hazelcast.version}</version>
+        </dependency>
+
+        <!-- Akka -->
+        <dependency>
+            <groupId>se.scalablesolutions.akka</groupId>
+            <artifactId>akka-actor</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>se.scalablesolutions.akka</groupId>
+            <artifactId>akka-typed-actor</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>se.scalablesolutions.akka</groupId>
+            <artifactId>akka-spring</artifactId>
+            <version>${akka.version}</version>
         </dependency>
 
     </dependencies>
