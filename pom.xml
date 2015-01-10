@@ -64,6 +64,7 @@
 
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
         <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
+        <maven-site-plugin.vertion>3.4</maven-site-plugin.vertion>
 
         <metrics.version>3.0.2</metrics.version>
         <primefaces.version>5.1</primefaces.version>
@@ -204,6 +205,12 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.vertion}</version>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -246,5 +253,44 @@
         </dependency>
 
     </dependencies>
+
+    <!-- More Project Information -->
+    <name>MA</name>
+    <description>MA - personal expenses accounting</description>
+    <url>https://github.com/7LevelLabs/MA</url>
+    <inceptionYear>2014</inceptionYear>
+    <licenses>
+        <license>
+            <name>Creative Commons Attribution-ShareAlike 4.0 International License</name>
+            <url>https://creativecommons.org/licenses/by-sa/4.0/</url>
+        </license>
+    </licenses>
+    <organization>
+        <name>7LevelLabs</name>
+        <url>http://7levellabs.com</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>Alex</id>
+            <name>Alex Velichko</name>
+            <email>alex.velichko.kyiv@gmail.com</email>
+            <organization>7LevelLabs</organization>
+            <organizationUrl>http://7levellabs.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+2</timezone>
+        </developer>
+    </developers>
+
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>Github Issues</system>
+        <url>https://github.com/7LevelLabs/MA/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/7LevelLabs/MA</url>
+    </ciManagement>
 
 </project>
