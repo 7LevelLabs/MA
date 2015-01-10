@@ -4,7 +4,9 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:akka="http://akka.io/schema/akka"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
              http://www.springframework.org/schema/beans/spring-beans.xsd
              http://www.springframework.org/schema/context
@@ -14,7 +16,12 @@
              http://www.springframework.org/schema/jdbc
              http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
              http://www.springframework.org/schema/data/jpa
-             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+             http://www.springframework.org/schema/aop
+             http://www.springframework.org/schema/aop/spring-aop.xsd
+             http://akka.io/schema/akka
+             http://akka.io/akka-1.3.1.xsd
+             ">
 
     <context:property-placeholder location="classpath:ma.test.it.properties"/>
 
@@ -59,5 +66,12 @@
             </value>
         </property>
     </bean>
+
+    <akka:typed-actor
+            id="serviceActor"
+            interface="ua.ll7.slot7.ma.actor.IServiceActor"
+            implementation="ua.ll7.slot7.ma.actor.impl.ServiceActorImpl"
+            scope="prototype"
+            timeout="1000"/>
 
 </beans>

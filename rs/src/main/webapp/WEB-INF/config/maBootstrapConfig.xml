@@ -20,6 +20,7 @@
     <!--import specific settings-->
 
     <import resource="maConfigData.xml"/>
+    <import resource="maConfigAkka.xml"/>
     <import resource="maConfigViewIndex.xml"/>
     <import resource="maConfigQuartz.xml"/>
     <import resource="maConfigValidator.xml"/>
