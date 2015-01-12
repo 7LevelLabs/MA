@@ -74,4 +74,18 @@
             scope="prototype"
             timeout="1000"/>
 
+    <akka:typed-actor
+            id="blActor"
+            interface="ua.ll7.slot7.ma.actor.IBLActor"
+            implementation="ua.ll7.slot7.ma.actor.impl.BLActorImpl"
+            scope="prototype"
+            timeout="1000"/>
+
+    <akka:dispatcher id="maDispatcher"
+                     type="executor-based-event-driven"
+                     name="maDispatcher">
+        <akka:thread-pool queue="unbounded-linked-blocking-queue"
+                          capacity="100"/>
+    </akka:dispatcher>
+
 </beans>

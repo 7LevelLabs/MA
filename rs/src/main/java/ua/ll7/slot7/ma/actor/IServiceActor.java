@@ -6,4 +6,6 @@ package ua.ll7.slot7.ma.actor;
  */
 public interface IServiceActor {
   public void processData(String data);
+
+  public String processWithResonse(String data);
 }

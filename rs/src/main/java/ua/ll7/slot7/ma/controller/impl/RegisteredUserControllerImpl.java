@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.controller.IRegisteredUserController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
@@ -21,7 +22,6 @@ import ua.ll7.slot7.ma.data.response.MAExpenseVOListResponse;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
-import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.MAStatusCode;
@@ -44,16 +44,16 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 	private IUserService userService;
 
 	@Autowired
-	private IBLService blService;
+	private IBLActor blActor;
 
 	@Override
 	@RequestMapping(value = Constants.methodEndpointCategoryCreate,
-											 method = RequestMethod.PUT,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
+				 method = RequestMethod.PUT,
+				 consumes = MediaType.APPLICATION_JSON_VALUE,
+				 produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MAGenericResponse> categoryCreate(
-											 @RequestBody
-											 CategoryCreateRequest request
+				 @RequestBody
+				 CategoryCreateRequest request
 	) {
 
 		MAGenericResponse response = new MAGenericResponse();
@@ -69,19 +69,19 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blService.categoryCreateForUser(user, request.getData1(), "");
+		blActor.categoryCreateForUser(user, request.getData1(), "");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = Constants.methodEndpointCategoryUpdate,
-											 method = RequestMethod.PUT,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
+				 method = RequestMethod.PUT,
+				 consumes = MediaType.APPLICATION_JSON_VALUE,
+				 produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MAGenericResponse> categoryUpdate(
-											 @RequestBody
-											 CategoryUpdateRequest request
+				 @RequestBody
+				 CategoryUpdateRequest request
 	) {
 		MAGenericResponse response = new MAGenericResponse();
 
@@ -94,7 +94,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blService.categoryUpdate(request);
+		blActor.categoryUpdate(request);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -109,7 +109,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 		MACategoryForTheUserVOListResponse response = new MACategoryForTheUserVOListResponse();
 		User user = getCurrentlyPrincipal();
 
-		response.setData1(MAFactory.getCategoryForTheUserVOList(blService.categoryListForTheUser(user)));
+		response.setData1(MAFactory.getCategoryForTheUserVOList(blActor.categoryListForTheUser(user)));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -140,7 +140,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blService.expenseCreateForCategoryUSD(request);
+		blActor.expenseCreateForCategoryUSD(request);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -171,7 +171,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		response.setData1(blService.expenseList(request));
+		response.setData1(blActor.expenseList(request));
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -197,7 +197,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		response.setData1(blService.currensyRateCurrent(request));
+		response.setData1(blActor.currensyRateCurrent(request));
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

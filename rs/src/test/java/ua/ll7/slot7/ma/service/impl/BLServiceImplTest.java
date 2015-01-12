@@ -25,7 +25,7 @@ import java.util.List;
 @ContextConfiguration("classpath:maTestConf/maConfigTest.xml")
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-public class BLServiceTest extends Assert {
+public class BLServiceImplTest extends Assert {
 
   @Autowired
   private IBLService blService;

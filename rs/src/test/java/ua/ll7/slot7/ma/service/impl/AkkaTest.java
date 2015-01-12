@@ -1,5 +1,6 @@
 package ua.ll7.slot7.ma.service.impl;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,15 @@ import ua.ll7.slot7.ma.actor.IServiceActor;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class AkkaTest {
 
+  private static final Logger LOGGER = Logger.getLogger(AkkaTest.class);
+
   @Autowired
   private IServiceActor serviceActor;
 
   @Test
   public void testTestProcessData() {
     serviceActor.processData("Ku-ku");
-
+    String resp1 = serviceActor.processWithResonse("Ku-ku");
+    LOGGER.info(resp1);
   }
-
 }

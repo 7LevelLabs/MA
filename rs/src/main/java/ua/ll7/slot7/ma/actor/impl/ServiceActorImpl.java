@@ -16,4 +16,9 @@ public class ServiceActorImpl extends TypedActor implements IServiceActor {
   public void processData(String data) {
     LOGGER.info(data);
   }
+
+  @Override
+  public String processWithResonse(String data) {
+    return Thread.currentThread().getName() + " : " + data;
+  }
 }

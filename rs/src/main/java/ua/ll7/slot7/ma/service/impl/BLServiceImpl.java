@@ -26,9 +26,9 @@ import java.util.List;
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class BLService implements IBLService {
+public class BLServiceImpl implements IBLService {
 
-  private static final Logger LOGGER = Logger.getLogger(BLService.class);
+  private static final Logger LOGGER = Logger.getLogger(BLServiceImpl.class);
 
   @Autowired
   private IUserService userService;

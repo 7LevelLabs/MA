@@ -40,4 +40,8 @@
         <constructor-arg value="ua.ll7.slot7.ma.validator.IRequestValidator"/>
     </bean>
 
+    <bean id="actorBLMock" name="actorBL" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="ua.ll7.slot7.ma.actor.IBLActor"/>
+    </bean>
+
 </beans>

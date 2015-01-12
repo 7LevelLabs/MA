@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.controller.IAnonymousController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.data.response.MALongResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
-import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
@@ -33,16 +33,16 @@ public class AnonymousControllerImpl implements IAnonymousController {
 	private IRequestValidator requestValidator;
 
 	@Autowired
-	private IBLService blService;
+	private IBLActor blActor;
 
 	@Override
 	@RequestMapping(value = Constants.methodEndpointUserCreate,
-											 method = RequestMethod.PUT,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
+				 method = RequestMethod.PUT,
+				 consumes = MediaType.APPLICATION_JSON_VALUE,
+				 produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MALongResponse> registerNewUser(
-											 @RequestBody
-											 UserRegisterRequest request
+				 @RequestBody
+				 UserRegisterRequest request
 	) {
 		MALongResponse response = new MALongResponse();
 
@@ -54,7 +54,7 @@ public class AnonymousControllerImpl implements IAnonymousController {
 			response.setMessage(e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
-		response.setData1(blService.userCreate(request.getData1(), request.getData2()));
+		response.setData1(blActor.userCreate(request.getData1(), request.getData2()));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
