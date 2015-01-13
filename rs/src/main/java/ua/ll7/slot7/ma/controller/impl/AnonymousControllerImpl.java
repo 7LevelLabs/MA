@@ -1,7 +1,9 @@
 package ua.ll7.slot7.ma.controller.impl;
 
+import akka.actor.ActorRef;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ua.ll7.slot7.ma.actor.IBLActor;
+import ua.ll7.slot7.ma.configuration.ActorsBootstrap;
 import ua.ll7.slot7.ma.controller.IAnonymousController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
@@ -33,7 +35,8 @@ public class AnonymousControllerImpl implements IAnonymousController {
 	private IRequestValidator requestValidator;
 
 	@Autowired
-	private IBLActor blActor;
+	@Qualifier(ActorsBootstrap.BL_ACTOR)
+	private ActorRef blActor;
 
 	@Override
 	@RequestMapping(value = Constants.methodEndpointUserCreate,
@@ -55,7 +58,7 @@ public class AnonymousControllerImpl implements IAnonymousController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blActor.userCreate(request);
+		blActor.tell(request);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

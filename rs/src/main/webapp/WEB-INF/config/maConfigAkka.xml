@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:akka="http://akka.io/schema/akka"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://akka.io/schema/akka
-       http://akka.io/akka-1.3.1.xsd
        ">
-
-    <akka:typed-actor
-            id="serviceActor"
-            interface="ua.ll7.slot7.ma.actor.IServiceActor"
-            implementation="ua.ll7.slot7.ma.actor.impl.ServiceActorImpl"
-            scope="prototype"
-            timeout="1000"/>
-
-    <akka:typed-actor
-            id="blActor"
-            interface="ua.ll7.slot7.ma.actor.IBLActor"
-            implementation="ua.ll7.slot7.ma.actor.impl.BLActorImpl"
-            scope="prototype"
-            timeout="1000"/>
-
-    <akka:dispatcher id="maDispatcher"
-                     type="executor-based-event-driven"
-                     name="maDispatcher">
-        <akka:thread-pool queue="unbounded-linked-blocking-queue"
-                          capacity="100"/>
-    </akka:dispatcher>
 
 </beans>
