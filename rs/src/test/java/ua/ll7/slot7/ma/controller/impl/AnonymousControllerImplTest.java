@@ -18,11 +18,10 @@ import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.util.TestUtil;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
-import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:maTestConf/maConfigMVCUnitTest.xml", "classpath:maTestConf/maConfigWebControllersTest.xml"})
@@ -56,7 +55,7 @@ public class AnonymousControllerImplTest {
 		request.setData2("password");
 
 		//setting up blServiceMock behavior
-		doNothing().when(blActorMock).userCreate(any(String.class), any(String.class));
+		doNothing().when(blActorMock).userCreate(any(UserRegisterRequest.class));
 
 		//setting up requestValidatorMock behavior
 		//void
@@ -66,11 +65,9 @@ public class AnonymousControllerImplTest {
 													 .contentType(MediaType.APPLICATION_JSON)
 													 .content(TestUtil.convertObjectToJsonBytes(request))
 		)
-					 .andExpect(status().isOk())
-					 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-					 .andExpect(jsonPath("$.data1", is(1)));
+					 .andExpect(status().isOk());
 
-		verify(blActorMock, times(1)).userCreate(any(String.class), any(String.class));
+		verify(blActorMock, times(1)).userCreate(any(UserRegisterRequest.class));
 		verifyNoMoreInteractions(blActorMock);
 	}
 

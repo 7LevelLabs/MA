@@ -29,7 +29,6 @@ public class RequestValidatorImplTest {
     request.setData2("");
 
     requestValidator.validate(request);
-
   }
 
   @Test(expected = AppValidationException.class)
@@ -51,27 +50,29 @@ public class RequestValidatorImplTest {
   }
 
   @Test(expected = AppValidationException.class)
-  public void testValidateCategoryUpdateRequest() throws Exception {
+  public void testValidateCategoryUpdateRequestNotValid() throws Exception {
     CategoryUpdateRequest request = new CategoryUpdateRequest();
-    request.setData1("");
-    request.setData2("");
     request.setData3(1);
 
-    requestValidator.validate(request);
-
     request.setData1("Ku");
     request.setData2("");
 
     requestValidator.validate(request);
 
     request.setData1("");
-    request.setData2("Ku");
-
-    requestValidator.validate(request);
-
-    request.setData1("Ku");
     request.setData2("Ku");
 
     requestValidator.validate(request);
   }
+
+  @Test(expected = AppValidationException.class)
+  public void testValidateCategoryUpdateRequestNotValidCategoryNotExist() throws Exception {
+    CategoryUpdateRequest request = new CategoryUpdateRequest();
+    request.setData1("Ku");
+    request.setData2("Ku");
+    request.setData3(1);
+
+    requestValidator.validate(request);
+  }
+
 }

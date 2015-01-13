@@ -43,10 +43,10 @@ public class BLServiceImpl implements IBLService {
   private ICurrencyRateService currencyRateService;
 
   @Override
-  public void userCreate(String email, String password) {
+  public void userCreate(UserRegisterRequest request) {
     User user = new User();
-    user.setEmail(email);
-    user.setPassword(password);
+    user.setEmail(request.getData1());
+    user.setPassword(request.getData2());
     userService.save(user);
 
     //TODO send emails

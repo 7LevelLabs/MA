@@ -54,6 +54,9 @@ public class AnonymousControllerImpl implements IAnonymousController {
 			response.setMessage(e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
+
+		blActor.userCreate(request);
+
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

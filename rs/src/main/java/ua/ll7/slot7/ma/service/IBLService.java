@@ -17,7 +17,7 @@ import java.util.List;
 public interface IBLService {
 
 	//User
-	public void userCreate(String email, String password);
+	public void userCreate(UserRegisterRequest request);
 
 	public List<UserVO> userList();
 
