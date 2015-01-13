@@ -15,7 +15,6 @@ import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
-import ua.ll7.slot7.ma.util.LogAround;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
@@ -36,7 +35,6 @@ public class AnonymousControllerImpl implements IAnonymousController {
 	@Autowired
 	private IBLActor blActor;
 
-	@LogAround
 	@Override
 	@RequestMapping(value = Constants.methodEndpointUserCreate,
 				 method = RequestMethod.PUT,

@@ -27,6 +27,7 @@
         <property name="sender" value="${mail.username}"/>
     </bean>
 
+    <!--logging-->
     <bean class="ua.ll7.slot7.ma.util.LogAroundAspect"/>
 
 </beans>

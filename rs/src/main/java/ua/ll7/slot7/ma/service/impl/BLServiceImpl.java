@@ -15,6 +15,7 @@ import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.*;
+import ua.ll7.slot7.ma.util.LogAround;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
 
@@ -42,6 +43,7 @@ public class BLServiceImpl implements IBLService {
   @Autowired
   private ICurrencyRateService currencyRateService;
 
+  @LogAround
   @Override
   public void userCreate(UserRegisterRequest request) {
     User user = new User();

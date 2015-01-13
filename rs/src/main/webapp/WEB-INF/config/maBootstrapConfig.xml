@@ -13,9 +13,8 @@
     <context:property-placeholder
             location="classpath:ma.runtime.properties,classpath:ma.runtime.magic.properties"/>
 
-    <aop:aspectj-autoproxy/>
-
     <context:annotation-config/>
+    <aop:aspectj-autoproxy/>
 
     <!--import specific settings-->
 
