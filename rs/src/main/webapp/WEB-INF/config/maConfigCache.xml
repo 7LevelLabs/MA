@@ -22,11 +22,4 @@
         </hz:network>
     </hz:client>
 
-    <hz:config>
-        <hz:map name="currency_rates"
-                time-to-live-seconds="60"
-                eviction-percentage="10"
-                merge-policy="hz.ADD_NEW_ENTRY"/>
-    </hz:config>
-
 </beans>

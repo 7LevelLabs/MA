@@ -15,12 +15,11 @@ case $target in
     ;;
 
     dev-deploy-local)
-    mvn clean package site -P dev -e
+    mvn clean package package -P dev -e
     echo "Deploy..."
     cp $artefactLocation/$artefactName $CATALINA_BASE/webapps
     ;;
 
 esac
-
 
 echo "Done."

@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.model.CurrencyRate;
 import ua.ll7.slot7.ma.repository.ICurrencyRateRepository;
 import ua.ll7.slot7.ma.repository.custom.ICurrencyRateRepositoryCustom;
@@ -16,6 +19,7 @@ import java.util.List;
  *         on 08.01.15 : 14:10
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class CurrencyRateServiceImpl implements ICurrencyRateService {
 
   @Autowired
