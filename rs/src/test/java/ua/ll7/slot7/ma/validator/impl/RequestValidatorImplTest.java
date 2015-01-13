@@ -33,6 +33,24 @@ public class RequestValidatorImplTest {
   }
 
   @Test(expected = AppValidationException.class)
+  public void testValidateUserRegisterRequestInvalidEMail() throws Exception {
+    UserRegisterRequest request = new UserRegisterRequest();
+    request.setData1("test");
+    request.setData2("test");
+
+    requestValidator.validate(request);
+  }
+
+  @Test
+  public void testValidateUserRegisterRequestValidEMail() throws Exception {
+    UserRegisterRequest request = new UserRegisterRequest();
+    request.setData1("_test_@test.com");
+    request.setData2("test");
+
+    requestValidator.validate(request);
+  }
+
+  @Test(expected = AppValidationException.class)
   public void testValidateCategoryUpdateRequest() throws Exception {
     CategoryUpdateRequest request = new CategoryUpdateRequest();
     request.setData1("");

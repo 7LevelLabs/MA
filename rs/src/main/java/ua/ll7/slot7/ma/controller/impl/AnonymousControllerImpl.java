@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.controller.IAnonymousController;
 import ua.ll7.slot7.ma.data.Constants;
+import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
-import ua.ll7.slot7.ma.data.response.MALongResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
@@ -40,11 +40,11 @@ public class AnonymousControllerImpl implements IAnonymousController {
 				 method = RequestMethod.PUT,
 				 consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MALongResponse> registerNewUser(
+	public ResponseEntity<MAGenericResponse> registerNewUser(
 				 @RequestBody
 				 UserRegisterRequest request
 	) {
-		MALongResponse response = new MALongResponse();
+		MAGenericResponse response = new MAGenericResponse();
 
 		try {
 			requestValidator.validate(request);
@@ -54,7 +54,6 @@ public class AnonymousControllerImpl implements IAnonymousController {
 			response.setMessage(e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
-		response.setData1(blActor.userCreate(request.getData1(), request.getData2()));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

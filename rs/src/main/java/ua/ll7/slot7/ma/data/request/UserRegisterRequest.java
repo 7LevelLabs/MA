@@ -9,4 +9,8 @@ import ua.ll7.slot7.ma.data.generic.StringStringDG;
  */
 public class UserRegisterRequest extends StringStringDG {
 
+  @Override
+  public String toString() {
+    return "UserRegisterRequest{} " + super.toString();
+  }
 }

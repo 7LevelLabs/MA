@@ -24,8 +24,8 @@ public class BLActorImpl extends TypedActor implements IBLActor {
   private IBLService blService;
 
   @Override
-  public long userCreate(String email, String password) {
-    return blService.userCreate(email, password);
+  public void userCreate(String email, String password) {
+    blService.userCreate(email, password);
   }
 
   @Override

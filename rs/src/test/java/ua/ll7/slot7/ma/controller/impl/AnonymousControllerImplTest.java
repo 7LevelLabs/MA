@@ -56,7 +56,7 @@ public class AnonymousControllerImplTest {
 		request.setData2("password");
 
 		//setting up blServiceMock behavior
-		when(blActorMock.userCreate(any(String.class), any(String.class))).thenReturn(1L);
+		doNothing().when(blActorMock).userCreate(any(String.class), any(String.class));
 
 		//setting up requestValidatorMock behavior
 		//void

@@ -17,7 +17,7 @@ import java.util.List;
 public interface IBLActor {
 
   //User
-  public long userCreate(String email, String password);
+  public void userCreate(String email, String password);
 
   public List<UserVO> userList();
 
