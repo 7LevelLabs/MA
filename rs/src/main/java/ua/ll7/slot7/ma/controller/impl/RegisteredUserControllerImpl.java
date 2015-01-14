@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.controller.IRegisteredUserController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
@@ -22,6 +21,7 @@ import ua.ll7.slot7.ma.data.response.MAExpenseVOListResponse;
 import ua.ll7.slot7.ma.exception.AppDataIntegrityException;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.model.User;
+import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.MAStatusCode;
@@ -44,7 +44,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 	private IUserService userService;
 
 	@Autowired
-	private IBLActor blActor;
+	private IBLService iblService;
 
 	@Override
 	@RequestMapping(value = Constants.methodEndpointCategoryCreate,
@@ -69,7 +69,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blActor.categoryCreateForUser(user, request.getData1(), "");
+		iblService.categoryCreateForUser(user, request.getData1(), "");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -94,7 +94,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blActor.categoryUpdate(request);
+		iblService.categoryUpdate(request);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -109,7 +109,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 		MACategoryForTheUserVOListResponse response = new MACategoryForTheUserVOListResponse();
 		User user = getCurrentlyPrincipal();
 
-		response.setData1(MAFactory.getCategoryForTheUserVOList(blActor.categoryListForTheUser(user)));
+		response.setData1(MAFactory.getCategoryForTheUserVOList(iblService.categoryListForTheUser(user)));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -140,7 +140,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		blActor.expenseCreateForCategoryUSD(request);
+		iblService.expenseCreateForCategoryUSD(request);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -171,7 +171,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		response.setData1(blActor.expenseList(request));
+		response.setData1(iblService.expenseList(request));
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -197,7 +197,7 @@ public class RegisteredUserControllerImpl implements IRegisteredUserController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		response.setData1(blActor.currensyRateCurrent(request));
+		response.setData1(iblService.currensyRateCurrent(request));
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

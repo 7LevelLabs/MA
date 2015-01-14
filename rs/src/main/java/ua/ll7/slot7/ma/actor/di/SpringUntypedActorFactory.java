@@ -10,12 +10,7 @@ import java.lang.reflect.Field;
 import static org.fest.reflect.util.Accessibles.setAccessible;
 import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
 
-/**
- * MA
- * Velichko A.
- * 13.01.15 17:40
- */
-public class SpringUntypedActorFactory {
+public class SpringUntypedActorFactory implements UntypedActorFactory {
 
   private final DependencyInjectionFactory dependencyInjectionFactory;
 
@@ -34,12 +29,13 @@ public class SpringUntypedActorFactory {
   /**
    * This method must return a different instance upon every call.
    */
+  @Override
   public UntypedActor create() {
     return dependencyInjectionFactory.createAndInject();
   }
 
-  private interface DependencyInjectionFactory {
 
+  private interface DependencyInjectionFactory {
     UntypedActor createAndInject();
   }
 
@@ -67,9 +63,7 @@ public class SpringUntypedActorFactory {
         }
         return untypedActor;
 
-      } catch (InstantiationException e) {
-        throw new IllegalStateException("Unable to create actor instance", e);
-      } catch (IllegalAccessException e) {
+      } catch (Exception e) {
         throw new IllegalStateException("Unable to create actor instance", e);
       }
 
@@ -77,7 +71,7 @@ public class SpringUntypedActorFactory {
 
     protected abstract Class<?> getActorClass();
 
-    protected abstract UntypedActor create() throws InstantiationException, IllegalAccessException;
+    protected abstract UntypedActor create() throws Exception;
 
   }
 
@@ -96,7 +90,7 @@ public class SpringUntypedActorFactory {
     }
 
     @Override
-    protected UntypedActor create() throws InstantiationException, IllegalAccessException {
+    protected UntypedActor create() throws Exception {
       UntypedActor untypedActor = (UntypedActor) specificFactory.create();
       actorClass = untypedActor.getClass();
       return untypedActor;
@@ -104,7 +98,6 @@ public class SpringUntypedActorFactory {
   }
 
   private final class DefaultUntypedActorFactory extends AbstractUntypedActorFactory {
-
     private final Class<?> actorClass;
 
     public DefaultUntypedActorFactory(Class<?> actorClass) {

@@ -27,7 +27,10 @@ public class LogAroundAspect {
 
     final Object result = pjp.proceed(methodArgs);
 
-    LOGGER.debug(String.format("Returning from: %s::%s result: '%s'", methodClass.getName(), methodName, result.toString()));
+    if (result != null) {
+      LOGGER.debug(String.format("Returning from: %s::%s result: '%s'", methodClass.getName(), methodName, result.toString()));
+    }
+
     return result;
   }
 }

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -35,6 +36,18 @@ public class BLServiceImplTest extends Assert {
 
   @Autowired
   private ICategoryService categoryService;
+
+  @Test
+  public void testUserCreate() {
+    UserRegisterRequest request = new UserRegisterRequest();
+    request.setData1("test@test.com");
+    request.setData2("testPasswd");
+
+    blService.userCreate(request);
+
+    User userRead = userService.findByEMail("test@test.com");
+    assertEquals(userRead.getEmail(), "test@test.com");
+  }
 
   @Test
   public void testUserList() throws Exception {

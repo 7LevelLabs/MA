@@ -41,7 +41,6 @@ public class User implements Serializable {
   private String name;
 
   @Column(nullable = false)
-  @NotBlank(message = "User's API code must be not blank")
   private String apiCode;
 
   @OneToMany(fetch = FetchType.LAZY,

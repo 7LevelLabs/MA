@@ -12,9 +12,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.vo.UserVO;
+import ua.ll7.slot7.ma.service.IBLService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,14 +32,14 @@ public class AdminControllerImplTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private IBLActor blActorMock;
+	private IBLService blServiceMock;
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
 	@Before
 	public void setup() {
-		Mockito.reset(blActorMock);
+		Mockito.reset(blServiceMock);
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
@@ -67,8 +67,8 @@ public class AdminControllerImplTest {
 
 		userVOs.add(userVO2);
 
-		//setting up blActorMock behavior
-		when(blActorMock.userList()).thenReturn(userVOs);
+		//setting up blServiceMock behavior
+		when(blServiceMock.userList()).thenReturn(userVOs);
 
 		mockMvc.perform(get(Constants.controllerEndpointAdmController + Constants.methodEndpointUserList)
 													 .contentType(MediaType.APPLICATION_JSON)
@@ -80,8 +80,7 @@ public class AdminControllerImplTest {
 					 .andExpect(jsonPath("$.data1[1].id", is(2)))
 		;
 
-		verify(blActorMock, times(1)).userList();
-		verifyNoMoreInteractions(blActorMock);
+		verify(blServiceMock, times(1)).userList();
+		verifyNoMoreInteractions(blServiceMock);
 	}
-
 }
