@@ -11,5 +11,5 @@ public enum MAStatusCode {
   NOT_FOUND,
   ALREADY_EXIST,
   EMPTY_DATA,
-  ERROR
+  EXCEPTION
 }

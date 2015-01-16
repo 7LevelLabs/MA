@@ -66,17 +66,15 @@ public class AnonymousControllerImpl implements IAnonymousController {
       return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    inbox.watch(blActor);
-
     inbox.send(blActor, request);
 
     try {
       if (inbox.receive(Duration.create(1, TimeUnit.SECONDS)).equals(1)) {
-        response.setStatusCode(MAStatusCode.ERROR);
+        response.setStatusCode(MAStatusCode.EXCEPTION);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     } catch (Exception e) {
-      response.setStatusCode(MAStatusCode.ERROR);
+      response.setStatusCode(MAStatusCode.EXCEPTION);
       response.setMessage(e.getMessage());
       LOGGER.debug(e);
       return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
