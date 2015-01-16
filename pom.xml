@@ -76,7 +76,7 @@
         <jadira.version>3.2.0.GA</jadira.version>
 
         <hazelcast.version>3.4</hazelcast.version>
-        <akka.version>2.0.4</akka.version>
+        <akka.version>2.3.8</akka.version>
 
         <fest-reflect.version>1.4</fest-reflect.version>
 

@@ -15,13 +15,28 @@ public class BLActorImpl extends UntypedActor implements IBLActor {
   @Autowired
   private IBLService blService;
 
+  private Integer state = 0;
+
   @Override
   public void onReceive(Object o) throws Exception {
-    blService.userCreate((UserRegisterRequest) o);
+    if (o instanceof UserRegisterRequest) {
+
+      try {
+        blService.userCreate((UserRegisterRequest) o);
+      } catch (Exception e) {
+        state = 1;
+      }
+    } else {
+      unhandled(o);
+    }
   }
 
   @Override
   public void userCreate(UserRegisterRequest request) throws Exception {
     onReceive(request);
+  }
+
+  public Integer getState() {
+    return state;
   }
 }

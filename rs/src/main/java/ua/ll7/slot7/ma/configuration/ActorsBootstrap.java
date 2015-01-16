@@ -2,6 +2,7 @@ package ua.ll7.slot7.ma.configuration;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Inbox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +20,12 @@ import ua.ll7.slot7.ma.actor.impl.BLActorImpl;
 public class ActorsBootstrap {
 
   public static final String ACTOR_SYSTEM = "ma-actorSystem";
+  public static final String MA_INBOX = "ma-inbox";
   public static final String BL_ACTOR     = "bl-actor";
 
   private ActorSystem actorSystem;
+
+  private Inbox inbox;
 
   @Autowired
   private ApplicationContext applicationContext;
@@ -32,6 +36,15 @@ public class ActorsBootstrap {
     return actorSystem;
   }
 
+  //ma-inbox
+  @Bean(name = MA_INBOX)
+  @DependsOn({ACTOR_SYSTEM})
+  public Inbox inbox() {
+    inbox = Inbox.create(actorSystem);
+    return inbox;
+  }
+
+  //  bl-actor
   @Bean(name = BL_ACTOR)
   @DependsOn({ACTOR_SYSTEM})
   public ActorRef businessActor() {
