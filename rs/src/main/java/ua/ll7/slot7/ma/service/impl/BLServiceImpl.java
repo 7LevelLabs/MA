@@ -18,6 +18,7 @@ import ua.ll7.slot7.ma.service.*;
 import ua.ll7.slot7.ma.util.LogAround;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
+import ua.ll7.slot7.ma.util.builder.UserBuilder;
 
 import java.util.List;
 
@@ -46,13 +47,10 @@ public class BLServiceImpl implements IBLService {
   @LogAround
   @Override
   public void userCreate(UserRegisterRequest request) {
-
-    throw new NullPointerException("Ku-ku");
-
-//    User user = new UserBuilder(request.getData1(),
-//                                request.getData2())
-//           .build();
-//    userService.save(user);
+    User user = new UserBuilder(request.getData1(),
+                                request.getData2())
+           .build();
+    userService.save(user);
     //TODO send emails
   }
 

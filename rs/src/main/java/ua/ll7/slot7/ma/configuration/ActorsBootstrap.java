@@ -3,12 +3,13 @@ package ua.ll7.slot7.ma.configuration;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
+import akka.actor.Props;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import ua.ll7.slot7.ma.actor.di.DependencyInjectionProps;
+import ua.ll7.slot7.ma.actor.di.SpringUntypedActorFactory;
 import ua.ll7.slot7.ma.actor.impl.BLActorImpl;
 
 /**
@@ -49,9 +50,7 @@ public class ActorsBootstrap {
   @DependsOn({ACTOR_SYSTEM})
   public ActorRef businessActor() {
     return actorSystem
-           .actorOf(new DependencyInjectionProps(
-                  applicationContext,
-                  BLActorImpl.class), BL_ACTOR);
+           .actorOf(Props.create(new SpringUntypedActorFactory(BLActorImpl.class, applicationContext)),
+                    BL_ACTOR);
   }
-
 }
