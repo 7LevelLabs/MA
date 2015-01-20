@@ -21,6 +21,7 @@
     <bean class="ua.ll7.slot7.ma.configuration.ActorsBootstrap"/>
 
     <import resource="maConfigData.xml"/>
+    <import resource="maConfigSecurity.xml"/>
     <import resource="maConfigAkka.xml"/>
     <import resource="maConfigViewIndex.xml"/>
     <import resource="maConfigQuartz.xml"/>

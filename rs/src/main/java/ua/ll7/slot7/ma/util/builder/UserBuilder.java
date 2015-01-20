@@ -24,7 +24,9 @@ public class UserBuilder {
     String passwordEncoded = encoder.encode(password);
 
     user.setPassword(passwordEncoded);
-    user.setRole(1);
+
+    //unactive
+    user.setRole(0);
     user.setActive(false);
 
     user.setApiCode(UUID.randomUUID().toString());

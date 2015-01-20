@@ -7,9 +7,9 @@ package ua.ll7.slot7.ma.data;
  */
 public class Constants {
 
-  public final static String controllerEndpointAdmController  = "/admController";
-  public final static String controllerEndpointAnonController = "/anonController";
-  public final static String controllerEndpointRUController   = "/ruController";
+  public final static String controllerEndpointAdmController        = "/admController";
+  public final static String controllerEndpointAnonController       = "/anonController";
+  public final static String controllerEndpointRegisteredController = "/registeredController";
 
   public final static String methodEndpointUserCreate       = "/userCreate";
   public final static String methodEndpointUserList         = "/userList";
@@ -30,6 +30,9 @@ public class Constants {
   public final static String messageNotValidRequest = "Not valid request";
 
   public final static String dateFormatString = "dd-MM-yyyy";
+
+  public final static String userRole_ADMIN      = "ROLE_ADMIN";
+  public final static String userRole_REGISTERED = "ROLE_REGISTERED";
 
   private Constants() {
 

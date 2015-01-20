@@ -32,7 +32,7 @@ import ua.ll7.slot7.ma.validator.IRequestValidator;
  *         30.12.14 : 0:03
  */
 @Controller
-@RequestMapping(Constants.controllerEndpointRUController)
+@RequestMapping(Constants.controllerEndpointRegisteredController)
 public class RegisteredUserControllerImpl implements IRegisteredUserController {
 
 	private static final Logger LOGGER = Logger.getLogger(RegisteredUserControllerImpl.class);

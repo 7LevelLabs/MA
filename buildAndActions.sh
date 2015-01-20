@@ -10,8 +10,6 @@ case $target in
 
     dev-test)
     mvn clean test -P dev -e
-    echo "Deploy..."
-    cp $artefactLocation/$artefactName $CATALINA_BASE/webapps
     ;;
 
     dev-deploy-local)
