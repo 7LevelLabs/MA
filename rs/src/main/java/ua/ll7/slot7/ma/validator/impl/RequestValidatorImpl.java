@@ -57,6 +57,14 @@ public class RequestValidatorImpl implements IRequestValidator {
 
     @StringDGNotEmpty
     @Override
+    public void validate(UserSetActiveRequest request) throws AppValidationException {
+        if (!userService.exist(request.getData1())) {
+            throw new AppValidationException("User don't exists : " + request);
+        }
+    }
+
+    @StringDGNotEmpty
+    @Override
     public void validate(CategoryCreateRequest request, User user) throws AppValidationException {
         if (categoryService.existCategoryByName(user, request.getData1())) {
             throw new AppValidationException("User already exists : " + request);

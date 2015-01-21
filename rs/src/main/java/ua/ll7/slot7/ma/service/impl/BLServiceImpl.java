@@ -66,6 +66,18 @@ public class BLServiceImpl implements IBLService {
   }
 
   @Override
+  public void userSetActive(UserSetActiveRequest request) {
+    User user = userService.findByEMail(request.getData1());
+    user.setActive(request.isData2());
+
+    if (request.isData2()) {
+      user.setRole(1);
+    } else {
+      user.setRole(0);
+    }
+  }
+
+  @Override
   public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
     CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
                                                                        categoryName,
@@ -90,7 +102,7 @@ public class BLServiceImpl implements IBLService {
     }
 
     if (StringUtils.isNotBlank(request.getData2())) {
-      categoryForTheUser.setName(request.getData2());
+      categoryForTheUser.setDescription(request.getData2());
     }
   }
 

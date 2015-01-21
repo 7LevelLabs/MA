@@ -11,6 +11,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
+import ua.ll7.slot7.ma.data.request.UserSetActiveRequest;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -155,4 +156,32 @@ public class BLServiceImplTest extends Assert {
                                    .contains(categoryForTheUser1, categoryForTheUser2)
     ;
   }
+
+  @Test
+  public void testUserSetActive() throws Exception {
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
+    userService.save(user);
+
+    UserSetActiveRequest request = new UserSetActiveRequest();
+    request.setData1("email");
+    request.setData2(true);
+
+    blService.userSetActive(request);
+
+    assertTrue(user.isActive());
+    assertEquals(user.getRole(), 1);
+
+    request = new UserSetActiveRequest();
+    request.setData1("email");
+    request.setData2(false);
+
+    blService.userSetActive(request);
+
+    assertTrue(!user.isActive());
+    assertEquals(user.getRole(), 0);
+
+  }
+
+
+
 }

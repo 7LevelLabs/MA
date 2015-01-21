@@ -14,6 +14,7 @@ import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.CurrensyRateCreateRequest;
 import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
+import ua.ll7.slot7.ma.data.request.UserSetActiveRequest;
 import ua.ll7.slot7.ma.data.response.MAUserVOListResponse;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.service.IBLService;
@@ -70,6 +71,32 @@ public class AdminControllerImpl implements IAdminController {
     }
 
     response.setData1(iblService.userListPageable(request));
+
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  @Override
+  @RequestMapping(value = Constants.methodEndpointUserSetActive,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> userSetActive(
+         @RequestBody
+         UserSetActiveRequest request
+  ) {
+
+    MAGenericResponse response = new MAGenericResponse();
+
+    try {
+      requestValidator.validate(request);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    iblService.userSetActive(request);
 
     return new ResponseEntity<>(response, HttpStatus.OK);
   }

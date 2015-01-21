@@ -116,6 +116,7 @@ public class MAFactory {
 		user.setNick(nick);
 		user.setName(name);
 		user.setPassword(password);
+		user.setRole(0);
 
 		UUID uuid = UUID.randomUUID();
 

@@ -23,6 +23,8 @@ public interface IBLService {
 
 	public List<UserVO> userListPageable(UserListPageableRequest request);
 
+	public void userSetActive(UserSetActiveRequest request);
+
 	//CategoryForTheUser
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription);
 
@@ -45,4 +47,5 @@ public interface IBLService {
 	public void currensyRateCreate(CurrensyRateCreateRequest request);
 
 	public float currensyRateCurrent(CurrencyRateCurrentRequest request);
+
 }
