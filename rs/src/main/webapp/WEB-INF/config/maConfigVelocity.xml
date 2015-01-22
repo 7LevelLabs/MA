@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+        >
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="classpath:/templates/emails/"/>
+        <property name="preferFileSystemAccess" value="false"/>
+    </bean>
+
+    <bean id="mailBodyProcessor" class="ua.ll7.slot7.ma.util.email.impl.MailBodyProcessorImpl">
+        <property name="velocityEngine" ref="velocityEngine"/>
+    </bean>
+
+</beans>
