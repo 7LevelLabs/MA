@@ -11,7 +11,9 @@
 	   http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:property-placeholder
-            location="classpath:ma.runtime.properties,classpath:ma.runtime.magic.properties,classpath:ma.templates.properties"/>
+            location="classpath:ma.runtime.properties,
+            classpath:ma.runtime.magic.properties,
+            classpath:ma.templates.properties"/>
 
     <context:annotation-config/>
     <aop:aspectj-autoproxy/>

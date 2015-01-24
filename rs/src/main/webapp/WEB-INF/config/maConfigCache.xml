@@ -4,22 +4,46 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd">
 
-    <cache:annotation-driven cache-manager="cacheManager"/>
+    <cache:annotation-driven cache-manager="cacheManager"
+                             mode="proxy"
+                             proxy-target-class="true"/>
 
     <bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
-        <constructor-arg ref="hzClient"/>
+        <constructor-arg ref="hzInstance"/>
     </bean>
 
-    <!--client style-->
-    <hz:client id="hzClient">
-        <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
-        <hz:network connection-attempt-limit="3"
-                    connection-attempt-period="3000"
-                    connection-timeout="1000"
-                    redo-operation="true"
-                    smart-routing="true">
-            <hz:member>${cache.hz.location.1}</hz:member>
-        </hz:network>
-    </hz:client>
+    <!--build-in style-->
+    <hz:hazelcast id="hzInstance">
+        <hz:config>
+            <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
+            <hz:network port="${cache.hz.group.port}" port-auto-increment="false">
+                <hz:join>
+                    <hz:multicast enabled="true"/>
+                    <hz:tcp-ip enabled="true">
+                        <hz:interface>${cache.hz.interface}:${cache.hz.group.port}</hz:interface>
+                    </hz:tcp-ip>
+                </hz:join>
+                <hz:interfaces enabled="true">
+                    <hz:interface>${cache.hz.interface}</hz:interface>
+                </hz:interfaces>
+            </hz:network>
+
+            <hz:map name="null-map"/>
+
+            <hz:map name="currency_rates" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
+
+            <hz:map name="categories" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
+
+            <hz:map name="users" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
+
+        </hz:config>
+    </hz:hazelcast>
+
 
 </beans>

@@ -28,7 +28,7 @@ public class CurrencyRateServiceImpl implements ICurrencyRateService {
   @Autowired
   private ICurrencyRateRepositoryCustom currencyRateRepositoryCustom;
 
-  @CacheEvict("currency_rates")
+  @CacheEvict(value = "currency_rates", key = "#currencyRate.hash")
   @Override
   public void save(CurrencyRate currencyRate) {
     currencyRateRepository.save(currencyRate);
@@ -39,7 +39,7 @@ public class CurrencyRateServiceImpl implements ICurrencyRateService {
     return currencyRateRepository.getCurrencyRates(c1, c2);
   }
 
-  @Cacheable("currency_rates")
+  @Cacheable(value = "currency_rates")
   @Override
   public CurrencyRate getCurrentCurrencyRate(String c1, String c2) {
     return currencyRateRepositoryCustom.getCurrentCurrencyRate(c1, c2);

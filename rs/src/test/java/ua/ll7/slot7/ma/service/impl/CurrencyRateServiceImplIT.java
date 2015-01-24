@@ -23,7 +23,7 @@ public class CurrencyRateServiceImplIT {
   private ICurrencyRateService currencyRateService;
 
   @Test
-  public void testGetCurrentCurrencyRate() throws Exception {
+  public void testCaching() throws Exception {
     CurrencyRate cr1 = MAFactory.getNewCurrencyRateFS("USD",
                                                       "UAH",
                                                       17.01F);

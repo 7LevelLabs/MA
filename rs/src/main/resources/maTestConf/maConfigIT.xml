@@ -3,7 +3,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:akka="http://akka.io/schema/akka"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:hz="http://www.hazelcast.com/schema/spring"
@@ -22,8 +21,6 @@
              http://www.springframework.org/schema/cache/spring-cache.xsd
              http://www.hazelcast.com/schema/spring
              http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd
-             http://akka.io/schema/akka
-             http://akka.io/akka-1.3.1.xsd
              ">
 
     <context:property-placeholder location="classpath:ma.test.it.properties"/>
@@ -82,40 +79,43 @@
     <cache:annotation-driven cache-manager="cacheManager"/>
 
     <bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
-        <constructor-arg ref="hzClient"/>
+        <constructor-arg ref="hzInstance"/>
     </bean>
 
-    <!--client style-->
-    <hz:client id="hzClient">
-        <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
-        <hz:network connection-attempt-limit="3"
-                    connection-attempt-period="3000"
-                    connection-timeout="1000"
-                    redo-operation="true"
-                    smart-routing="true">
-            <hz:member>${cache.hz.location.1}</hz:member>
-        </hz:network>
-    </hz:client>
+    <!--build-in style-->
+    <hz:hazelcast id="hzInstance">
+        <hz:config>
+            <hz:group name="${cache.hz.group.name}" password="${cache.hz.group.password}"/>
+            <hz:network port="${cache.hz.group.port}" port-auto-increment="false">
+                <hz:join>
+                    <hz:multicast enabled="true"/>
+                    <hz:tcp-ip enabled="false">
+                        <hz:interface>${cache.hz.interface}:${cache.hz.group.port}</hz:interface>
+                    </hz:tcp-ip>
+                </hz:join>
+                <hz:interfaces enabled="true">
+                    <hz:interface>${cache.hz.interface}</hz:interface>
+                </hz:interfaces>
+            </hz:network>
 
-    <akka:typed-actor
-            id="serviceActor"
-            interface="ua.ll7.slot7.ma.actor.IServiceActor"
-            implementation="ua.ll7.slot7.ma.actor.impl.ServiceActorImpl"
-            scope="prototype"
-            timeout="1000"/>
+            <hz:map name="null-map"/>
 
-    <akka:typed-actor
-            id="blActor"
-            interface="ua.ll7.slot7.ma.actor.IBLActor"
-            implementation="ua.ll7.slot7.ma.actor.impl.BLActorImpl"
-            scope="prototype"
-            timeout="1000"/>
+            <hz:map name="currency_rates" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
 
-    <akka:dispatcher id="maDispatcher"
-                     type="executor-based-event-driven"
-                     name="maDispatcher">
-        <akka:thread-pool queue="unbounded-linked-blocking-queue"
-                          capacity="100"/>
-    </akka:dispatcher>
+            <hz:map name="categories" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
+
+            <hz:map name="users" backup-count="2" async-backup-count="1"
+                    time-to-live-seconds="10" max-size="10000" eviction-percentage="70"
+                    eviction-policy="LRU" merge-policy="hz.LATEST_UPDATE"/>
+
+        </hz:config>
+    </hz:hazelcast>
+
+    <!--import Akka-specific settings-->
+    <bean class="ua.ll7.slot7.ma.configuration.ActorsBootstrap"/>
 
 </beans>

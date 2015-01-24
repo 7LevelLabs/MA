@@ -1,6 +1,8 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,7 @@ public class CategoryServiceImpl implements ICategoryService {
   private ICategoryDao dao;
 
   @Override
+  @CacheEvict(value = "categories", key = "#toSave.hashCode()")
   public void save(CategoryForTheUser toSave) {
     dao.save(toSave);
   }
@@ -37,16 +40,19 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @Cacheable(value = "categories")
   public CategoryForTheUser findByUserAndName(User user, String categoryName) {
     return dao.findByUserAndName(user, categoryName);
   }
 
   @Override
+  @Cacheable(value = "categories")
   public List<CategoryForTheUser> findByUser(User user) {
     return dao.findByUser(user);
   }
 
   @Override
+  @Cacheable(value = "categories")
   public CategoryForTheUser findById(long id) {
     return dao.findOne(id);
   }
@@ -57,6 +63,7 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @CacheEvict(value = "categories", key = "#category.hashCode()")
   public void update(CategoryForTheUser category) {
     dao.save(category);
   }

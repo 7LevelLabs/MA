@@ -1,6 +1,8 @@
 package ua.ll7.slot7.ma.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,43 +23,47 @@ import java.util.List;
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class UserServiceImpl implements IUserService {
 
-	@Autowired
-	private IUserRepository repository;
+  @Autowired
+  private IUserRepository repository;
 
-	@Override
-	public void save(User toSave) {
-		repository.save(toSave);
-	}
+  @Override
+  @CacheEvict(value = "users", key = "#toSave.email")
+  public void save(User toSave) {
+    repository.save(toSave);
+  }
 
-	@Override
-	public void delete(User toDelete) {
-		repository.delete(toDelete);
-	}
+  @Override
+  @CacheEvict(value = "users", key = "#toDelete.email")
+  public void delete(User toDelete) {
+    repository.delete(toDelete);
+  }
 
-	@Override
-	public boolean exist(String email) {
-		return findByEMail(email) != null;
-	}
+  @Override
+  public boolean exist(String email) {
+    return findByEMail(email) != null;
+  }
 
-	@Override
-	public List<User> findAll() {
-		return repository.findAll();
-	}
+  @Override
+  public List<User> findAll() {
+    return repository.findAll();
+  }
 
-	@Override
-	public List<User> findAllPageable(int data1, int data2) {
-		Page<User> usersPage = repository.findAll(new PageRequest(data1 - 1, data2));
-		return usersPage.getContent();
-	}
+  @Override
+  public List<User> findAllPageable(int data1, int data2) {
+    Page<User> usersPage = repository.findAll(new PageRequest(data1 - 1, data2));
+    return usersPage.getContent();
+  }
 
-	@Override
-	public User findById(long id) {
-		return repository.findOne(id);
-	}
+  @Override
+  @Cacheable(value = "users")
+  public User findById(long id) {
+    return repository.findOne(id);
+  }
 
-	@Override
-	public User findByEMail(String email) {
-		User users = repository.findByEmail(email);
-		return users;
-	}
+  @Cacheable(value = "users")
+  @Override
+  public User findByEMail(String email) {
+    User users = repository.findByEmail(email);
+    return users;
+  }
 }
