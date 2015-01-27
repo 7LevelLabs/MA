@@ -29,4 +29,6 @@ public interface IRequestValidator {
   public void validate(CurrensyRateCreateRequest request) throws AppValidationException;
 
   public void validate(CurrencyRateCurrentRequest request) throws AppValidationException;
+
+  public void validate(UserUpdateNickNameRequest request) throws AppDataIntegrityException, AppValidationException;
 }

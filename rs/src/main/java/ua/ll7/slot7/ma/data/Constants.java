@@ -11,10 +11,11 @@ public class Constants {
   public final static String controllerEndpointAnonController       = "/anonController";
   public final static String controllerEndpointRegisteredController = "/registeredController";
 
-  public final static String methodEndpointUserCreate       = "/userCreate";
-  public final static String methodEndpointUserList         = "/userList";
-  public final static String methodEndpointUserListPageable = "/userListPageable";
-  public final static String methodEndpointUserSetActive = "/userSetActive";
+  public final static String methodEndpointUserCreate         = "/userCreate";
+  public final static String methodEndpointUserList           = "/userList";
+  public final static String methodEndpointUserListPageable   = "/userListPageable";
+  public final static String methodEndpointUserSetActive      = "/userSetActive";
+  public final static String methodEndpointUserUpdateNickName = "/userUpdateNickName";
 
   public final static String methodEndpointCategoryCreate = "/categoryCreate";
   public final static String methodEndpointCategoryUpdate = "/categoryUpdate";

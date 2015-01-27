@@ -3,6 +3,8 @@ package ua.ll7.slot7.ma.validator.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.request.*;
@@ -141,4 +143,25 @@ public class RequestValidatorImpl implements IRequestValidator {
         //check data1 & data2 for currency code pattern
 
     }
+
+    @Override
+    public void validate(UserUpdateNickNameRequest request) throws AppDataIntegrityException, AppValidationException {
+        if (request.getData0() < 1) {
+            throw new AppValidationException("User don't exists : " + request);
+        }
+        if (!userService.findById(request.getData0()).getEmail().equals(getCurrentlyPrincipal().getEmail())) {
+            throw new AppDataIntegrityException("The request is not belongs to the user : " + request);
+        }
+        if ((StringUtils.isBlank(request.getData1())) || (StringUtils.isBlank(request.getData2()))) {
+            throw new AppValidationException("Not valid request : " + request);
+        }
+    }
+
+    private User getCurrentlyPrincipal() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String authName = auth.getName();
+        return userService.findByEMail(authName);
+    }
+
+
 }

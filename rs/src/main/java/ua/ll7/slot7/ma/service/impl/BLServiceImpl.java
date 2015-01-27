@@ -78,6 +78,18 @@ public class BLServiceImpl implements IBLService {
   }
 
   @Override
+  public void userUpdateNickName(UserUpdateNickNameRequest request) {
+    User user = userService.findById(request.getData0());
+    if (StringUtils.isNotBlank(request.getData1())) {
+      user.setNick(request.getData1());
+    }
+
+    if (StringUtils.isNotBlank(request.getData2())) {
+      user.setName(request.getData2());
+    }
+  }
+
+  @Override
   public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription) {
     CategoryForTheUser categoryForTheUser = MAFactory.getNewCategoryFS(user,
                                                                        categoryName,

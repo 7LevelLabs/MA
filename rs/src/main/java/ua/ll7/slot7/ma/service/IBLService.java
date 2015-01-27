@@ -25,6 +25,8 @@ public interface IBLService {
 
 	public void userSetActive(UserSetActiveRequest request);
 
+	public void userUpdateNickName(UserUpdateNickNameRequest request);
+
 	//CategoryForTheUser
 	public CategoryForTheUser categoryCreateForUser(User user, String categoryName, String categoryDescription);
 

@@ -25,5 +25,6 @@ public interface IRegisteredUserController {
 	public ResponseEntity<MAExpenseVOListResponse> expenseList(ExpenseListPageableRequest request);
 
 	public ResponseEntity<MACurrencyRateCurrentResponse> currencyRateCurrent(CurrencyRateCurrentRequest request);
-	
+
+	public ResponseEntity<MAGenericResponse> userUpdateNickName(UserUpdateNickNameRequest request);
 }

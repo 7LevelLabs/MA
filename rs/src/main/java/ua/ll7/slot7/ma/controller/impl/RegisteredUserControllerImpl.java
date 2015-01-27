@@ -35,176 +35,207 @@ import ua.ll7.slot7.ma.validator.IRequestValidator;
 @RequestMapping(Constants.controllerEndpointRegisteredController)
 public class RegisteredUserControllerImpl implements IRegisteredUserController {
 
-	private static final Logger LOGGER = Logger.getLogger(RegisteredUserControllerImpl.class);
+  private static final Logger LOGGER = Logger.getLogger(RegisteredUserControllerImpl.class);
 
-	@Autowired
-	private IRequestValidator requestValidator;
+  @Autowired
+  private IRequestValidator requestValidator;
 
-	@Autowired
-	private IUserService userService;
+  @Autowired
+  private IUserService userService;
 
-	@Autowired
-	private IBLService iblService;
+  @Autowired
+  private IBLService iblService;
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointCategoryCreate,
-				 method = RequestMethod.PUT,
-				 consumes = MediaType.APPLICATION_JSON_VALUE,
-				 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MAGenericResponse> categoryCreate(
-				 @RequestBody
-				 CategoryCreateRequest request
-	) {
+  @Override
+  @RequestMapping(value = Constants.methodEndpointCategoryCreate,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> categoryCreate(
+         @RequestBody
+         CategoryCreateRequest request
+  ) {
 
-		MAGenericResponse response = new MAGenericResponse();
+    MAGenericResponse response = new MAGenericResponse();
 
-		User user = getCurrentlyPrincipal();
+    User user = getCurrentlyPrincipal();
 
-		try {
-			requestValidator.validate(request, user);
-		} catch (AppValidationException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
+    try {
+      requestValidator.validate(request, user);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
-		iblService.categoryCreateForUser(user, request.getData1(), "");
+    iblService.categoryCreateForUser(user, request.getData1(), "");
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointCategoryUpdate,
-				 method = RequestMethod.PUT,
-				 consumes = MediaType.APPLICATION_JSON_VALUE,
-				 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MAGenericResponse> categoryUpdate(
-				 @RequestBody
-				 CategoryUpdateRequest request
-	) {
-		MAGenericResponse response = new MAGenericResponse();
+  @Override
+  @RequestMapping(value = Constants.methodEndpointCategoryUpdate,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> categoryUpdate(
+         @RequestBody
+         CategoryUpdateRequest request
+  ) {
+    MAGenericResponse response = new MAGenericResponse();
 
-		try {
-			requestValidator.validate(request);
-		} catch (AppValidationException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
+    try {
+      requestValidator.validate(request);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
-		iblService.categoryUpdate(request);
+    iblService.categoryUpdate(request);
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointCategoryList,
-											 method = RequestMethod.GET,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MACategoryForTheUserVOListResponse> categoryList() {
+  @Override
+  @RequestMapping(value = Constants.methodEndpointCategoryList,
+         method = RequestMethod.GET,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MACategoryForTheUserVOListResponse> categoryList() {
 
-		MACategoryForTheUserVOListResponse response = new MACategoryForTheUserVOListResponse();
-		User user = getCurrentlyPrincipal();
+    MACategoryForTheUserVOListResponse response = new MACategoryForTheUserVOListResponse();
+    User user = getCurrentlyPrincipal();
 
-		response.setData1(MAFactory.getCategoryForTheUserVOList(iblService.categoryListForTheUser(user)));
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    response.setData1(MAFactory.getCategoryForTheUserVOList(iblService.categoryListForTheUser(user)));
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointExpenseCreate,
-											 method = RequestMethod.PUT,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MAGenericResponse> expenseCreate(
-											 @RequestBody
-											 ExpenseCreateRequest request
-	) {
+  @Override
+  @RequestMapping(value = Constants.methodEndpointExpenseCreate,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> expenseCreate(
+         @RequestBody
+         ExpenseCreateRequest request
+  ) {
 
-		MAGenericResponse response = new MAGenericResponse();
-		User user = getCurrentlyPrincipal();
+    MAGenericResponse response = new MAGenericResponse();
+    User user = getCurrentlyPrincipal();
 
-		try {
-			requestValidator.validate(request, user);
-		} catch (AppValidationException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		} catch (AppDataIntegrityException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
+    try {
+      requestValidator.validate(request, user);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    } catch (AppDataIntegrityException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
-		iblService.expenseCreateForCategoryUSD(request);
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    iblService.expenseCreateForCategoryUSD(request);
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointExpenseList,
-											 method = RequestMethod.PUT,
-											 consumes = MediaType.APPLICATION_JSON_VALUE,
-											 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MAExpenseVOListResponse> expenseList(
-											 @RequestBody
-											 ExpenseListPageableRequest request
-	) {
+  @Override
+  @RequestMapping(value = Constants.methodEndpointExpenseList,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAExpenseVOListResponse> expenseList(
+         @RequestBody
+         ExpenseListPageableRequest request
+  ) {
 
-		MAExpenseVOListResponse response = new MAExpenseVOListResponse();
-		User user = getCurrentlyPrincipal();
+    MAExpenseVOListResponse response = new MAExpenseVOListResponse();
+    User user = getCurrentlyPrincipal();
 
-		try {
-			requestValidator.validate(request, user);
-		} catch (AppValidationException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		} catch (AppDataIntegrityException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
+    try {
+      requestValidator.validate(request, user);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    } catch (AppDataIntegrityException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
-		response.setData1(iblService.expenseList(request));
+    response.setData1(iblService.expenseList(request));
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	@Override
-	@RequestMapping(value = Constants.methodEndpointCurrencyRateGetCurrent,
-				 method = RequestMethod.GET,
-				 consumes = MediaType.APPLICATION_JSON_VALUE,
-				 produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MACurrencyRateCurrentResponse> currencyRateCurrent(
-				 @RequestBody
-				 CurrencyRateCurrentRequest request
-	) {
+  @Override
+  @RequestMapping(value = Constants.methodEndpointCurrencyRateGetCurrent,
+         method = RequestMethod.GET,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MACurrencyRateCurrentResponse> currencyRateCurrent(
+         @RequestBody
+         CurrencyRateCurrentRequest request
+  ) {
 
-		MACurrencyRateCurrentResponse response = new MACurrencyRateCurrentResponse();
+    MACurrencyRateCurrentResponse response = new MACurrencyRateCurrentResponse();
 
-		try {
-			requestValidator.validate(request);
-		} catch (AppValidationException e) {
-			LOGGER.debug(e.getMessage());
-			response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
-			response.setMessage(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
+    try {
+      requestValidator.validate(request);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
-		response.setData1(iblService.currensyRateCurrent(request));
+    response.setData1(iblService.currensyRateCurrent(request));
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
-	private User getCurrentlyPrincipal() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String authName = auth.getName();
-		return userService.findByEMail(authName);
-	}
+  @Override
+  @RequestMapping(value = Constants.methodEndpointUserUpdateNickName,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> userUpdateNickName(
+         @RequestBody
+         UserUpdateNickNameRequest request
+  ) {
+
+    MAGenericResponse response = new MAGenericResponse();
+
+    try {
+      requestValidator.validate(request);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    } catch (AppDataIntegrityException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    iblService.userUpdateNickName(request);
+
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  private User getCurrentlyPrincipal() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String authName = auth.getName();
+    return userService.findByEMail(authName);
+  }
 }

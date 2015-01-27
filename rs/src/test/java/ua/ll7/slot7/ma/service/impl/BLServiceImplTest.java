@@ -9,10 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ll7.slot7.ma.data.request.CategoryUpdateRequest;
-import ua.ll7.slot7.ma.data.request.UserListPageableRequest;
-import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
-import ua.ll7.slot7.ma.data.request.UserSetActiveRequest;
+import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
@@ -180,6 +177,7 @@ public class BLServiceImplTest extends Assert {
     ;
   }
 
+  @Test
   public void testUserSetActive() throws Exception {
     User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
     userService.save(user);
@@ -203,5 +201,35 @@ public class BLServiceImplTest extends Assert {
     assertEquals(user.getRole(), 0);
 
   }
+
+  @Test
+  public void testUserUpdateNickName() throws Exception {
+    User user = MAFactory.getNewUserForTestsFS("email", "nick", "name", "password");
+    userService.save(user);
+
+    UserUpdateNickNameRequest request = new UserUpdateNickNameRequest();
+    request.setData0(user.getId());
+    request.setData1("nick new");
+    request.setData2("name new");
+
+    blService.userUpdateNickName(request);
+
+    User userRead = userService.findById(user.getId());
+
+    assertEquals(userRead.getNick(), "nick new");
+    assertEquals(userRead.getName(), "name new");
+
+    request.setData1(" ");
+    request.setData2(" ");
+
+    blService.userUpdateNickName(request);
+
+    userRead = userService.findById(user.getId());
+
+    assertEquals(userRead.getNick(), "nick new");
+    assertEquals(userRead.getName(), "name new");
+
+  }
+
 
 }
