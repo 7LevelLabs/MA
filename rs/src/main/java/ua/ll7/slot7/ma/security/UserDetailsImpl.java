@@ -92,7 +92,7 @@ public class UserDetailsImpl implements UserDetailsService {
    * Retrieves a collection of {@link org.springframework.security.core.GrantedAuthority} based on a numerical userrole
    *
    * @param role the numerical userrole
-   * @return a collection of {@link org.springframework.security.core.GrantedAuthority
+   * @return a collection of {@link org.springframework.security.core.GrantedAuthority}
    */
   public List<? extends GrantedAuthority> getAuthorities(int role) {
     return getGrantedAuthorities(getRoles(role));
