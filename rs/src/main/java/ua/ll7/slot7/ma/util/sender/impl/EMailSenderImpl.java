@@ -1,7 +1,7 @@
 package ua.ll7.slot7.ma.util.sender.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -17,7 +17,7 @@ import java.util.List;
  * 27.12.14 12:42
  */
 @Component
-@Scope("prototype")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EMailSenderImpl implements ISender {
 
   private final static Logger LOGGER = Logger.getLogger(EMailSenderImpl.class);

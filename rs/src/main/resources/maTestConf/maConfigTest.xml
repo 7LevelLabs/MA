@@ -5,7 +5,7 @@
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
              http://www.springframework.org/schema/beans/spring-beans.xsd
              http://www.springframework.org/schema/context
@@ -17,8 +17,7 @@
              http://www.springframework.org/schema/data/jpa
              http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
              http://www.springframework.org/schema/aop
-             http://www.springframework.org/schema/aop/spring-aop.xsd
-             ">
+             http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <context:property-placeholder location="classpath:ma.test.it.properties"/>
 
@@ -66,5 +65,23 @@
 
     <!--logging-->
     <bean class="ua.ll7.slot7.ma.util.LogAroundAspect"/>
+
+    <!--PubSub-->
+    <!--processors-->
+    <bean id="newUserMailsProcessor" class="ua.ll7.slot7.ma.util.processors.NewUserMailsProcessor"/>
+
+    <!--UserSuccessfullyRegisterEvent.class : list1-->
+    <util:list id="list1">
+        <ref bean="newUserMailsProcessor"/>
+    </util:list>
+
+    <util:map id="listenersMap" value-type="java.util.List">
+        <!-- Map between Class key and Listeners List -->
+        <entry key="ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent" value-ref="list1"/>
+    </util:map>
+
+    <bean class="ua.ll7.slot7.ma.util.pubsub.PubSubEventsProcessor">
+        <property name="eventListenersMap" ref="listenersMap"/>
+    </bean>
 
 </beans>

@@ -32,5 +32,6 @@
     <import resource="maConfigVelocity.xml"/>
     <import resource="maMetricsConfig.xml"/>
     <import resource="maConfigUtil.xml"/>
+    <import resource="maPubSubConfig.xml"/>
 
 </beans>

@@ -2,6 +2,7 @@ package ua.ll7.slot7.ma.actor.impl;
 
 import akka.actor.UntypedActor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import ua.ll7.slot7.ma.actor.IBLActor;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
@@ -11,7 +12,7 @@ import ua.ll7.slot7.ma.service.IBLService;
  * @author velichko
  *         on 12.01.15 : 15:13
  */
-@Scope("prototype")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BLActorImpl extends UntypedActor implements IBLActor {
 
   @Autowired
