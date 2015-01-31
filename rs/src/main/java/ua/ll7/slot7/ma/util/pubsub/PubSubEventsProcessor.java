@@ -25,17 +25,6 @@ public class PubSubEventsProcessor {
 
   private Map<Class, List<IMAEventListner>> eventListenersMap;
 
-//
-//  //eventsList
-//  List<IMAEventListner> userSuccessfullyRegisterEventListeners = new LinkedList<>();
-//
-//  //listeners list
-//  {
-//    userSuccessfullyRegisterEventListeners.add(newUserMailsProcessor);
-//
-//    eventListenersMap.put(UserSuccessfullyRegisterEvent.class, userSuccessfullyRegisterEventListeners);
-//  }
-
   public void fireUpEvent(MAEventRoot event) {
     List<IMAEventListner> listenersList = eventListenersMap.get(event.getClass());
 
