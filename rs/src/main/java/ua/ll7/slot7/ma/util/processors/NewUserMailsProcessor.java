@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent;
-import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListner;
+import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListener;
 
 /**
  * MA
@@ -12,7 +12,7 @@ import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListner;
  * 31.01.15 16:27
  */
 @Component
-public class NewUserMailsProcessor implements INewUserMailsProcessor, IMAEventListner<UserSuccessfullyRegisterEvent> {
+public class NewUserMailsProcessor implements INewUserMailsProcessor, IMAEventListener<UserSuccessfullyRegisterEvent> {
 
   private static final Logger LOGGER = Logger.getLogger(NewUserMailsProcessor.class);
 

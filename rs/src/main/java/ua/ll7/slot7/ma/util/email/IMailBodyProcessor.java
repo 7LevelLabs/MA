@@ -1,5 +1,7 @@
 package ua.ll7.slot7.ma.util.email;
 
+import java.util.Date;
+
 /**
  * MA
  * Velichko A.
@@ -7,6 +9,13 @@ package ua.ll7.slot7.ma.util.email;
  */
 public interface IMailBodyProcessor {
 
-  public String userWelcomeAboard(final String nick, final String email);
+  public String userRegisteringProcessToken(final String nick,
+                                            final String email,
+                                            final String token,
+                                            final Date periodBegin,
+                                            final Date periodEnd);
+
+  public String userWelcomeAboard(final String nick,
+                                  final String email);
 
 }

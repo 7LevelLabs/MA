@@ -8,17 +8,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.request.*;
 import ua.ll7.slot7.ma.data.vo.ExpenseVO;
 import ua.ll7.slot7.ma.data.vo.UserVO;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;
 import ua.ll7.slot7.ma.model.Expense;
 import ua.ll7.slot7.ma.model.User;
+import ua.ll7.slot7.ma.model.UserARToken;
 import ua.ll7.slot7.ma.service.*;
 import ua.ll7.slot7.ma.util.LogAround;
 import ua.ll7.slot7.ma.util.MAFactory;
 import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
+import ua.ll7.slot7.ma.util.builder.UserARTokenBuilder;
 import ua.ll7.slot7.ma.util.builder.UserBuilder;
+import ua.ll7.slot7.ma.util.email.IMailBodyProcessor;
+import ua.ll7.slot7.ma.util.sender.ISender;
 
 import java.util.List;
 
@@ -44,6 +49,15 @@ public class BLServiceImpl implements IBLService {
   @Autowired
   private ICurrencyRateService currencyRateService;
 
+  @Autowired
+  private IUserARTokenService userARTokenService;
+
+  @Autowired
+  private IMailBodyProcessor mailBodyProcessor;
+
+  @Autowired
+  private ISender sender;
+
   @LogAround
   @Override
   public void userCreate(UserRegisterRequest request) {
@@ -51,7 +65,18 @@ public class BLServiceImpl implements IBLService {
                                 request.getData2())
            .build();
     userService.save(user);
-    //TODO send emails
+    UserARToken userARToken = new UserARTokenBuilder(user).build();
+    userARTokenService.save(userARToken);
+
+    sender.send(Constants.emailSubjectCoda +
+                       Constants.divider +
+                       Constants.emailRegistrationConfirmation +
+                       user.getEmail(),
+                mailBodyProcessor.userRegisteringProcessToken(user.getNick(),
+                                                              user.getEmail(),
+                                                              userARToken.getTokenCode(),
+                                                              userARToken.getPeriodBegin(),
+                                                              userARToken.getPeriodEnd()));
   }
 
   @Override

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.util.processors.NewUserMailsProcessor;
 import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
-import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListner;
+import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -23,22 +23,22 @@ public class PubSubEventsProcessor {
   @Autowired
   private NewUserMailsProcessor newUserMailsProcessor;
 
-  private Map<Class, List<IMAEventListner>> eventListenersMap;
+  private Map<Class, List<IMAEventListener>> eventListenersMap;
 
   public void fireUpEvent(MAEventRoot event) {
-    List<IMAEventListner> listenersList = eventListenersMap.get(event.getClass());
+    List<IMAEventListener> listenersList = eventListenersMap.get(event.getClass());
 
-    for (IMAEventListner aListener : listenersList) {
+    for (IMAEventListener aListener : listenersList) {
       aListener.onEvent(event);
     }
   }
 
-  public Map<Class, List<IMAEventListner>> getEventListenersMap() {
+  public Map<Class, List<IMAEventListener>> getEventListenersMap() {
     return eventListenersMap;
   }
 
   @Autowired
-  public void setEventListenersMap(Map<Class, List<IMAEventListner>> eventListenersMap) {
+  public void setEventListenersMap(Map<Class, List<IMAEventListener>> eventListenersMap) {
     this.eventListenersMap = eventListenersMap;
   }
 }

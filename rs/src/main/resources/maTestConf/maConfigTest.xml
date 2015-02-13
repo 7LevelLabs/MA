@@ -63,6 +63,39 @@
         </property>
     </bean>
 
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="classpath:/templates/emails/"/>
+        <property name="preferFileSystemAccess" value="false"/>
+    </bean>
+
+    <bean id="mailBodyProcessor" class="ua.ll7.slot7.ma.util.email.impl.MailBodyProcessorImpl">
+        <property name="velocityEngine" ref="velocityEngine"/>
+    </bean>
+
+    <bean id="mailWorker" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}"/>
+        <property name="port" value="${mail.port}"/>
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="eMailSender" class="ua.ll7.slot7.ma.util.sender.impl.EMailSenderImpl">
+        <property name="emailsToInform">
+            <list>
+                <value>alex.velichko.kyiv@gmail.com</value>
+            </list>
+        </property>
+        <property name="mailWorker" ref="mailWorker"/>
+        <property name="sender" value="${mail.username}"/>
+    </bean>
+
     <!--logging-->
     <bean class="ua.ll7.slot7.ma.util.LogAroundAspect"/>
 

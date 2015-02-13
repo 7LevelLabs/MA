@@ -17,6 +17,7 @@ import ua.ll7.slot7.ma.configuration.ActorsBootstrap;
 import ua.ll7.slot7.ma.controller.IAnonymousController;
 import ua.ll7.slot7.ma.data.Constants;
 import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
+import ua.ll7.slot7.ma.data.request.UserRegisterConfirmation;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
 import ua.ll7.slot7.ma.util.MAStatusCode;
@@ -81,5 +82,11 @@ public class AnonymousControllerImpl implements IAnonymousController {
     }
 
     return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<MAGenericResponse> registerConfirmation(UserRegisterConfirmation request) {
+    //TODO implement
+    return null;
   }
 }

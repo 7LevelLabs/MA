@@ -36,6 +36,12 @@ public class Constants {
   public final static String userRole_ADMIN      = "ROLE_ADMIN";
   public final static String userRole_REGISTERED = "ROLE_REGISTERED";
 
+  public final static int  userARTLength       = 5;
+  public final static long userARTPeriodLength = 1000 * 60 * 60;
+
+  public final static String emailSubjectCoda              = "[MA Service : Personal Expenses Accounting]";
+  public final static String emailRegistrationConfirmation = "Registration Confirmation for ";
+
   private Constants() {
 
   }
