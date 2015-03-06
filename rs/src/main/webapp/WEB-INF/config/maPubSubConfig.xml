@@ -5,16 +5,26 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--processors-->
-    <bean id="newUserMailsProcessor" class="ua.ll7.slot7.ma.util.processors.NewUserMailsProcessor"/>
+    <bean id="newUserMailsTasksCreator" class="ua.ll7.slot7.ma.util.processors.impl.NewUserMailsTasksCreatorImpl"/>
+    <bean id="userMailsProcessor" class="ua.ll7.slot7.ma.util.processors.impl.UserMailsProcessorImpl"/>
 
-    <!--UserSuccessfullyRegisterEvent.class : list1-->
-    <util:list id="list1">
-        <ref bean="newUserMailsProcessor"/>
+    <!--UserSuccessfullyRegisterEvent.class : userSuccessfullyRegisterEventList-->
+    <util:list id="userSuccessfullyRegisterEventList">
+        <ref bean="newUserMailsTasksCreator"/>
+        <ref bean="userMailsProcessor"/>
+    </util:list>
+
+    <!--UserUnsuccessfullyRegisterEvent.class : userUnsuccessfullyRegisterEventList-->
+    <util:list id="userUnsuccessfullyRegisterEventList">
+        <ref bean="userMailsProcessor"/>
     </util:list>
 
     <util:map id="listenersMap" value-type="java.util.List">
         <!-- Map between Class key and Listeners List -->
-        <entry key="ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent" value-ref="list1"/>
+        <entry key="ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent"
+               value-ref="userSuccessfullyRegisterEventList"/>
+        <entry key="ua.ll7.slot7.ma.util.pubsub.events.UserUnsuccessfullyRegisterEvent"
+               value-ref="userUnsuccessfullyRegisterEventList"/>
     </util:map>
 
     <bean class="ua.ll7.slot7.ma.util.pubsub.PubSubEventsProcessor">

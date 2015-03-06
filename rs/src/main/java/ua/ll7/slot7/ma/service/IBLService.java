@@ -19,7 +19,9 @@ public interface IBLService {
 	//User
 	public void userCreate(UserRegisterRequest request);
 
-	public List<UserVO> userList();
+  public void processUserRegisterConfirmation(UserRegisterConfirmation request);
+
+  public List<UserVO> userList();
 
 	public List<UserVO> userListPageable(UserListPageableRequest request);
 

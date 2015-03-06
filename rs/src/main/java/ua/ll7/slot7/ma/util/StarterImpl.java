@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.magic.service.IUserMagicService;
 import ua.ll7.slot7.ma.magic.service.impl.UserMagicServiceImpl;
 import ua.ll7.slot7.ma.model.User;
-import ua.ll7.slot7.ma.util.builder.UserBuilder;
+import ua.ll7.slot7.ma.util.creators.UserBuilder;
 
 import javax.annotation.PostConstruct;
 

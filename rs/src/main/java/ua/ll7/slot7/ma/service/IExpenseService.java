@@ -11,6 +11,7 @@ import java.util.List;
  * 26.12.14 14:14
  */
 public interface IExpenseService {
+
   public void save(Expense toSave);
 
   public List<Expense> findByCategoryPageable(CategoryForTheUser categoryForTheUser, int pageNumber, int pageSize);

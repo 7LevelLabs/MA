@@ -9,7 +9,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ll7.slot7.ma.model.User;
 import ua.ll7.slot7.ma.service.IUserService;
-import ua.ll7.slot7.ma.util.builder.UserBuilder;
+import ua.ll7.slot7.ma.util.creators.UserBuilder;
 
 import static org.junit.Assert.assertTrue;
 

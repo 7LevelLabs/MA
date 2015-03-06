@@ -1,4 +1,4 @@
-package ua.ll7.slot7.ma.util.builder;
+package ua.ll7.slot7.ma.util.creators;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;

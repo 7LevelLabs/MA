@@ -19,10 +19,13 @@ import ua.ll7.slot7.ma.model.UserARToken;
 import ua.ll7.slot7.ma.service.*;
 import ua.ll7.slot7.ma.util.LogAround;
 import ua.ll7.slot7.ma.util.MAFactory;
-import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
-import ua.ll7.slot7.ma.util.builder.UserARTokenBuilder;
-import ua.ll7.slot7.ma.util.builder.UserBuilder;
+import ua.ll7.slot7.ma.util.creators.ExpenseBuilder;
+import ua.ll7.slot7.ma.util.creators.UserARTokenBuilder;
+import ua.ll7.slot7.ma.util.creators.UserBuilder;
 import ua.ll7.slot7.ma.util.email.IMailBodyProcessor;
+import ua.ll7.slot7.ma.util.pubsub.PubSubEventsProcessor;
+import ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent;
+import ua.ll7.slot7.ma.util.pubsub.events.UserUnsuccessfullyRegisterEvent;
 import ua.ll7.slot7.ma.util.sender.ISender;
 
 import java.util.List;
@@ -56,6 +59,9 @@ public class BLServiceImpl implements IBLService {
   private IMailBodyProcessor mailBodyProcessor;
 
   @Autowired
+  private PubSubEventsProcessor pubSubEventsProcessor;
+
+  @Autowired
   private ISender sender;
 
   @LogAround
@@ -68,7 +74,7 @@ public class BLServiceImpl implements IBLService {
     UserARToken userARToken = new UserARTokenBuilder(user).build();
     userARTokenService.save(userARToken);
 
-    sender.send(Constants.emailSubjectCoda +
+    sender.send(Constants.emailSubjectCodaLong +
                        Constants.divider +
                        Constants.emailRegistrationConfirmation +
                        user.getEmail(),
@@ -77,6 +83,28 @@ public class BLServiceImpl implements IBLService {
                                                               userARToken.getTokenCode(),
                                                               userARToken.getPeriodBegin(),
                                                               userARToken.getPeriodEnd()));
+  }
+
+  @LogAround
+  @Override
+  public void processUserRegisterConfirmation(UserRegisterConfirmation request) {
+    String userARToken = userARTokenService.findByEmail(request.getData1());
+    User user = userService.findByEMail(request.getData1());
+
+    if (userARToken.equals(request.getData2())) {
+      //valid
+      user.setActive(true);
+      user.setRole(1);
+
+      pubSubEventsProcessor.fireUpEvent(new UserSuccessfullyRegisterEvent(this, user));
+    } else {
+      //not valid
+      UserARToken newUserARToken = new UserARTokenBuilder(user).build();
+      userARTokenService.save(newUserARToken);
+
+      pubSubEventsProcessor.fireUpEvent(new UserUnsuccessfullyRegisterEvent(this, user));
+    }
+
   }
 
   @Override

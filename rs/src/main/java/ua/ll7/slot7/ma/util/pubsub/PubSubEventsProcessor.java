@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ua.ll7.slot7.ma.util.processors.NewUserMailsProcessor;
+import ua.ll7.slot7.ma.util.processors.impl.NewUserMailsTasksCreatorImpl;
 import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
 import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListener;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 public class PubSubEventsProcessor {
 
   @Autowired
-  private NewUserMailsProcessor newUserMailsProcessor;
+  private NewUserMailsTasksCreatorImpl newUserMailsProcessor;
 
   private Map<Class, List<IMAEventListener>> eventListenersMap;
 

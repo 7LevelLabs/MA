@@ -1,4 +1,4 @@
-package ua.ll7.slot7.ma.util.builder;
+package ua.ll7.slot7.ma.util.creators;
 
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import ua.ll7.slot7.ma.model.CategoryForTheUser;

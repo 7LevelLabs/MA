@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity
 @Table(indexes = {
        @Index(
-              columnList = "rate")
+              columnList = "currencyCode1")
 }
 )
 public class CurrencyRate implements Serializable {

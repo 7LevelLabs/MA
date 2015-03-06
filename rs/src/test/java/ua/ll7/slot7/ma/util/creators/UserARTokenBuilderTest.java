@@ -1,4 +1,4 @@
-package ua.ll7.slot7.ma.util.builder;
+package ua.ll7.slot7.ma.util.creators;
 
 import org.junit.Test;
 import ua.ll7.slot7.ma.data.Constants;

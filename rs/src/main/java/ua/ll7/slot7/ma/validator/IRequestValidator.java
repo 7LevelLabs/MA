@@ -16,6 +16,8 @@ public interface IRequestValidator {
 
   public void validate(UserRegisterRequest request) throws AppValidationException;
 
+  public void validate(UserRegisterConfirmation request) throws AppValidationException;
+
   public void validate(UserSetActiveRequest request) throws AppValidationException;
 
   public void validate(CategoryCreateRequest request, User user) throws AppValidationException;
@@ -31,4 +33,5 @@ public interface IRequestValidator {
   public void validate(CurrencyRateCurrentRequest request) throws AppValidationException;
 
   public void validate(UserUpdateNickNameRequest request) throws AppDataIntegrityException, AppValidationException;
+
 }

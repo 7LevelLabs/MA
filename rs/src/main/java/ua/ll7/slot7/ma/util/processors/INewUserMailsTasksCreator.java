@@ -7,7 +7,7 @@ import ua.ll7.slot7.ma.model.User;
  * Velichko A.
  * 31.01.15 16:28
  */
-public interface INewUserMailsProcessor {
+public interface INewUserMailsTasksCreator {
 
   public void processMailsTasksForNewUser(User user);
 }

@@ -101,7 +101,7 @@
 
     <!--PubSub-->
     <!--processors-->
-    <bean id="newUserMailsProcessor" class="ua.ll7.slot7.ma.util.processors.NewUserMailsProcessor"/>
+    <bean id="newUserMailsProcessor" class="ua.ll7.slot7.ma.util.processors.impl.NewUserMailsTasksCreatorImpl"/>
 
     <!--UserSuccessfullyRegisterEvent.class : list1-->
     <util:list id="list1">

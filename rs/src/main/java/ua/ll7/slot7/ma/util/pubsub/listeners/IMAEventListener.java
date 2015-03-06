@@ -7,7 +7,7 @@ import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
  * Velichko A.
  * 31.01.15 15:29
  */
-public interface IMAEventListener <T extends MAEventRoot> {
+public interface IMAEventListener {
 
-  public void onEvent(T event);
+  public void onEvent(MAEventRoot event);
 }

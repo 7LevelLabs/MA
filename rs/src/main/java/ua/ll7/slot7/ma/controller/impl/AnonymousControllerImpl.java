@@ -20,6 +20,7 @@ import ua.ll7.slot7.ma.data.generic.MAGenericResponse;
 import ua.ll7.slot7.ma.data.request.UserRegisterConfirmation;
 import ua.ll7.slot7.ma.data.request.UserRegisterRequest;
 import ua.ll7.slot7.ma.exception.AppValidationException;
+import ua.ll7.slot7.ma.service.IBLService;
 import ua.ll7.slot7.ma.util.MAStatusCode;
 import ua.ll7.slot7.ma.validator.IRequestValidator;
 
@@ -46,6 +47,9 @@ public class AnonymousControllerImpl implements IAnonymousController {
   @Autowired
   @Qualifier(ActorsBootstrap.MA_INBOX)
   private Inbox inbox;
+
+  @Autowired
+  private IBLService blService;
 
   @Override
   @RequestMapping(value = Constants.methodEndpointUserCreate,
@@ -85,8 +89,27 @@ public class AnonymousControllerImpl implements IAnonymousController {
   }
 
   @Override
-  public ResponseEntity<MAGenericResponse> registerConfirmation(UserRegisterConfirmation request) {
+  @RequestMapping(value = Constants.methodEndpointUserCreateConfirmation,
+         method = RequestMethod.PUT,
+         consumes = MediaType.APPLICATION_JSON_VALUE,
+         produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MAGenericResponse> registerConfirmation(
+         @RequestBody
+         UserRegisterConfirmation request) {
     //TODO implement
+    MAGenericResponse response = new MAGenericResponse();
+
+    try {
+      requestValidator.validate(request);
+    } catch (AppValidationException e) {
+      LOGGER.debug(e.getMessage());
+      response.setStatusCode(MAStatusCode.NOT_VALID_REQUEST);
+      response.setMessage(e.getMessage());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    blService.processUserRegisterConfirmation(request);
+
     return null;
   }
 }

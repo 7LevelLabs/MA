@@ -14,7 +14,7 @@ import ua.ll7.slot7.ma.service.ICategoryService;
 import ua.ll7.slot7.ma.service.IExpenseService;
 import ua.ll7.slot7.ma.service.IUserService;
 import ua.ll7.slot7.ma.util.MAFactory;
-import ua.ll7.slot7.ma.util.builder.ExpenseBuilder;
+import ua.ll7.slot7.ma.util.creators.ExpenseBuilder;
 
 import java.util.List;
 

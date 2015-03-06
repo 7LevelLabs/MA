@@ -11,11 +11,12 @@ public class Constants {
   public final static String controllerEndpointAnonController       = "/anonController";
   public final static String controllerEndpointRegisteredController = "/registeredController";
 
-  public final static String methodEndpointUserCreate         = "/userCreate";
-  public final static String methodEndpointUserList           = "/userList";
-  public final static String methodEndpointUserListPageable   = "/userListPageable";
-  public final static String methodEndpointUserSetActive      = "/userSetActive";
-  public final static String methodEndpointUserUpdateNickName = "/userUpdateNickName";
+  public final static String methodEndpointUserCreate             = "/userCreate";
+  public final static String methodEndpointUserCreateConfirmation = "/userCreateConfirmation";
+  public final static String methodEndpointUserList               = "/userList";
+  public final static String methodEndpointUserListPageable       = "/userListPageable";
+  public final static String methodEndpointUserSetActive          = "/userSetActive";
+  public final static String methodEndpointUserUpdateNickName     = "/userUpdateNickName";
 
   public final static String methodEndpointCategoryCreate = "/categoryCreate";
   public final static String methodEndpointCategoryUpdate = "/categoryUpdate";
@@ -39,10 +40,27 @@ public class Constants {
   public final static int  userARTLength       = 5;
   public final static long userARTPeriodLength = 1000 * 60 * 60;
 
-  public final static String emailSubjectCoda              = "[MA Service : Personal Expenses Accounting]";
+  public final static String emailSubjectCodaLong  = "[MA Service : Personal Expenses Accounting]";
+  public final static String emailSubjectCodaShort = "[MA Service]";
   public final static String emailRegistrationConfirmation = "Registration Confirmation for ";
 
   private Constants() {
 
+  }
+
+  public enum UserRole {
+
+    REGISTERED(1),
+    ADMIN(10);
+
+    private int value;
+
+    private UserRole(int value) {
+      this.value = value;
+    }
+
+    public int getValue() {
+      return value;
+    }
   }
 }
