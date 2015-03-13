@@ -28,7 +28,7 @@ public class UserMailsProcessorImpl implements IUserMailsProcessor,
 
   @Override
   public void userUnSuccessfullyRegisterEMailProcess(User user) {
-    LOGGER.debug("Send email to new Successfully registered user : " + user.toString());
+    LOGGER.debug("Send email to unsuccessfully registered user : " + user.toString());
   }
 
   @Override
