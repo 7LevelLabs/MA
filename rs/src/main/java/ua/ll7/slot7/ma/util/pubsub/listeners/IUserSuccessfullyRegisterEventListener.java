@@ -5,7 +5,7 @@ import ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent;
 /**
  * MA
  * Velichko A.
- * 06.03.15 13:54
+ * 12.03.15 11:54
  */
 public interface IUserSuccessfullyRegisterEventListener extends IMAEventListener {
 

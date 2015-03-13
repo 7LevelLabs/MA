@@ -38,8 +38,7 @@ public class UserMailsProcessorImpl implements IUserMailsProcessor,
 
   @Override
   public void onEvent(UserUnsuccessfullyRegisterEvent event) {
-    userSuccessfullyRegisterEMailProcess(event.getUser());
+    userUnSuccessfullyRegisterEMailProcess(event.getUser());
   }
-
 
 }

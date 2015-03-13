@@ -1,7 +1,5 @@
 package ua.ll7.slot7.ma.util.pubsub.listeners;
 
-import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
-
 /**
  * MA
  * Velichko A.
@@ -9,5 +7,4 @@ import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
  */
 public interface IMAEventListener {
 
-  public void onEvent(MAEventRoot event);
 }

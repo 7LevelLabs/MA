@@ -5,8 +5,11 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ua.ll7.slot7.ma.util.processors.impl.NewUserMailsTasksCreatorImpl;
-import ua.ll7.slot7.ma.util.pubsub.events.MAEventRoot;
+import ua.ll7.slot7.ma.util.pubsub.events.UserSuccessfullyRegisterEvent;
+import ua.ll7.slot7.ma.util.pubsub.events.UserUnsuccessfullyRegisterEvent;
 import ua.ll7.slot7.ma.util.pubsub.listeners.IMAEventListener;
+import ua.ll7.slot7.ma.util.pubsub.listeners.IUserSuccessfullyRegisterEventListener;
+import ua.ll7.slot7.ma.util.pubsub.listeners.IUserUnsuccessfullyRegisterEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -23,22 +26,32 @@ public class PubSubEventsProcessor {
   @Autowired
   private NewUserMailsTasksCreatorImpl newUserMailsProcessor;
 
-  private Map<Class, List<IMAEventListener>> eventListenersMap;
+  private Map<Class, List<? extends IMAEventListener>> eventListenersMap;
 
-  public void fireUpEvent(MAEventRoot event) {
-    List<IMAEventListener> listenersList = eventListenersMap.get(event.getClass());
+  public void fireUpEvent(UserSuccessfullyRegisterEvent event) {
+    Class eventClass = event.getClass();
+    List<IUserSuccessfullyRegisterEventListener> listenersList = (List<IUserSuccessfullyRegisterEventListener>) eventListenersMap.get(eventClass);
 
-    for (IMAEventListener aListener : listenersList) {
+    for (IUserSuccessfullyRegisterEventListener aListener : listenersList) {
       aListener.onEvent(event);
     }
   }
 
-  public Map<Class, List<IMAEventListener>> getEventListenersMap() {
+  public void fireUpEvent(UserUnsuccessfullyRegisterEvent event) {
+    Class eventClass = event.getClass();
+    List<IUserUnsuccessfullyRegisterEventListener> listenersList = (List<IUserUnsuccessfullyRegisterEventListener>) eventListenersMap.get(eventClass);
+
+    for (IUserUnsuccessfullyRegisterEventListener aListener : listenersList) {
+      aListener.onEvent(event);
+    }
+  }
+
+  public Map<Class, List<? extends IMAEventListener>> getEventListenersMap() {
     return eventListenersMap;
   }
 
   @Autowired
-  public void setEventListenersMap(Map<Class, List<IMAEventListener>> eventListenersMap) {
+  public void setEventListenersMap(Map<Class, List<? extends IMAEventListener>> eventListenersMap) {
     this.eventListenersMap = eventListenersMap;
   }
 }

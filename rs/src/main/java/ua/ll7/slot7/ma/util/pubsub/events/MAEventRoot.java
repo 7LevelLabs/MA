@@ -18,4 +18,5 @@ public class MAEventRoot extends EventObject {
   public MAEventRoot(Object source) {
     super(source);
   }
+
 }
